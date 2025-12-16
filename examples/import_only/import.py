@@ -1,12 +1,10 @@
-from pathlib import Path
-
 import beangulp
 
 from beancount_daoru import (
     AlipayImporter,
     JDImporter,
     MeituanImporter,
-    PathRelativeTo,
+    PathToName,
     WechatImporter,
 )
 
@@ -80,7 +78,7 @@ CONFIG = [
 ]
 
 HOOKS = [
-    PathRelativeTo(Path(__file__).absolute().parent),
+    PathToName(),
 ]
 
 

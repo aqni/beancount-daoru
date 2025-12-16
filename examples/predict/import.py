@@ -1,11 +1,10 @@
-from pathlib import Path
 from textwrap import dedent
 
 import beangulp
 
 from beancount_daoru import (
     AlipayImporter,
-    PathRelativeTo,
+    PathToName,
     PredictMissingPosting,
 )
 
@@ -46,7 +45,7 @@ HOOKS = [
             ).strip()
         ),
     ),
-    PathRelativeTo(Path(__file__).absolute().parent),
+    PathToName(),
 ]
 
 
