@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
       - name: pyright
-        run: uv run --frozen pyright
+        run: uv run --frozen --all-extras pyright
 
   ruff-check:
     runs-on: ubuntu-slim
@@ -50,4 +50,4 @@ jobs:
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
       - name: pytest
-        run: uv run --frozen pytest -vv -s --tb=long --cov=src tests/
+        run: uv run --frozen --all-extras pytest -vv -s --tb=long --cov=src tests/
