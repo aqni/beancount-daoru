@@ -5,7 +5,7 @@ payment platforms, allowing users to easily convert their financial records
 into Beancount format for accounting purposes.
 """
 
-from beancount_daoru.hooks.path_relative_to import Hook as PathRelativeTo
+from beancount_daoru.hooks.path_to_name import Hook as PathToName
 from beancount_daoru.importers.alipay import Importer as AlipayImporter
 from beancount_daoru.importers.boc import Importer as BOCImporter
 from beancount_daoru.importers.bocom import Importer as BOCOMImporter
@@ -19,7 +19,7 @@ __all__ = [
     "BOCOMImporter",
     "JDImporter",
     "MeituanImporter",
-    "PathRelativeTo",
+    "PathToName",
     "WechatImporter",
 ]
 
