@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --all-extras --no-dev
       - uses: jakebailey/pyright-action@v2
 
   ruff-check:
