@@ -1,0 +1,626 @@
+;; -*- mode: beancount -*-
+
+**** downloads\支付宝交易明细(20230210-20230213).csv
+
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:20:16"
+  dc: "支出"
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -82.00 CNY
+
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:10:16"
+  dc: "支出"
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -9.90 CNY
+
+2023-01-09 * "一卡通" "一卡通充值"
+  time: "18:21:50"
+  dc: "支出"
+  type: "交通出行"
+  payee_account: "fin***@jieyisoft.com"
+  status: "交易关闭"
+  Assets:Payment:Alipay:YuEBao  -50.00 CNY
+
+2023-01-09 * "一卡通" "退款-一卡通充值"
+  time: "18:22:28"
+  dc: "不计收支"
+  type: "退款"
+  payee_account: "fin***@jieyisoft.com"
+  status: "退款成功"
+  Assets:Payment:Alipay:YuEBao  50.00 CNY
+
+2023-01-10 * "xxxx" "xxxx"
+  time: "13:10:16"
+  dc: "不计收支"
+  type: "日用百货"
+  status: "交易关闭"
+
+2023-01-18 * "xxxx" "转账"
+  time: "10:17:29"
+  dc: "收入"
+  type: "转账红包"
+  payee_account: "xxx***@163.com"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  222228.50 CNY
+
+1970-01-01 ! 
+  error: "unsupported value combination of fields: ('收/支', '交易状态', '商品说明') @ {'交易时间': '2023-02-02 15:24:35', '交易分类': '投资理财', '交易对方': '蚂蚁财富-蚂蚁（杭州）基金销售有限公司', '对方账号': '/', '商品说明': '蚂蚁财富-交银定期支付双息平衡混合-卖出至余额宝', '收/支': '不计收支', '金额': '99.34', '收/付款方式': '余额宝', '交易状态': '交易成功', '交易订单号': '2xxxxxxxxxxxxxxxxxxxxxxxxxx8', '商家订单号': '', '备注': ''}"
+
+2023-02-04 * "xxxxxxx" "退款-亲情卡"
+  time: "18:21:04"
+  dc: "不计收支"
+  type: "退款"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
+
+2023-02-08 * "x4***6" "商品示例"
+  time: "14:16:52"
+  dc: "支出"
+  type: "日用百货"
+  payee_account: "rim***@qq.com"
+  status: "等待确认收货"
+  Assets:Payment:Alipay:Balance  -20.00 CNY
+
+2023-02-12 * "xxxxxxxxxxxx" "亲情卡"
+  time: "21:32:14"
+  dc: "支出"
+  type: "亲友代付"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
+
+
+**** downloads\微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
+
+2024-06-07 * "腾讯公益慈善基金会" "焕新乐园"
+  time: "23:40:27"
+  dc: "支出"
+  type: "分分捐"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -0.01 CNY
+
+2023-07-09 * "美团平台商户" "美团订单-54321"
+  time: "13:30:22"
+  dc: "支出"
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -50.0 CNY
+
+2023-07-09 * "美团平台商户" "美团订单-12345"
+  time: "13:25:22"
+  dc: "支出"
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -9.90 CNY
+
+2023-06-23 * "赞赏作者的收款_20230623" ""
+  time: "11:01:51"
+  dc: "收入"
+  type: "其他"
+  status: "已到账"
+  remarks: "赞赏作者的收款_20230623"
+  Assets:Payment:WeChat:Balance  5.00 CNY
+
+2022-09-24 * "YingDev" ""
+  time: "02:24:20"
+  dc: "支出"
+  type: "赞赏码"
+  status: "朋友已收钱"
+  Assets:Payment:WeChat:Balance  -36.99 CNY
+
+2022-07-18 * "测试时间戳，点击底部\"多多视频\"" ""
+  time: "10:48:09"
+  dc: "收入"
+  type: "商户消费"
+  status: "充值成功"
+  Assets:Payment:WeChat:Balance  0.07 CNY
+
+2021-07-18 * "打开拼多多，点击底部\"多多视频\"" ""
+  time: "10:48:09"
+  dc: "收入"
+  type: "商户消费"
+  status: "充值成功"
+  Assets:Payment:WeChat:Balance  0.07 CNY
+
+2021-12-15 * "某餐厅" "测试 T-1"
+  time: "23:51:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2021-12-15 * "某餐厅" "测试 T+1"
+  time: "00:06:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2021-10-19 * "哈哈" "亲属卡"
+  time: "16:08:00"
+  dc: "支出"
+  type: "亲属卡交易"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -2243.46 CNY
+
+2019-04-16 * "工商银行(9876)" ""
+  time: "10:28:55"
+  type: "零钱充值"
+  status: "充值完成"
+  Equity:Transfers:WeChat:ICBC   -1300.00 CNY
+  Assets:Payment:WeChat:Balance   1300.00 CNY
+
+2020-07-06 * 
+  time: "14:54:38"
+  type: "零钱通转出-到工商银行(9876)"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -5505.00 CNY
+  Equity:Transfers:WeChat:ICBC     5505.00 CNY
+
+2020-02-14 * 
+  time: "01:20:00"
+  type: "转入零钱通-来自零钱"
+  status: "支付成功"
+  Assets:Payment:WeChat:Balance   -1.23 CNY
+  Assets:Payment:WeChat:MiniFund   1.23 CNY
+
+2020-02-14 * 
+  time: "01:19:39"
+  type: "零钱通转出-到零钱"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -2634.78 CNY
+  Assets:Payment:WeChat:Balance    2634.78 CNY
+
+2020-02-14 * "理财通" "中欧医疗健康混合C(003096)"
+  time: "01:24:33"
+  type: "购买理财通"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  3000.00 CNY
+
+2020-02-14 * "理财通" "鹏华增值宝(000569)"
+  time: "01:32:14"
+  type: "购买理财通"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  10000.00 CNY
+
+2017-10-20 * "建设银行信用卡还款" ""
+  time: "18:36:44"
+  type: "信用卡还款"
+  status: "支付成功"
+  Assets:Payment:WeChat:Balance  548.58 CNY
+
+2021-07-11 * "招商银行()" ""
+  time: "14:17:52"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥1.00"
+  Equity:Transfers:WeChat:BOC    -1001.10 CNY
+  Assets:Payment:WeChat:Balance   1001.10 CNY
+  Expenses:WeChat:Service            1.00 CNY
+
+2021-07-14 * "招商银行()" ""
+  time: "22:18:10"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥0.10"
+  Equity:Transfers:WeChat:ICBC   -10.10 CNY
+  Assets:Payment:WeChat:Balance   10.10 CNY
+  Expenses:WeChat:Service          0.10 CNY
+
+2021-07-15 * "招商银行()" ""
+  time: "16:29:37"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥0.10"
+  Equity:Transfers:WeChat:ICBC   -100.10 CNY
+  Assets:Payment:WeChat:Balance   100.10 CNY
+  Expenses:WeChat:Service           0.10 CNY
+
+2021-01-17 * 
+  time: "10:07:31"
+  type: "转入零钱通-来自工商银行(9876)"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC    -2000.00 CNY
+  Assets:Payment:WeChat:MiniFund   2000.00 CNY
+
+2020-11-27 * "用户A" "收款方备注:二维码收款"
+  time: "19:29:00"
+  dc: "收入"
+  type: "二维码收款"
+  status: "已收钱"
+  Assets:Payment:WeChat:Balance  23.00 CNY
+
+2021-01-22 * "房东" "转账备注:微信转账"
+  time: "12:34:56"
+  dc: "支出"
+  type: "转账"
+  status: "朋友已收钱"
+  Assets:Payment:WeChat:MiniFund  -500.00 CNY
+
+2021-01-17 * "某餐厅" "收款方备注:二维码收款"
+  time: "18:03:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2019-09-24 * "同性好友" ""
+  time: "10:10:11"
+  dc: "收入"
+  type: "微信红包"
+  status: "已存入零钱"
+  Assets:Payment:WeChat:Balance  0.35 CNY
+
+2019-09-26 * "云膳过桥米线(传奇广场店)" "总共消费:28.16"
+  time: "12:45:27"
+  dc: "支出"
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:BOC  -28.16 CNY
+
+
+**** downloads\京东交易流水(申请时间2025年01月01日11时32分42秒)_138.csv
+
+2024-12-05 * "京东平台商户" "奥科美（AOKO）U.2硬盘底座NVMe协议U2固态硬盘盒企业级u.2转USB3.2硬盘转接器 2.5/3.5英寸SATA机械硬盘通用 U3S"
+  time: "22:49:55"
+  dc: "支出"
+  type: "电脑办公"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -235.61 CNY
+
+2024-12-09 * "京东平台商户" "京东京造山地自行车越客MX1成人学生山地车禧玛诺21速黑色(身高160-180) 等多件"
+  time: "23:22:23"
+  dc: "支出"
+  type: "运动户外"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:0354:Credit  -657.21 CNY
+
+2024-12-10 * "京东平台商户" "海康威视（HIKVISION）64GB USB3.2U盘大容量 S303金属银色 读速150MB/s 高速移动u盘 华为小米电脑商务办公学习通用优盘"
+  time: "18:37:24"
+  dc: "支出"
+  type: "电脑办公"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -20.61 CNY
+
+2024-12-10 * "京东平台商户" "李宁（LI-NING）羽毛球手胶 防滑耐磨光面薄款吸汗带 网球鱼竿耐用柄皮缠绕带 吸汗手胶GP3000黄色(60条装) 等多件"
+  time: "23:40:50"
+  dc: "支出"
+  type: "运动户外"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -416.87 CNY
+
+2024-12-10 * "京东平台商户" "退款-李宁（LI-NING）羽毛球手胶 防滑耐磨光面薄款吸汗带 网球鱼竿耐用柄皮缠绕带 吸汗手胶GP3000黄色(60条装)"
+  time: "23:41:30"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  233.45 CNY
+
+2024-12-11 * "京东平台商户" "退款-奥科美（AOKO）U.2硬盘底座NVMe协议U2固态硬盘盒企业级u.2转USB3.2硬盘转接器 2.5/3.5英寸SATA机械硬盘通用 U3S"
+  time: "10:38:58"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  235.50 CNY
+
+2024-12-14 * "京东物流" "京东物流"
+  time: "20:59:42"
+  dc: "支出"
+  type: "收发快递"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -10.85 CNY
+
+2024-12-16 * "京东物流" "京东物流"
+  time: "21:42:33"
+  dc: "支出"
+  type: "收发快递"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -40.00 CNY
+
+2024-12-18 * "京东平台商户" "云南正宗大果王青皮大丑橘当季新鲜柑橘大果无籽孕妇喜爱酸甜 5斤 70mm以上"
+  time: "21:32:13"
+  dc: "支出"
+  type: "食品酒饮"
+  status: "交易成功"
+  Equity:Transfers:JD  -14.99 CNY
+
+2024-12-19 * "京东物流" "京东外部商户"
+  time: "18:10:42"
+  dc: "支出"
+  type: "收发快递"
+  status: "交易成功"
+  Assets:Payment:JD:Balance  -13.00 CNY
+
+2024-12-21 * "京东平台商户" "志高（CHIGO）热水袋暖水袋 充电暖手宝暖宝宝 智能防爆 双插手亲肤绒 天空青蓝"
+  time: "13:40:59"
+  dc: "不计收支"
+  type: "先享后付"
+  status: "交易成功"
+  Liabilities:Payment:JD:FirstPay  -35.61 CNY
+
+2024-12-21 * "京东平台商户" "京东京造暖星智能双人电热毯 自动断电双温双控定时除螨电褥子1.5x1.8m"
+  time: "21:02:03"
+  dc: "支出"
+  type: "其他网购"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -68.19 CNY
+
+2024-12-24 * "京东平台商户" "拓路者（Pioneer Camp）男裤子秋冬季舒适透气徒步裤男士加绒防水户外长裤冬季保暖软壳裤 丛林绿 XL 等多件"
+  time: "22:33:07"
+  dc: "不计收支"
+  type: "服饰内衣 运动户外"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -468.32 CNY
+
+2024-12-24 * "京东平台商户" "退款-拓路者（Pioneer Camp）男裤子秋冬季舒适透气徒步裤男士加绒防水户外长裤冬季保暖软壳裤 丛林绿 XL等多件"
+  time: "22:33:54"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  397.84 CNY
+
+2024-12-24 * "京东平台商户" "退款-痞帅翻领青年男士高品质夹克休闲百搭男款工装外套2024潮流上衣 灰色 XL"
+  time: "22:34:05"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  70.48 CNY
+
+2024-12-24 * "京东平台商户" "拓路者（Pioneer Camp）藏狼软壳裤男秋冬户外登山裤防风男士休闲长裤子冬季加绒保暖直筒 灰色 XL 等多件"
+  time: "22:43:08"
+  dc: "支出"
+  type: "服饰内衣 运动户外"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -448.32 CNY
+
+2024-12-24 * "京东平台商户" "退款-痞帅翻领青年男士高品质夹克休闲百搭男款工装外套2024潮流上衣 灰色 XL"
+  time: "22:43:31"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  70.48 CNY
+
+2024-12-24 * "一号店" "一号店消费"
+  time: "23:19:44"
+  dc: "支出"
+  type: "1号店"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -119.66 CNY
+
+2024-12-26 * "京东平台商户" "京东京造【抑菌袜】5双新疆棉秋冬加厚吸汗男休闲袜男商务袜中筒袜透气"
+  time: "18:03:01"
+  dc: "支出"
+  type: "服饰内衣"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -19.72 CNY
+
+2024-12-26 * "京东平台商户" "京鲜生 红肉蜜柚 2粒 单果1.5-2.5斤 生鲜水果"
+  time: "22:35:50"
+  dc: "不计收支"
+  type: "先享后付"
+  status: "交易成功"
+  Liabilities:Payment:JD:FirstPay  0.00 CNY
+
+2024-12-26 * "京东平台商户" "退款-京鲜生 红肉蜜柚 2粒 单果1.5-2.5斤 生鲜水果"
+  time: "22:36:09"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Payment:JD:FirstPay  0.00 CNY
+
+2024-12-26 * "京东平台商户" "京鲜生 红肉蜜柚 2粒 单果1.5-2.5斤 生鲜水果"
+  time: "22:36:40"
+  dc: "支出"
+  type: "食品酒饮"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1341:Credit  -9.80 CNY
+
+2024-12-28 * "京东平台商户" "JEEP SPIRIT吉普卫衣男韩版圆领宽松男士卫衣百搭长袖打底衫 深蓝加绒 XL  等多件"
+  time: "13:27:56"
+  dc: "支出"
+  type: "食品酒饮 服饰内衣"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -131.77 CNY
+
+2024-12-28 * "京东平台商户" "退款-JEEP SPIRIT吉普卫衣男韩版圆领宽松男士卫衣百搭长袖打底衫 深蓝加绒 XL"
+  time: "13:28:32"
+  dc: "不计收支"
+  type: "网购"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  89.84 CNY
+
+2024-12-30 * "京东平台商户" "利园潮汕正宗手打牛肉丸火锅丸子牛筋丸火锅丸料烧烤麻辣烫关东煮丸子 潮汕牛筋丸 250g 等多件"
+  time: "10:40:22"
+  dc: "支出"
+  type: "食品酒饮"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -60.90 CNY
+
+2024-12-30 * "京东物流" "京东外部商户"
+  time: "17:16:02"
+  dc: "支出"
+  type: "收发快递"
+  status: "交易成功"
+  Assets:Payment:JD:Balance  -10.20 CNY
+
+
+**** downloads\美团账单(20250201-20250228).csv
+
+2025-02-02 * "美团" "奶茶&果茶8选1"
+  time: "21:30:30"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -19.20 CNY
+
+2025-02-12 * "美团" "美团商家代金券-289893081774554007"
+  time: "19:08:54"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Payment:Meituan:Monthly  -10.06 CNY
+
+2025-02-12 * "美团" "美团商家代金券-289893092226646356"
+  time: "19:09:21"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Payment:Meituan:Monthly  -11.77 CNY
+
+2025-02-12 * "美团" "满记甜品（上海百联世纪大都会二店） 订单详情"
+  time: "20:58:50"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Payment:Meituan:Monthly  -26.31 CNY
+
+2025-02-12 * "美团" "【美团月付】主动还款2025年3月账单"
+  time: "20:59:20"
+  dc: "支出"
+  type: "还款"
+  Equity:Transfers:WeChat:BOC          -48.12 CNY
+  Liabilities:Payment:Meituan:Monthly   48.12 CNY
+
+2025-02-16 * "美团" "瑞幸咖啡【经典必喝】11选1"
+  time: "05:46:29"
+  dc: "收入"
+  type: "退款"
+  Equity:Transfers:Meituan:WeChat  11.90 CNY
+
+2025-02-16 * "美团" "霸碗盖码饭(上海由由世纪广场店) 订单详情"
+  time: "12:35:00"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -19.02 CNY
+
+2025-02-16 * "美团" "米麒麟云南小锅米线（北洋泾店） 订单详情"
+  time: "19:06:42"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -19.81 CNY
+
+2025-02-19 * "美团" "星聚会KTV（陆家嘴中心店）"
+  time: "07:27:26"
+  dc: "收入"
+  type: "退款"
+  Equity:Transfers:Meituan:WeChat  88.00 CNY
+
+2025-02-19 * "美团" "魅KTV（世纪大道百联世纪店）"
+  time: "07:51:44"
+  dc: "收入"
+  type: "退款"
+  Equity:Transfers:Meituan:WeChat  68.00 CNY
+
+2025-02-20 * "美团" "美团商家代金券-289893081774554007"
+  time: "14:08:15"
+  dc: "收入"
+  type: "退款"
+  Liabilities:Payment:Meituan:Monthly  10.06 CNY
+
+2025-02-20 * "美团" "美团商家代金券-289893092226646356"
+  time: "14:20:31"
+  dc: "收入"
+  type: "退款"
+  Liabilities:Payment:Meituan:Monthly  11.77 CNY
+
+2025-02-22 * "美团" "纯味斑鱼府代金券"
+  time: "00:50:15"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -49.56 CNY
+
+2025-02-22 * "美团" "潇湘阁代金券"
+  time: "01:34:51"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -48.00 CNY
+
+2025-02-22 * "美团" "川渝竹苑·川菜小酒馆·Bistro2人餐"
+  time: "01:37:38"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -57.77 CNY
+
+2025-02-22 * "美团" "「经典招牌」芒椰小丸子-中杯"
+  time: "01:39:30"
+  dc: "支出"
+  type: "支付"
+  Assets:Payment:Meituan:Balance  -10.90 CNY
+
+2025-02-22 * "美团" "7分甜杨枝甘露-大杯1杯"
+  time: "01:40:29"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -14.01 CNY
+
+2025-02-22 * "美团" "【爆款回归】葡式蛋挞6只"
+  time: "01:42:06"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -20.00 CNY
+
+2025-02-22 * "美团" "望湘园·湖南菜代金券"
+  time: "01:45:23"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -139.80 CNY
+
+2025-02-22 * "美团" "凤凰湘语代金券"
+  time: "01:45:57"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -149.70 CNY
+
+2025-02-22 * "美团" "美团商家代金券-290026692226646356"
+  time: "01:49:48"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -34.90 CNY
+
+2025-02-22 * "美团" "【全口味】129现杀现烤一条鱼-上海"
+  time: "01:51:34"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -119.00 CNY
+
+2025-02-22 * "美团" "鱼酷活鱼烤鱼代金券"
+  time: "01:53:03"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -139.00 CNY
+
+2025-02-22 * "美团" "【全天通用】沪小胖单人牛羊肉畅吃"
+  time: "01:56:07"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -218.00 CNY
+
+2025-02-22 * "美团" "【干饭必饱】炒米粉（辣）+矿泉水"
+  time: "01:58:56"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -15.90 CNY
+
+2025-02-22 * "美团" "美团商家代金券-290037580768165674"
+  time: "19:58:39"
+  dc: "支出"
+  type: "支付"
+  Equity:Transfers:Meituan:WeChat  -11.90 CNY
+
+2025-02-23 * "美团" "特惠|云南米线单人餐"
+  time: "18:36:06"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Bank:CN:BOC:1875:Credit  -19.90 CNY
+
+2025-02-27 * "美团" "【爆款回归】葡式蛋挞6只"
+  time: "07:04:18"
+  dc: "收入"
+  type: "退款"
+  Liabilities:Bank:CN:BOC:1875:Credit  20.00 CNY
+
+2025-02-28 * "美团" "喜茶（北京大兴万科广场店） 订单详情"
+  time: "20:35:25"
+  dc: "支出"
+  type: "支付"
+  Liabilities:Payment:Meituan:Monthly  -21.17 CNY
+
+

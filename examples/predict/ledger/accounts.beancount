@@ -1,0 +1,21 @@
+2020-01-22 open Expenses:Food CNY
+2020-01-22 open Expenses:Fashion CNY
+  desc: "衣服、美容、个人护理等"
+2020-01-22 open Expenses:HouseHold CNY
+  desc: "日常生活用品"
+2020-01-22 open Expenses:Transport:Public:Local CNY
+  desc: "公交、地铁等市内公共交通"
+2020-01-22 open Expenses:Transport:Private:Parking CNY
+2020-01-22 open Expenses:Transport:Private:Toll CNY
+2020-01-22 open Expenses:Transport:Taxi CNY
+2020-01-22 open Expenses:Entertainment:Scenic CNY
+  desc: "景区门票"
+2020-01-22 open Expenses:Shelter:Utilities:Gas CNY
+  desc: "户内天然气费用"
+2020-01-22 open Expenses:Misc CNY
+  desc: "其他"
+
+2020-01-22 open Income:Investment:Fund:YuEBao CNY
+  desc: "余额宝基金收益"
+2020-01-22 open Income:Unexpected:Gift
+  desc: "礼金"

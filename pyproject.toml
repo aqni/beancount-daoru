@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[project]
+dynamic = ["version"]
+name = "beancount-daoru"
+dependencies = [
+    "beangulp>=0.2,<0.3",
+    "pydantic>=2.12",
+    "pyexcel[xlsx]>=0.7",
+    "pdfplumber>=0.11.8",
+    "typing-extensions>=4.15.0",
+]
+requires-python = ">=3.10"
+authors = [{ name = "AN Qi", email = "aqnin@outlook.com" }]
+description = "beancount importers for Chinese"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+
+[project.optional-dependencies]
+llm = [
+    "diskcache>=5.6.3",
+    "openai>=2.11.0",
+    "usearch>=2.21.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0",
+    "pytest-cov>=7.0",
+    "pytest-xprocess>=1.0.2",
+    "gitpython>=3.1",
+    "pyright>=1.1",
+    "ruff>=0.14.7",
+    "debugpy>=1.8.18",
+]
+
+[tool.pytest.ini_options]
+disable_test_id_escaping_and_forfeit_all_rights_to_community_support = true
+
+[tool.ruff]
+target-version = "py310"
+lint.extend-select = ["ALL"]
+lint.extend-ignore = ["COM812"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "S101", "S603", "RUF001"]
+"examples/*" = ["D", "INP001"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pyright]
+pythonVersion = "3.10"
+
+# See https://packaging.python.org for more information on Python project metadata
