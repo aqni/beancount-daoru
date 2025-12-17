@@ -17,5 +17,5 @@ runs:
               os-win32: win-cpu
               os-linux: ubuntu
               os-darwin: macos
-              subdir: "{name}-{version}"
-              subdir-win32: ""
+              subdir-linux: "{name}-{version}"
+              subdir-darwin: "{name}-{version}"
