@@ -21,11 +21,11 @@ jobs:
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
       - name: ruff format
-        run: uv run --frozen --all-extras ruff format --check --diff --verbose
+        run: uv run --all-extras ruff format --check --diff --verbose
       - name: ruff check
-        run: uv run --frozen --all-extras ruff check --verbose
+        run: uv run --all-extras ruff check --verbose
       - name: pyright
-        run: uv run --frozen --all-extras pyright --verbose
+        run: uv run --all-extras pyright --verbose
 
   test:
     needs:
@@ -53,4 +53,4 @@ jobs:
           subdir-linux: "{name}-{version}"
           subdir-darwin: "{name}-{version}"
       - name: pytest
-        run: uv run --frozen --all-extras pytest -vv --log-cli-level=DEBUG
+        run: uv run --all-extras pytest -vv --log-cli-level=DEBUG
