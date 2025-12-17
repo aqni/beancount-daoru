@@ -54,4 +54,4 @@ jobs:
           subdir-linux: "{name}-{version}"
           subdir-darwin: "{name}-{version}"
       - name: pytest
-        run: uv run --all-extras pytest -vv --log-cli-level=DEBUG
+        run: uv run --all-extras pytest --verbose
