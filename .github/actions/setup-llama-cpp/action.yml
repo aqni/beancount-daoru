@@ -18,4 +18,4 @@ runs:
               os-linux: ubuntu
               os-darwin: macos
               subdir: "{name}-{version}"
-              subdir-win32:
+              subdir-win32: ""
