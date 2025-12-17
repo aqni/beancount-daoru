@@ -37,10 +37,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-llama-cpp
+        id: setup-llama-cpp
+        with:
+          hf-models: |
+            unsloth/embeddinggemma-300m-GGUF:Q4_0
+            unsloth/Qwen3-4B-Instruct-2507-GGUF:IQ4_NL
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - uses: ./.github/actions/setup-llama-cpp
       - name: pytest
         run: uv run --frozen --all-extras pytest -v
         env:
           LLAMA_OFFLINE: 1
+          LLAMA_CACHE: ${{ steps.setup-llama-cpp.outputs.llama-cache }}

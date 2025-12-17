@@ -1,14 +1,26 @@
 name: "setup llama.cpp"
-description: "setup llama.cpp"
+description: "setup llama.cpp and cache models"
 inputs:
     version:
         description: "llama.cpp version, blank for latest"
         required: false
+    hf-models:
+        description: "huggingface model id"
+        required: false
+    llama-cache:
+        description: "model cache path"
+        required: false
+        default: $${{ github.action_path }}
+
+outputs:
+    llama-cache:
+        description: "llama.cpp cache path"
+        value: ${{ inputs.llama-cache }}
 
 runs:
     using: "composite"
     steps:
-        - name: Setup mongodb into Runner Tool Cache
+        - name: Setup llama.cpp to PATH
           uses: pbrisbin/setup-tool-action@v2
           with:
               name: llama
@@ -19,3 +31,13 @@ runs:
               os-darwin: macos
               subdir-linux: "{name}-{version}"
               subdir-darwin: "{name}-{version}"
+
+        - name: Caching models
+          shell: bash
+          env:
+              LLAMA_CACHE: ${{ inputs.llama-cache }}
+          run: |
+              for hf-model in ${{ inputs.hf-models }}; do
+                  echo "Caching hf-model ${model}"
+                  llama-cli -hf "${hf-model}" -st -p "hello"
+              done
