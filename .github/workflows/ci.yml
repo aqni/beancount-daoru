@@ -42,3 +42,5 @@ jobs:
       - uses: ./.github/actions/setup-llama-cpp
       - name: pytest
         run: uv run --frozen --all-extras pytest -v
+        env:
+          LLAMA_OFFLINE: 1

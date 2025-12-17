@@ -13,8 +13,9 @@ runs:
           with:
               name: llama
               version: ${{ inputs.version }}
-              url: https://github.com/ggml-org/llama.cpp/releases/download/{version}/{name}-{version}-bin-{os}-{arch}.{ext}
+              url: "https://github.com/ggml-org/llama.cpp/releases/download/{version}/{name}-{version}-bin-{os}-{arch}.{ext}"
               os-win32: win-cpu
               os-linux: ubuntu
               os-darwin: macos
-
+              subdir: "{name}-{version}"
+              subdir-win32:
