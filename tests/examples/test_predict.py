@@ -2,9 +2,7 @@ import shutil
 from collections.abc import Generator
 
 import git
-import httpx
 import pytest
-from typing_extensions import override
 from xprocess import ProcessStarter, XProcess
 
 from tests.examples.conftest import (
@@ -43,22 +41,14 @@ def start_llama_server(
         "--alias",
         model_alias,
         "--no-webui",
-        "--seed",
-        "42",
     ]
     if is_embedding:
         cmd_args.append("--embedding")
 
     class Starter(ProcessStarter):
         args = cmd_args  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
-        timeout = 300  # aim to wait for downloading model weights
-
-        @override
-        def startup_check(self) -> bool:  # pyright: ignore[reportIncompatibleMethodOverride]
-            try:
-                return httpx.get(f"http://localhost:{port}/health").is_success
-            except (httpx.TimeoutException, httpx.ConnectError):
-                return False
+        pattern = "main: server is listening on"  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
+        max_read_lines = None # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
 
     server_name = f"{exec_name}-{port}-{model_alias}"
     xprocess.ensure(server_name, Starter, persist_logs=False)

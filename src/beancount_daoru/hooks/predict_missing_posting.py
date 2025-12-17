@@ -32,7 +32,7 @@ from openai import AsyncOpenAI
 from openai.types.shared_params.response_format_json_schema import JSONSchema
 from pydantic import TypeAdapter
 from tqdm import tqdm
-from typing_extensions import override
+from typing_extensions import NotRequired, override
 from usearch.index import Index
 
 from beancount_daoru import hook
@@ -215,6 +215,7 @@ class ChatModelSettings(TypedDict):
     name: str
     base_url: str
     api_key: str
+    temperature: NotRequired[float]
 
 
 class _ChatBot:
@@ -229,6 +230,7 @@ class _ChatBot:
             base_url=model_settings.get("base_url"),
             api_key=model_settings.get("api_key"),
         ).chat.completions
+        self.temperature = model_settings.get("temperature", None)
 
     async def complete(
         self,
@@ -247,6 +249,7 @@ class _ChatBot:
                 "type": "json_schema",
                 "json_schema": response_format,
             },
+            temperature=self.temperature,
         )
         content = response.choices[0].message.content
         if content is None:

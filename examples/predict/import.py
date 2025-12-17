@@ -29,6 +29,7 @@ HOOKS = [
             "name": "Qwen3-4B-Instruct-2507",
             "base_url": "http://127.0.0.1:9527/v1",
             "api_key": "api-key-not-set",
+            "temperature": 0, # for test
         },
         embed_model_settings={
             "name": "embeddinggemma-300m",

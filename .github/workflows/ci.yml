@@ -14,7 +14,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  type-check:
+  check:
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
@@ -22,25 +22,17 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - name: pyright
         run: uv run --frozen --all-extras pyright
-
-  ruff-check:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@v6
-      - uses: astral-sh/ruff-action@v3
-        with:
-          version-file: "pyproject.toml"
-
-  ruff-format:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@v6
-      - uses: astral-sh/ruff-action@v3
-        with:
-          version-file: "pyproject.toml"
-          args: "format --check --diff"
+      - name: ruff check
+        run: uv run --frozen --all-extras ruff check
+      - name: ruff format
+        run: uv run --frozen --all-extras ruff format --check --diff
 
   test:
+    needs:
+      - validate-pr-title
+      - type-check
+      - ruff-check
+      - ruff-format
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -49,5 +41,6 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
+      - uses: ./.github/actions/setup-llama-cpp
       - name: pytest
-        run: uv run --frozen --all-extras pytest -vv -s --tb=long --cov=src tests/
+        run: uv run --frozen --all-extras pytest -v

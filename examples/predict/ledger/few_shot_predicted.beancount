@@ -26,8 +26,8 @@
   type: "交通出行"
   payee_account: "service***@神州专车.com"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao  -45.60 CNY
-  ! Expenses:Transport:Taxi
+  Assets:Payment:Alipay:YuEBao       -45.60 CNY
+  ! Expenses:Transport:Private:Toll
 
 2020-11-23 * "京东商城" "耐克运动袜 3双装"
   time: "22:15:30"
@@ -121,8 +121,8 @@
   dc: "不计收支"
   type: "投资理财"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao    0.31 CNY
-  ! Assets:Payment:Alipay:YuEBao
+  Assets:Payment:Alipay:YuEBao     0.31 CNY
+  ! Income:Investment:Fund:YuEBao
 
 2020-12-08 * "肯德基" "午餐套餐"
   time: "12:35:42"
@@ -148,8 +148,8 @@
   type: "餐饮美食"
   payee_account: "service***@starbucks.com"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao    -64.00 CNY
-  ! Assets:Payment:Alipay:YuEBao
+  Assets:Payment:Alipay:YuEBao  -64.00 CNY
+  ! Expenses:Food
 
 2020-12-09 * "美团外卖" "晚餐配送"
   time: "19:20:15"
@@ -166,8 +166,8 @@
   type: "交通出行"
   payee_account: "service***@sinopec.com"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao    -300.00 CNY
-  ! Assets:Payment:Alipay:YuEBao
+  Assets:Payment:Alipay:YuEBao       -300.00 CNY
+  ! Expenses:Transport:Private:Toll
 
 2020-12-11 * "永辉超市" "周末采购"
   time: "15:40:20"
@@ -203,7 +203,7 @@
   payee_account: "139******88"
   status: "交易成功"
   Assets:Payment:Alipay:YuEBao  88.88 CNY
-  ! Expenses:Misc
+  ! Income:Unexpected:Gift
 
 2020-12-14 * "Apple Store" "iPhone保护壳"
   time: "16:50:20"

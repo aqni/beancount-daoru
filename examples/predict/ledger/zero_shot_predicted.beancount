@@ -36,7 +36,6 @@
   payee_account: "order***@jd.com"
   status: "交易关闭"
   Assets:Payment:Alipay:YuEBao  -29.12 CNY
-  ! Expenses:Fashion
 
 2020-11-26 * "众安保险" "运费险-袜子订单"
   time: "13:30:45"
@@ -45,7 +44,6 @@
   payee_account: "service***@zhongan.com"
   status: "交易成功"
   Assets:Payment:Alipay:YuEBao  -2.88 CNY
-  ! Expenses:Misc
 
 2020-11-26 * "淘宝个人店铺" "纯棉防臭袜子"
   time: "13:30:45"
@@ -61,7 +59,6 @@
   payee_account: "138******99"
   status: "等待确认收货"
   Assets:Payment:Alipay:YuEBao  -49.55 CNY
-  ! Expenses:Fashion
 
 2020-11-28 * "北京燃气集团" "11月燃气费"
   time: "22:58:40"
@@ -78,7 +75,6 @@
   payee_account: "refund***@jd.com"
   status: "退款成功"
   Assets:Payment:Alipay:YuEBao  28.75 CNY
-  ! Expenses:Fashion
 
 2020-12-04 * "北京市政交通一卡通" "退款-地铁卡充值"
   time: "13:48:10"
@@ -86,8 +82,7 @@
   type: "退款"
   payee_account: "service***@bjykt.com"
   status: "退款成功"
-  Assets:Payment:Alipay:YuEBao       4.10 CNY
-  ! Expenses:Transport:Public:Local
+  Assets:Payment:Alipay:YuEBao  4.10 CNY
 
 2020-12-04 * "北京市政交通一卡通" "公交出行费用"
   time: "18:47:30"
@@ -105,7 +100,6 @@
   payee_account: "138******99"
   status: "退款成功"
   Assets:Payment:Alipay:YuEBao  24.88 CNY
-  ! Expenses:Misc
 
 2020-12-05 * "小米商城" "小米保温杯 不锈钢316"
   time: "21:12:50"
@@ -114,15 +108,14 @@
   payee_account: "order***@mi.com"
   status: "等待确认收货"
   Assets:Payment:Alipay:YuEBao  -96.75 CNY
-  ! Expenses:HouseHold
 
 2020-12-07 * "天弘基金" "余额宝-12月4日-收益发放"
   time: "06:03:08"
   dc: "不计收支"
   type: "投资理财"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao     0.31 CNY
-  ! Income:Investment:Fund:YuEBao
+  Assets:Payment:Alipay:YuEBao  0.31 CNY
+  ! Expenses:Misc
 
 2020-12-08 * "肯德基" "午餐套餐"
   time: "12:35:42"
@@ -166,8 +159,7 @@
   type: "交通出行"
   payee_account: "service***@sinopec.com"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao          -300.00 CNY
-  ! Expenses:Transport:Private:Parking
+  Assets:Payment:Alipay:YuEBao  -300.00 CNY
 
 2020-12-11 * "永辉超市" "周末采购"
   time: "15:40:20"
@@ -203,7 +195,6 @@
   payee_account: "139******88"
   status: "交易成功"
   Assets:Payment:Alipay:YuEBao  88.88 CNY
-  ! Income:Unexpected:Gift
 
 2020-12-14 * "Apple Store" "iPhone保护壳"
   time: "16:50:20"
