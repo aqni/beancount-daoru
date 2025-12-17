@@ -43,6 +43,7 @@ jobs:
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
       - name: Setup llama.cpp to PATH
+        if: false # inference is too slow
         uses: pbrisbin/setup-tool-action@v2
         with:
           name: llama
