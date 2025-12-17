@@ -4,15 +4,15 @@ from decimal import Decimal
 import pytest
 
 from beancount_daoru.importer import Extra, Metadata, Posting, Transaction
-from beancount_daoru.importers.boc import Parser
+from beancount_daoru.importers.boc import _Parser
 
 
 @pytest.fixture(scope="module")
-def parser() -> Parser:
-    return Parser()
+def parser() -> _Parser:
+    return _Parser()
 
 
-def test_extract_metadata(parser: Parser) -> None:
+def test_extract_metadata(parser: _Parser) -> None:
     caption = (
         "中国银行交易流水明细清单\n"
         "交易区间： 2020-01-01 至2020-12-31 客户姓名： 张三 页数: 1 /1\n"
@@ -108,6 +108,6 @@ PARSE_PARAMS_LIST = [
 
 @pytest.mark.parametrize(("record", "transaction"), PARSE_PARAMS_LIST)
 def test_parse(
-    parser: Parser, record: dict[str, str], transaction: Transaction
+    parser: _Parser, record: dict[str, str], transaction: Transaction
 ) -> None:
     assert parser.parse(record) == transaction

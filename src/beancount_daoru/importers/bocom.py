@@ -49,14 +49,17 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
-    """Parser for Bank of Communications transaction records.
+class _Reader(pdf_table.Reader):
+    def __init__(self) -> None:
+        super().__init__(table_bbox=(0, 148, 842, 491))
+        self.regex = r"交易流水明细\d{14}\.pdf"
 
-    Implements the Parser protocol to convert Bank of Communications transaction records
-    into Beancount-compatible structures. Handles BoCom-specific fields and
-    logic for determining transaction amounts and directions.
-    """
+    @override
+    def identify(self, file: importer.Path) -> bool:
+        return re.fullmatch(self.regex, file.name) is not None
 
+
+class _Parser(importer.Parser):
     _validator = TypeAdapter(Record)
     _account_pattern = re.compile(r"账号/卡号Account/Card No:\s*(\d{19})\s*")
     _date_pattern = re.compile(r"查询止日Query Ending Date:\s*(\d{4}-\d{2}-\d{2})\s*")
@@ -120,15 +123,20 @@ class Importer(importer.Importer):
     the Bank of Communications parser implementation.
     """
 
+    @override
+    @classmethod
+    def create_reader(cls) -> _Reader:
+        return _Reader()
+
+    @override
+    @classmethod
+    def create_parser(cls) -> _Parser:
+        return _Parser()
+
     def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
         """Initialize the Bank of Communications importer.
 
         Args:
             **kwargs: Additional configuration parameters.
         """
-        super().__init__(
-            re.compile(r"交通银行交易流水\(申请时间[^)]*\).pdf"),
-            pdf_table.Reader(table_bbox=(0, 148, 842, 491)),
-            Parser(),
-            **kwargs,
-        )
+        super().__init__(**kwargs)

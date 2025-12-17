@@ -18,6 +18,16 @@ from beancount_daoru.readers import pdf_table
 from beancount_daoru.utils import search_patterns
 
 
+class _Reader(pdf_table.Reader):
+    def __init__(self) -> None:
+        super().__init__(table_bbox=(0, 125, 842, 420))
+        self.regex = r"交易流水明细\d{14}\.pdf"
+
+    @override
+    def identify(self, file: importer.Path) -> bool:
+        return re.fullmatch(self.regex, file.name) is not None
+
+
 def _amount_validator(v: str) -> Decimal:
     return Decimal(v.replace(",", ""))
 
@@ -52,14 +62,7 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
-    """Parser for Bank of China transaction records.
-
-    Implements the Parser protocol to convert Bank of China transaction records
-    into Beancount-compatible structures. Handles BOC-specific fields and
-    logic for determining transaction amounts and directions.
-    """
-
+class _Parser(importer.Parser):
     _validator = TypeAdapter(Record)
     _account_pattern = re.compile(r"借记卡号：\s+(\d{19})\s+")  # noqa: RUF001
     _date_pattern = re.compile(
@@ -114,15 +117,20 @@ class Importer(importer.Importer):
     the Bank of China parser implementation.
     """
 
+    @override
+    @classmethod
+    def create_reader(cls) -> _Reader:
+        return _Reader()
+
+    @override
+    @classmethod
+    def create_parser(cls) -> _Parser:
+        return _Parser()
+
     def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
         """Initialize the Bank of China importer.
 
         Args:
             **kwargs: Additional configuration parameters.
         """
-        super().__init__(
-            re.compile(r"交易流水明细\d{14}\.pdf"),
-            pdf_table.Reader(table_bbox=(0, 125, 842, 420)),
-            Parser(),
-            **kwargs,
-        )
+        super().__init__(**kwargs)

@@ -14,7 +14,6 @@ from functools import lru_cache
 from itertools import groupby
 from operator import attrgetter
 from pathlib import Path
-from re import Pattern
 from typing import NamedTuple, Protocol
 
 import beancount
@@ -212,35 +211,44 @@ class Importer(beangulp.Importer):
     the conversion of financial documents to Beancount entries.
     """
 
+    @classmethod
+    @abstractmethod
+    def create_reader(cls) -> Reader:
+        """Create a reader instance for the importer.
+
+        Returns:
+            Reader instance for the importer.
+        """
+        ...
+
+    @classmethod
+    @abstractmethod
+    def create_parser(cls) -> Parser:
+        """Create a parser instance for the importer.
+
+        Returns:
+            Parser instance for the importer.
+        """
+        ...
+
     def __init__(
         self,
-        filename: Pattern[str],
-        reader: Reader,
-        parser: Parser,
         /,
         **kwargs: Unpack[ImporterKwargs],
     ) -> None:
         """Initialize the Importer.
 
-        Sets up the importer with filename pattern matching, reader for extracting
-        records from files, parser for converting records to transactions, and
-        mappings for account and currency translation.
-
         Args:
-            filename: Pattern to match against filenames for identification.
-            reader: Reader instance for extracting records from files.
-            parser: Parser instance for converting records to transactions.
             **kwargs: Additional configuration including account and currency mappings.
         """
-        self.filename_pattern = filename
-        self.reader = reader
-        self.parser = parser
+        self.reader = self.create_reader()
+        self.parser = self.create_parser()
         self.account_mappings = kwargs["account_mapping"]
         self.currency_mapping = kwargs["currency_mapping"]
 
     @override
     def identify(self, filepath: str) -> bool:
-        return self.filename_pattern.fullmatch(Path(filepath).name) is not None
+        return self.reader.identify(Path(filepath))
 
     @override
     def account(self, filepath: str) -> str:

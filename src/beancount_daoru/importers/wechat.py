@@ -46,14 +46,17 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
-    """Parser for WeChat Pay transaction records.
+class _Reader(excel.Reader):
+    def __init__(self) -> None:
+        super().__init__(header=16)
+        self.regex = r"微信支付账单流水文件\(\d{8}-\d{8}\).*\.xlsx"
 
-    Implements the Parser protocol to convert WeChat Pay transaction records
-    into Beancount-compatible structures. Handles WeChat Pay-specific fields and
-    logic for determining transaction amounts and directions.
-    """
+    @override
+    def identify(self, file: importer.Path) -> bool:
+        return re.fullmatch(self.regex, file.name) is not None
 
+
+class _Parser(importer.Parser):
     _validator = TypeAdapter(Record)
     _account_pattern = re.compile(r"微信昵称：\[([^\]]*)\]")  # noqa: RUF001
     _date_pattern = re.compile(r"终止时间：\[(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}]")  # noqa: RUF001
@@ -172,15 +175,23 @@ class Importer(importer.Importer):
     the WeChat Pay parser implementation.
     """
 
+    _reader = _Reader()
+    _parser = _Parser()
+
+    @override
+    @classmethod
+    def create_reader(cls) -> _Reader:
+        return _Reader()
+
+    @override
+    @classmethod
+    def create_parser(cls) -> _Parser:
+        return _Parser()
+
     def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
         """Initialize the WeChat Pay importer.
 
         Args:
             **kwargs: Additional configuration parameters.
         """
-        super().__init__(
-            re.compile(r"微信支付账单流水文件\(\d{8}-\d{8}\).*\.xlsx"),
-            excel.Reader(header=16),
-            Parser(),
-            **kwargs,
-        )
+        super().__init__(**kwargs)

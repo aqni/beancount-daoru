@@ -4,15 +4,15 @@ from decimal import Decimal
 import pytest
 
 from beancount_daoru.importer import Extra, Metadata, ParserError, Posting, Transaction
-from beancount_daoru.importers.bocom import Parser
+from beancount_daoru.importers.bocom import _Parser
 
 
 @pytest.fixture(scope="module")
-def parser() -> Parser:
-    return Parser()
+def parser() -> _Parser:
+    return _Parser()
 
 
-def test_extract_metadata(parser: Parser) -> None:
+def test_extract_metadata(parser: _Parser) -> None:
     caption = (
         "交通银行个人客户交易清单\n"
         "Bocom Personal Account Details\n"
@@ -123,7 +123,7 @@ TEST_PARAMS_LIST = [
 
 @pytest.mark.parametrize(("record", "transaction"), TEST_PARAMS_LIST)
 def test_build(
-    parser: Parser, record: dict[str, str], transaction: Transaction
+    parser: _Parser, record: dict[str, str], transaction: Transaction
 ) -> None:
     assert parser.parse(record) == transaction
 
@@ -152,7 +152,7 @@ ERROR_PARAMS_LIST = [
 
 
 @pytest.mark.parametrize(("record", "message"), ERROR_PARAMS_LIST)
-def test_parse_error(parser: Parser, record: dict[str, str], message: str) -> None:
+def test_parse_error(parser: _Parser, record: dict[str, str], message: str) -> None:
     with pytest.raises(ParserError) as excinfo:
         parser.parse(record)
     assert str(excinfo.value) == message

@@ -44,14 +44,17 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
-    """Parser for JD transaction records.
+class _Reader(excel.Reader):
+    def __init__(self) -> None:
+        super().__init__(header=21, encoding="utf-8-sig")
+        self.regex = r"京东交易流水\(申请时间[^)]*\)_\d+\.csv"
 
-    Implements the Parser protocol to convert JD transaction records
-    into Beancount-compatible structures. Handles JD-specific fields and
-    logic for determining transaction amounts and directions.
-    """
+    @override
+    def identify(self, file: importer.Path) -> bool:
+        return re.fullmatch(self.regex, file.name) is not None
 
+
+class _Parser(importer.Parser):
     _validator = TypeAdapter(Record)
     _account_pattern = re.compile(r"京东账号名：(\S+)")  # noqa: RUF001
     _date_pattern = re.compile(r"日期区间：\d{4}-\d{2}-\d{2} 至 (\d{4}-\d{2}-\d{2})")  # noqa: RUF001
@@ -112,15 +115,20 @@ class Importer(importer.Importer):
     the JD.com extractor and builder implementations.
     """
 
+    @override
+    @classmethod
+    def create_reader(cls) -> _Reader:
+        return _Reader()
+
+    @override
+    @classmethod
+    def create_parser(cls) -> _Parser:
+        return _Parser()
+
     def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
         """Initialize the JD.com importer.
 
         Args:
             **kwargs: Additional configuration parameters.
         """
-        super().__init__(
-            re.compile(r"京东交易流水\(申请时间[^)]*\)_\d+\.csv"),
-            excel.Reader(header=21, encoding="utf-8-sig"),
-            Parser(),
-            **kwargs,
-        )
+        super().__init__(**kwargs)

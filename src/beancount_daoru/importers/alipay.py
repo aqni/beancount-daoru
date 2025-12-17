@@ -46,14 +46,17 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
-    """Parser for Alipay transaction records.
+class _Reader(excel.Reader):
+    def __init__(self) -> None:
+        super().__init__(header=24, encoding="gbk")
+        self.regex = r"支付宝交易明细\(\d{8}-\d{8}\)\.csv"
 
-    Implements the Parser protocol to convert Alipay transaction records
-    into Beancount-compatible structures. Handles Alipay-specific fields
-    and logic for determining transaction amounts and directions.
-    """
+    @override
+    def identify(self, file: importer.Path) -> bool:
+        return re.fullmatch(self.regex, file.name) is not None
 
+
+class _Parser(importer.Parser):
     _validator = TypeAdapter(Record)
     _account_pattern = re.compile(r"支付宝账户：(\S+)")  # noqa: RUF001
     _date_pattern = re.compile(
@@ -140,15 +143,20 @@ class Importer(importer.Importer):
     parser implementation.
     """
 
+    @override
+    @classmethod
+    def create_reader(cls) -> _Reader:
+        return _Reader()
+
+    @override
+    @classmethod
+    def create_parser(cls) -> _Parser:
+        return _Parser()
+
     def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
         """Initialize the Alipay importer.
 
         Args:
             **kwargs: Additional configuration parameters.
         """
-        super().__init__(
-            re.compile(r"支付宝交易明细\(\d{8}-\d{8}\).csv"),
-            excel.Reader(header=24, encoding="gbk"),
-            Parser(),
-            **kwargs,
-        )
+        super().__init__(**kwargs)

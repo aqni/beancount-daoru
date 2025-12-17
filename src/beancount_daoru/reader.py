@@ -19,6 +19,18 @@ class Reader(Protocol):
     """
 
     @abstractmethod
+    def identify(self, file: Path) -> bool:
+        """Check if the reader can handle the given file.
+
+        Args:
+            file: Path to the file to check.
+
+        Returns:
+            True if the reader can handle the file, False otherwise.
+        """
+        ...
+
+    @abstractmethod
     def read_captions(
         self,
         file: Path,
