@@ -23,6 +23,10 @@ class Reader(reader.Reader):
     """
 
     @override
+    def identify(self, file: Path) -> bool:
+        return file.suffix == ".pdf"
+
+    @override
     def read_captions(self, file: Path) -> Iterator[str]:
         with pdfplumber.open(file) as pdf:
             for page in pdf.pages:
