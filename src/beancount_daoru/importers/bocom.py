@@ -51,7 +51,6 @@ Record = TypedDict(
 
 class _Reader(pdf_table.Reader):
     def __init__(self) -> None:
-        super().__init__(table_bbox=(0, 148, 842, 491))
         self.regex = r"交易流水明细\d{14}\.pdf"
 
     @override
