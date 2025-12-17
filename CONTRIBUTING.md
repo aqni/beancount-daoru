@@ -65,3 +65,7 @@ uv run pytest
 ```shell
 uv run pytest --cov=src
 ```
+
+## 发布
+
+该项目使用 GitHub Actions 自动发布到 PyPI。当推送符合 `v*.*.*` 模式的标签时，会自动触发发布流程。
