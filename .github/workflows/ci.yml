@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-slim
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: ruff format
+        run: uv run --all-extras ruff format --check --diff --verbose
+      - name: ruff check
+        run: uv run --all-extras ruff check --verbose
+      - name: pyright
+        run: uv run --all-extras pyright --verbose
+
+  test:
+    needs:
+      - validate-pr-title
+      - check
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          # - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: Setup llama.cpp to PATH
+        if: false # inference is too slow
+        uses: pbrisbin/setup-tool-action@v2
+        with:
+          name: llama
+          url: "https://github.com/ggml-org/llama.cpp/releases/download/{version}/{name}-{version}-bin-{os}-{arch}.{ext}"
+          os-win32: win-cpu
+          os-linux: ubuntu
+          os-darwin: macos
+          subdir-linux: "{name}-{version}"
+          subdir-darwin: "{name}-{version}"
+      - name: pytest
+        run: uv run --all-extras pytest --verbose

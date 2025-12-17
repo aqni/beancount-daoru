@@ -2,9 +2,7 @@ import shutil
 from collections.abc import Generator
 
 import git
-import httpx
 import pytest
-from typing_extensions import override
 from xprocess import ProcessStarter, XProcess
 
 from tests.examples.conftest import (
@@ -22,12 +20,13 @@ ZERO_SHOT_PREDICTED_FILE = LEDGER_DIR / "zero_shot_predicted.beancount"
 FEW_SHOT_PREDICTED_FILE = LEDGER_DIR / "few_shot_predicted.beancount"
 
 
-def start_llama_server(
+def start_llama_server(  # noqa: PLR0913
     *,
     xprocess: XProcess,
     model_hf: str,
     model_alias: str,
     port: int,
+    ctx_size: int = 0,
     is_embedding: bool = False,
 ) -> Generator[None]:
     exec_name = "llama-server"
@@ -38,27 +37,21 @@ def start_llama_server(
         exec_name,
         "-hf",
         model_hf,
+        "--ctx-size",
+        ctx_size,
         "--port",
         port,
         "--alias",
         model_alias,
         "--no-webui",
-        "--seed",
-        "42",
     ]
     if is_embedding:
         cmd_args.append("--embedding")
 
     class Starter(ProcessStarter):
         args = cmd_args  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
-        timeout = 300  # aim to wait for downloading model weights
-
-        @override
-        def startup_check(self) -> bool:  # pyright: ignore[reportIncompatibleMethodOverride]
-            try:
-                return httpx.get(f"http://localhost:{port}/health").is_success
-            except (httpx.TimeoutException, httpx.ConnectError):
-                return False
+        pattern = "main: server is listening on"  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
+        max_read_lines = None  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
 
     server_name = f"{exec_name}-{port}-{model_alias}"
     xprocess.ensure(server_name, Starter, persist_logs=False)
@@ -74,6 +67,7 @@ def embedding_server(xprocess: XProcess) -> Generator[None]:
         model_alias="embeddinggemma-300m",
         port=1314,
         is_embedding=True,
+        ctx_size=512,
     )
 
 
@@ -84,6 +78,7 @@ def chat_completion_server(xprocess: XProcess) -> Generator[None]:
         model_hf="unsloth/Qwen3-4B-Instruct-2507-GGUF:IQ4_NL",
         model_alias="Qwen3-4B-Instruct-2507",
         port=9527,
+        ctx_size=2048,
     )
 
 
