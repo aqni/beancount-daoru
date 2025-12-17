@@ -19,10 +19,7 @@ def _collect_readers() -> Iterator[Reader]:
         if not issubclass(cls, Importer):
             msg = f"{cls} is not a subclass of {Importer}"
             raise TypeError(msg)
-        reader = cls.create_reader()
-        if issubclass(type(reader), PDFReader):
-            continue
-        yield reader
+        yield cls.create_reader()
 
 
 PRESET_READERS = [*_collect_readers(), PDFReader()]
