@@ -48,7 +48,7 @@ def start_llama_server(
     class Starter(ProcessStarter):
         args = cmd_args  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
         pattern = "main: server is listening on"  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
-        max_read_lines = None # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
+        max_read_lines = None  # pyright: ignore[reportIncompatibleMethodOverride, reportAssignmentType]
 
     server_name = f"{exec_name}-{port}-{model_alias}"
     xprocess.ensure(server_name, Starter, persist_logs=False)
