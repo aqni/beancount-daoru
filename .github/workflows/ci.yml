@@ -20,12 +20,12 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - name: pyright
-        run: uv run --frozen --all-extras pyright
-      - name: ruff check
-        run: uv run --frozen --all-extras ruff check
       - name: ruff format
         run: uv run --frozen --all-extras ruff format --check --diff
+      - name: ruff check
+        run: uv run --frozen --all-extras ruff check
+      - name: pyright
+        run: uv run --frozen --all-extras pyright
 
   test:
     needs:
