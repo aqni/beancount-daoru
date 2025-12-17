@@ -2,7 +2,7 @@
 
 一个专为中文用户设计的 Beancount 账单导入工具，让复式记账更高效。
 
-> 项目仍在开发中，API 可能会发生变化，欢迎反馈或建议。QQ频道： pd90203305
+*项目仍在开发中，API 可能会发生变化，欢迎反馈或建议。*
 
 ## 功能
 
@@ -72,24 +72,20 @@ if __name__ == "__main__":
     ingest()
 ```
 
-然后运行以下命令识别、导入并归档账单文件：
+然后运行 beangulp 命令识别、导入并归档账单文件，例如：
 
 ```shell
 # 识别账单文件
 python import.py identify /path/to/your/bills/dir
-
 # 导入账单文件
 python import.py extract /path/to/your/bills/dir -o output.beancount
-
 # 归档账单文件
 python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 ```
 
-> 工具通过文件名识别账单，导入时务必保留账单原始文件名。
+另一种方法是在 Fava 中进行可视化导入，需要在主账本中添加 `import-config` 和 `import-dirs` 这两个配置，具体参阅 [Fava 帮助文档](https://fava.pythonanywhere.com/example-beancount-file/help/import)。
 
-也可在 Fava 中进行可视化导入，需要在主账本中添加 `import-config` 和 `import-dirs` 配置，具体参阅 [Fava 帮助文档](https://fava.pythonanywhere.com/example-beancount-file/help/import)。
-
-更多使用用例可参考源码中示例。
+**工具通过文件名识别账单，导入时务必保留账单原始文件名**。更多使用用例可参考源码中示例。
 
 ## 延伸
 
