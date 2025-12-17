@@ -33,19 +33,21 @@ jobs:
       - check
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-llama-cpp
-        id: setup-llama-cpp
-        with:
-          hf-models: |
-            unsloth/embeddinggemma-300m-GGUF:Q4_0
-            unsloth/Qwen3-4B-Instruct-2507-GGUF:IQ4_NL
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
+      - name: Setup llama.cpp to PATH
+        uses: pbrisbin/setup-tool-action@v2
+        with:
+          name: llama
+          url: "https://github.com/ggml-org/llama.cpp/releases/download/{version}/{name}-{version}-bin-{os}-{arch}.{ext}"
+          os-win32: win-cpu
+          os-linux: ubuntu
+          os-darwin: macos
+          subdir-linux: "{name}-{version}"
+          subdir-darwin: "{name}-{version}"
       - name: pytest
         run: uv run --frozen --all-extras pytest -v
-        env:
-          LLAMA_OFFLINE: 1
