@@ -15,7 +15,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -33,7 +33,10 @@ jobs:
       - check
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
@@ -50,4 +53,4 @@ jobs:
           subdir-linux: "{name}-{version}"
           subdir-darwin: "{name}-{version}"
       - name: pytest
-        run: uv run --frozen --all-extras pytest -v
+        run: uv run --frozen --all-extras pytest -vv --log-cli-level=DEBUG
