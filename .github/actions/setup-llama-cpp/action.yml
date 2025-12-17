@@ -25,8 +25,8 @@ runs:
 
         # ref: https://github.com/ggml-org/llama.cpp/blob/4b2a4778f81f222c12271ce3b1997990b3071faf/common/common.cpp#L889
         - name: Determine cache directory based on OS
-          id: determine-llama-cache
           if: ${{ inputs.hf-models }}
+          id: determine-llama-cache
           shell: bash
           run: |
               if [ -n "$LLAMA_CACHE" ]
@@ -56,11 +56,19 @@ runs:
               echo "llama-cache=$cache_dir" >> $GITHUB_OUTPUT
               echo "Detected llama.cpp cache path: $cache_dir"
 
-        - name: Caching models
-          shell: bash
+        - name: Cache models
           if: ${{ inputs.hf-models }}
+          uses: actions/cache@v5
+          with:
+              path: ${{ steps.determine-llama-cache.outputs.llama-cache }}
+              key: llama.cpp-${{ inputs.hf-models }}
+              enableCrossOsArchive: true
+
+        - name: Download models
+          if: ${{ inputs.hf-models }}
+          shell: bash
           run: |
-              for hf_model in "$hf_models"
+              for hf_model in "${{ inputs.hf-models }}"
               do
                   echo "Caching hf-model $hf_model"
                   llama-cli -hf "$hf_model" -st -p "hello"
