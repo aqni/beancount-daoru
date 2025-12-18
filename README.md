@@ -96,6 +96,7 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 - [double-entry-generator](https://github.com/deb-sig/double-entry-generator): 基于规则将各种账单格式转换为 Beancount 或 Ledger 格式
   - [BeanBridge](https://github.com/fatsheep2/beanBridge): double-entry-generator 的 Web 前端实现
   - [bill-parser](https://github.com/deb-sig/bill-file-converter): 将非 Excel 账单文件（PDF/EML 等）转换为 CSV 格式
+- [beancount-gs](https://github.com/BaoXuebin/beancount-gs): 基于 beancount 提供个人记账财务管理的 RESTful API 服务（包含前端页面）
 - [Beancount-Trans](https://github.com/dhr2333/Beancount-Trans): 一款（自托管）智能账单转换平台，帮助用户轻松将日常账单（如支付宝、微信支付、银行账单等）转换为专业记账格式，并提供完整的财务报表服务。
 - [china_bean_importers](https://github.com/jiegec/china_bean_importers): Beancount 导入脚本，不支持 Beancount 3
 - [beancount-homemade-importers](https://github.com/heyeshuang/beancount-homemade-importers)：一些在中国用的Beancount导入设置
