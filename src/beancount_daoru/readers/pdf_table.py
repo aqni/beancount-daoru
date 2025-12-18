@@ -28,7 +28,6 @@ class Reader(reader.Reader):
         """Initialize the PDF table reader.
 
         Args:
-            schema: Pydantic model or TypedDict defining the record structure.
             table_bbox: Bounding box (x0, y0, x1, y1) defining the table area.
         """
         self.table_bbox = table_bbox

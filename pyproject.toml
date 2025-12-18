@@ -11,7 +11,8 @@ name = "beancount-daoru"
 dependencies = [
     "beangulp>=0.2,<0.3",
     "pydantic>=2.12",
-    "pyexcel[xlsx]>=0.7",
+    "pyexcel>=0.7",
+    "pyexcel-xlsxr>=0.6.2",
     "pdfplumber>=0.11.8",
     "typing-extensions>=4.15.0",
 ]
