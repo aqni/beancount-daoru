@@ -105,7 +105,9 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 
 - [smart_importer](https://github.com/beancount/smart_importer)：beancount 官方提供的基于机器学习的分类预测器
 - [Beancount Red's Importers](https://github.com/redstreet/beancount_reds_importers): Simple ingesting tools for Beancount. More importantly, a framework to allow you to easily write your own importers.
+- [Beanborg](https://github.com/luciano-fiandesio/beanborg)：Automatic AI-powered transactions categorizer for Beancount.
 - [BeanHub Import](https://github.com/LaunchPlatform/beanhub-import): a simple, declarative, smart, and easy-to-use library for importing extracted transactions from beanhub-extract.
+- [beanquery-mcp](https://github.com/vanto/beanquery-mcp): Beancount MCP Server is an experimental implementation that utilizes the Model Context Protocol (MCP) to enable AI assistants to query and analyze Beancount ledger files using Beancount Query Language (BQL) and the beanquery tool.
 
 不活跃项目：
 
@@ -141,3 +143,9 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 
 - [Essential Beancount plugins and import automation for 2025](https://beancount.io/forum/t/essential-beancount-plugins-and-import-automation-for-2025/76)：一篇2025年的关于插件和自动导入的综述与讨论
 - [The Five-Minute Ledger Update](https://reds-rants.netlify.app/personal-finance/the-five-minute-ledger-update/): 利用自动化工具减少记账时间的讨论
+
+LLM 研究：
+
+- [Large Language Models for Code Generation of Plain Text Accounting with Domain Specific Languages](https://github.com/JuFrei/LLMs-for-Plain-Text-Accounting)
+- [Evaluating Financial Literacy of Large Language Models through DomainSpecific Languages for Plain Text Accounting](https://aclanthology.org/2025.finnlp-1.6/)
+- [FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering](https://arxiv.org/abs/2510.06426)
