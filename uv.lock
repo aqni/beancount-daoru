@@ -73,7 +73,8 @@ dependencies = [
     { name = "beangulp" },
     { name = "pdfplumber" },
     { name = "pydantic" },
-    { name = "pyexcel", extra = ["xlsx"] },
+    { name = "pyexcel" },
+    { name = "pyexcel-xlsxr" },
     { name = "typing-extensions" },
 ]
 
@@ -102,7 +103,8 @@ requires-dist = [
     { name = "openai", marker = "extra == 'llm'", specifier = ">=2.11.0" },
     { name = "pdfplumber", specifier = ">=0.11.8" },
     { name = "pydantic", specifier = ">=2.12" },
-    { name = "pyexcel", extras = ["xlsx"], specifier = ">=0.7" },
+    { name = "pyexcel", specifier = ">=0.7" },
+    { name = "pyexcel-xlsxr", specifier = ">=0.6.2" },
     { name = "typing-extensions", specifier = ">=4.15.0" },
     { name = "usearch", marker = "extra == 'llm'", specifier = ">=2.21.0" },
 ]
@@ -573,15 +575,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed", size = 60722, upload-time = "2023-12-24T09:54:32.31Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2", size = 20277, upload-time = "2023-12-24T09:54:30.421Z" },
-]
-
-[[package]]
-name = "et-xmlfile"
-version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d3/38/af70d7ab1ae9d4da450eeec1fa3918940a5fafb9055e934af8d6eb0c2313/et_xmlfile-2.0.0.tar.gz", hash = "sha256:dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54", size = 17234, upload-time = "2024-10-25T17:25:40.039Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl", hash = "sha256:7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa", size = 18059, upload-time = "2024-10-25T17:25:39.051Z" },
 ]
 
 [[package]]
@@ -1083,18 +1076,6 @@ wheels = [
 ]
 
 [[package]]
-name = "openpyxl"
-version = "3.1.5"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "et-xmlfile" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/3d/f9/88d94a75de065ea32619465d2f77b29a0469500e99012523b91cc4141cd1/openpyxl-3.1.5.tar.gz", hash = "sha256:cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050", size = 186464, upload-time = "2024-06-28T14:03:44.161Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl", hash = "sha256:5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2", size = 250910, upload-time = "2024-06-28T14:03:41.161Z" },
-]
-
-[[package]]
 name = "packaging"
 version = "25.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1419,11 +1400,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/c3/0f/3ee16151da584e8c4f9528366cdf2ce9d2dc96f7180283c04d1b58aa8415/pyexcel-0.7.4-py2.py3-none-any.whl", hash = "sha256:4f287fe2cc81c1fb2c0cf7f2be018b98391229c3752fb35e7ea3d9713043f72d", size = 89352, upload-time = "2025-10-25T09:28:45.826Z" },
 ]
 
-[package.optional-dependencies]
-xlsx = [
-    { name = "pyexcel-xlsx" },
-]
-
 [[package]]
 name = "pyexcel-io"
 version = "0.6.7"
@@ -1437,16 +1413,16 @@ wheels = [
 ]
 
 [[package]]
-name = "pyexcel-xlsx"
-version = "0.6.1"
+name = "pyexcel-xlsxr"
+version = "0.6.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "openpyxl" },
+    { name = "lxml" },
     { name = "pyexcel-io" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b0/a2/f54dd1f3c57c8a7fc7ac40bf96688f5725fd33becf104f1468ef284ffb4c/pyexcel_xlsx-0.6.1.tar.gz", hash = "sha256:80b7985d394b73abf5c52212027bbbc0c7f6090192bcbc76403f8672d74c7960", size = 77429, upload-time = "2025-03-05T07:35:42.341Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1d/66/a6af3efead4a1b3930a410cc65b2fdc0c50e54450f8d4b1bac6c17592d39/pyexcel_xlsxr-0.6.2.tar.gz", hash = "sha256:eb1c38f47bd65d428c72e38373e93cf0f61eb5b6199ef8ccef0397fdf682d598", size = 19384, upload-time = "2025-11-01T20:00:14.888Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/13/c6/d4f75ee10e7a9eee804c301bc369918bb33bbbeec17ddcd4d0225543ea83/pyexcel_xlsx-0.6.1-py2.py3-none-any.whl", hash = "sha256:c17d8c90ae6c2ae5672e469e6afe4336597e4ff479e5a93ba846ae46b7b80769", size = 9501, upload-time = "2025-03-05T07:35:39.919Z" },
+    { url = "https://files.pythonhosted.org/packages/b0/a5/ded74aa576ab1653e7f296fc52430727fe67dcb24b784617aadc9e81b665/pyexcel_xlsxr-0.6.2-py2.py3-none-any.whl", hash = "sha256:50d1355fe04e0e474f82040d24b987b11d6b10b7eedbb12bf760bcb09bd3f1c1", size = 10583, upload-time = "2025-11-01T20:00:13.75Z" },
 ]
 
 [[package]]
