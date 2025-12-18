@@ -7,7 +7,6 @@ from collections.abc import Iterator
 from beancount_daoru import importers
 from beancount_daoru.importer import Importer
 from beancount_daoru.reader import Reader
-from beancount_daoru.readers.pdf_table import Reader as PDFReader
 
 
 def _collect_readers() -> Iterator[Reader]:
@@ -22,11 +21,10 @@ def _collect_readers() -> Iterator[Reader]:
         yield cls.create_reader()
 
 
-PRESET_READERS = [*_collect_readers(), PDFReader()]
+PRESET_READERS = list(_collect_readers())
 
 for reader in PRESET_READERS:
-    recreated = type(reader)() # 验证类可反序列化的
-    print(recreated)
+    print(reader)
 
 # 提供一个命令行工具用来将已知文件dump成json文件
 # 集成测试比较两种路径结果一致来验证 dump 和 loader 的正确性
