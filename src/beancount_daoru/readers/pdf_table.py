@@ -28,7 +28,6 @@ class Reader(reader.Reader):
         """Initialize the PDF table reader.
 
         Args:
-            schema: Pydantic model or TypedDict defining the record structure.
             table_bbox: Bounding box (x0, y0, x1, y1) defining the table area.
         """
         self.table_bbox = table_bbox
@@ -48,10 +47,12 @@ class Reader(reader.Reader):
         with pdfplumber.open(file) as pdf:
             for page in pdf.pages:
                 table = page.within_bbox(self.table_bbox).extract_table()
-                if table:
-                    header = [value or "" for value in table[0]]
-                    for row in table[1:]:
-                        yield {
-                            field: (value or "").strip()
-                            for field, value in zip(header, row, strict=True)
-                        }
+                if table is None:
+                    msg = f"Table not found in {page}"
+                    raise ValueError(msg)
+                header = [value or "" for value in table[0]]
+                for row in table[1:]:
+                    yield {
+                        field: (value or "").strip()
+                        for field, value in zip(header, row, strict=True)
+                    }
