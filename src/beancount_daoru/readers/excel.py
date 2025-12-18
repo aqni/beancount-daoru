@@ -29,6 +29,7 @@ class Reader(reader.Reader):
         """Initialize the Excel reader.
 
         Args:
+            schema: Pydantic model or TypedDict defining the record structure.
             header: Number of header rows to skip before data.
             encoding: Text encoding to use when reading the file.
         """

@@ -20,6 +20,7 @@ from beancount_daoru.utils import search_patterns
 
 class _Reader(pdf_table.Reader):
     def __init__(self) -> None:
+        super().__init__(table_bbox=(0, 125, 842, 420))
         self.regex = r"交易流水明细\d{14}\.pdf"
 
     @override
