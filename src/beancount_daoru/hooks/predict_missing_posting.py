@@ -6,7 +6,6 @@ and natural language processing of transaction descriptions.
 """
 
 import asyncio
-import json
 import re
 from collections.abc import Mapping
 from hashlib import blake2b
@@ -33,9 +32,9 @@ from openai.types.shared_params.response_format_json_schema import JSONSchema
 from pydantic import TypeAdapter
 from tqdm import tqdm
 from typing_extensions import NotRequired, override
-from usearch.index import Index
+from usearch.index import Index, Matches
 
-from beancount_daoru import hook
+from beancount_daoru.hook import Hook as BaseHook
 from beancount_daoru.hook import Imported
 
 
@@ -60,30 +59,30 @@ class _Encoder:
         model_settings: EmbeddingModelSettings,
         cache_dir: Path,
     ) -> None:
-        self.model_name = model_settings.get("name")
-        self.embeddings_client = AsyncOpenAI(
+        self.__model_name = model_settings.get("name")
+        self.__embeddings_client = AsyncOpenAI(
             base_url=model_settings.get("base_url"),
             api_key=model_settings.get("api_key"),
         ).embeddings
 
         cache_dir.mkdir(parents=True, exist_ok=True)
-        _cache_prefix = re.sub(r"[^a-zA-Z0-9]", "_", self.model_name)
+        _cache_prefix = re.sub(r"[^a-zA-Z0-9]", "_", self.__model_name)
         cache_path = cache_dir / f"{_cache_prefix}.embeddings.diskcache"
-        self.cache = Cache(cache_path)
-        self.validator = TypeAdapter(list[float])
+        self.__cache = Cache(cache_path)
+        self.__validator = TypeAdapter(list[float])
 
     async def encode(self, text: str) -> list[float]:
-        if text in self.cache:
-            cached = self.cache[text]
-            return self.validator.validate_python(cached)
+        if text in self.__cache:
+            cached = self.__cache[text]  # pyright: ignore[reportUnknownVariableType]
+            return self.__validator.validate_python(cached)
 
-        response = await self.embeddings_client.create(
+        response = await self.__embeddings_client.create(
             input=text,
-            model=self.model_name,
+            model=self.__model_name,
         )
         embedding = response.data[0].embedding
 
-        self.cache[text] = embedding
+        self.__cache[text] = embedding
         return embedding
 
 
@@ -93,20 +92,20 @@ class _TransactionIndex:
         encoder: _Encoder,
         ndim: int,
     ) -> None:
-        self.encoder = encoder
-        self.transaction_mapping: dict[int, Transaction] = {}
-        self.embedding_index = Index(ndim=ndim)
+        self.__encoder = encoder
+        self.__transaction_mapping: dict[int, Transaction] = {}
+        self.__embedding_index = Index(ndim=ndim)
 
     async def add(self, transaction: Transaction) -> None:
         description = self._create_description(transaction)
         transaction_id = self._hash(description)
-        if transaction_id not in self.embedding_index:
-            embedding = await self.encoder.encode(description)
-            self.embedding_index.add(
+        if transaction_id not in self.__embedding_index:
+            embedding = await self.__encoder.encode(description)
+            _ = self.__embedding_index.add(  # pyright: ignore[reportUnknownVariableType]
                 keys=transaction_id,
                 vectors=np.array(embedding),
             )
-            self.transaction_mapping[transaction_id] = transaction
+            self.__transaction_mapping[transaction_id] = transaction
 
     def _create_description(self, transaction: Transaction) -> str:
         return format_entry(transaction)
@@ -120,15 +119,18 @@ class _TransactionIndex:
         self, transaction: Transaction, topk: int
     ) -> list[tuple[Transaction, float]]:
         description = self._create_description(transaction)
-        query_embedding = await self.encoder.encode(description)
+        query_embedding = await self.__encoder.encode(description)
 
-        matches = self.embedding_index.search(
+        matches = self.__embedding_index.search(
             vectors=np.array(query_embedding),
             count=topk,
         )
 
+        if not isinstance(matches, Matches):
+            raise TypeError(matches)
+
         return [
-            (self.transaction_mapping[match.key], float(match.distance))
+            (self.__transaction_mapping[match.key], float(match.distance))
             for match in matches
         ]
 
@@ -139,36 +141,38 @@ class _HistoryIndex:
         encoder: _Encoder,
         ndim: int,
     ) -> None:
-        self.encoder = encoder
-        self.ndim = ndim
-        self.data_per_account: dict[Account, tuple[Meta, _TransactionIndex]] = {}
+        self.__encoder = encoder
+        self.__ndim = ndim
+        self.__data_per_account: dict[Account, tuple[Meta, _TransactionIndex]] = {}
 
     async def add(self, directive: Directive) -> None:
         match directive:
             case Open():
-                if directive.account in self.data_per_account:
+                if directive.account in self.__data_per_account:
                     msg = f"open existing account: {directive}"
                     raise ValueError(msg)
                 txn_index = _TransactionIndex(
-                    encoder=self.encoder,
-                    ndim=self.ndim,
+                    encoder=self.__encoder,
+                    ndim=self.__ndim,
                 )
-                self.data_per_account[directive.account] = (directive.meta, txn_index)
+                self.__data_per_account[directive.account] = (directive.meta, txn_index)
             case Close():
-                if directive.account not in self.data_per_account:
+                if directive.account not in self.__data_per_account:
                     msg = f"close non-existing account: {directive}"
                     raise ValueError(msg)
-                del self.data_per_account[directive.account]
+                del self.__data_per_account[directive.account]
             case Transaction() as txn:
                 if self._check_transaction(txn):
                     for posting in txn.postings:
-                        if posting.account not in self.data_per_account:
+                        if posting.account not in self.__data_per_account:
                             msg = f"transaction with non-existing account: {txn}"
                             raise ValueError(msg)
                         other_postings = [p for p in txn.postings if p is not posting]
                         missing_posting_txn = txn._replace(postings=other_postings)
-                        index = self.data_per_account[posting.account][1]
+                        index = self.__data_per_account[posting.account][1]
                         await index.add(missing_posting_txn)
+            case _:
+                pass
 
     def _check_transaction(self, transaction: Transaction) -> bool:
         if transaction.flag is not None and transaction.flag != FLAG_OKAY:
@@ -187,13 +191,13 @@ class _HistoryIndex:
         Returns:
             Mapping of account names to metadata.
         """
-        return {account: meta for account, (meta, _) in self.data_per_account.items()}
+        return {account: meta for account, (meta, _) in self.__data_per_account.items()}
 
     async def search(
         self, transaction: Transaction, n_few_shots: int
     ) -> list[tuple[Transaction, Account, float]]:
         candidates: list[tuple[Transaction, Account, float]] = []
-        for account, (_, transaction_index) in self.data_per_account.items():
+        for account, (_, transaction_index) in self.__data_per_account.items():
             for target_transaction, distance in await transaction_index.search(
                 transaction, 1
             ):
@@ -225,12 +229,12 @@ class _ChatBot:
         Args:
             model_settings: Settings for the chat model.
         """
-        self.model_name = model_settings.get("name")
-        self.chat_client = AsyncOpenAI(
+        self.__model_name = model_settings.get("name")
+        self.__chat_client = AsyncOpenAI(
             base_url=model_settings.get("base_url"),
             api_key=model_settings.get("api_key"),
         ).chat.completions
-        self.temperature = model_settings.get("temperature", None)
+        self.__temperature = model_settings.get("temperature", None)
 
     async def complete(
         self,
@@ -239,8 +243,8 @@ class _ChatBot:
         system_prompt: str,
         response_format: JSONSchema,
     ) -> str:
-        response = await self.chat_client.create(
-            model=self.model_name,
+        response = await self.__chat_client.create(
+            model=self.__model_name,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -249,7 +253,7 @@ class _ChatBot:
                 "type": "json_schema",
                 "json_schema": response_format,
             },
-            temperature=self.temperature,
+            temperature=self.__temperature,
         )
         content = response.choices[0].message.content
         if content is None:
@@ -266,9 +270,10 @@ class _AccountPredictor:
         index: _HistoryIndex,
         extra_system_prompt: str,
     ) -> None:
-        self.chat_bot = chat_bot
-        self.index = index
-        self.extra_system_prompt = extra_system_prompt
+        self.__chat_bot = chat_bot
+        self.__index = index
+        self.__extra_system_prompt = extra_system_prompt
+        self.__validator = TypeAdapter[str | None](str | None)
 
     def _check_transaction(self, transaction: Transaction) -> bool:
         if transaction.flag is not None and transaction.flag != FLAG_OKAY:
@@ -282,17 +287,19 @@ class _AccountPredictor:
 
     @property
     def system_prompt(self) -> str:
-        builder = []
+        builder: list[str] = []
 
-        # Role and task
-        builder.append(
+        role = (
             "ROLE: Beancount accounting expert. "
             "Your ONLY task is to predict missing accounts for transactions."
         )
-        builder.append(
+        builder.append(role)
+
+        rule = (
             "RULE: Return ONLY the exact account name if HIGH confident. "
             "Otherwise return 'NULL'. NO explanations."
         )
+        builder.append(rule)
         builder.append("")
 
         # Beancount syntax
@@ -323,23 +330,23 @@ class _AccountPredictor:
         builder.append("- Prefer historical patterns over generic accounts")
 
         # other prompt
-        if self.extra_system_prompt:
+        if self.__extra_system_prompt:
             builder.append("")
             builder.append("ADDITIONAL INSTRUCTIONS:")
-            builder.append(self.extra_system_prompt)
+            builder.append(self.__extra_system_prompt)
 
         # Available accounts with metadata
         builder.append("")
         builder.append("AVAILABLE ACCOUNTS WITH DESCRIPTION:")
-        for account, meta in self.index.accounts.items():
+        for account, meta in self.__index.accounts.items():
             builder.append(f"- {account}: {meta.get('desc', 'No description')}")
 
         return "\n".join(builder)
 
     async def user_prompt(self, transaction: Transaction) -> str:
-        similar_examples = await self.index.search(transaction, 3)
+        similar_examples = await self.__index.search(transaction, 3)
 
-        builder = []
+        builder: list[str] = []
 
         builder.append("PREDICT MISSING ACCOUNT FOR THIS TRANSACTION:")
         builder.append(format_entry(transaction).strip())
@@ -347,11 +354,10 @@ class _AccountPredictor:
         if similar_examples:
             builder.append(f"HISTORICAL MATCHES ({len(similar_examples)}):")
             for idx, (txn, account, distance) in enumerate(similar_examples, 1):
-                similarity = 1 / (1 + distance)
+                sim = 1 / (1 + distance)
                 builder.append("")
                 builder.append(
-                    f"Example #{idx} ({similarity:.0%} match) "
-                    f"is predictted as {account!r}:"
+                    f"Example #{idx} ({sim:.0%} match) is predictted as {account!r}:"
                 )
                 builder.append(format_entry(txn).strip())
         else:
@@ -366,7 +372,7 @@ class _AccountPredictor:
             "strict": True,
             "schema": {
                 "type": ["string", "null"],
-                "enum": [*list(self.index.accounts.keys()), None],
+                "enum": [*list(self.__index.accounts.keys()), None],
             },
         }
 
@@ -374,15 +380,16 @@ class _AccountPredictor:
         if not self._check_transaction(transaction):
             return None
         user_prompt = await self.user_prompt(transaction)
-        response = await self.chat_bot.complete(
+        response = await self.__chat_bot.complete(
             user_prompt,
             system_prompt=self.system_prompt,
             response_format=self.response_format,
         )
-        return json.loads(response)
+
+        return self.__validator.validate_json(response)
 
 
-class Hook(hook.Hook):
+class Hook(BaseHook):
     """Hook that predicts missing accounts in transactions.
 
     Uses llm to analyze transaction context and historical patterns
@@ -424,13 +431,12 @@ class Hook(hook.Hook):
         """
         if cache_dir is None:
             cache_dir = Path(Path.cwd(), ".cache", *__name__.split("."))
-        self.chat_bot = _ChatBot(model_settings=chat_model_settings)
-        self.encoder = _Encoder(
+        self.__chat_bot = _ChatBot(model_settings=chat_model_settings)
+        self.__encoder = _Encoder(
             model_settings=embed_model_settings,
             cache_dir=cache_dir,
         )
-        self.cache_path = cache_dir
-        self.extra_system_prompt = extra_system_prompt
+        self.__extra_system_prompt = extra_system_prompt
 
     @override
     def __call__(
@@ -441,10 +447,10 @@ class Hook(hook.Hook):
     async def _transform(
         self, imported: list[Imported], existing: Directives
     ) -> list[Imported]:
-        measurement_embedding = await self.encoder.encode("for test")
+        measurement_embedding = await self.__encoder.encode("for test")
 
         index = _HistoryIndex(
-            encoder=self.encoder,
+            encoder=self.__encoder,
             ndim=len(measurement_embedding),
         )
 
@@ -456,12 +462,12 @@ class Hook(hook.Hook):
             await index.add(directive)
 
         predictor = _AccountPredictor(
-            chat_bot=self.chat_bot,
+            chat_bot=self.__chat_bot,
             index=index,
-            extra_system_prompt=self.extra_system_prompt,
+            extra_system_prompt=self.__extra_system_prompt,
         )
 
-        result = []
+        result: list[Imported] = []
         for filename, directives, account, importer in tqdm(
             imported,
             desc="predicting imported files",
@@ -479,7 +485,7 @@ class Hook(hook.Hook):
             for index, directive in enumerate(directives)
         ]
 
-        results_with_index = []
+        results_with_index: list[tuple[int, Directive]] = []
         for future in tqdm(
             asyncio.as_completed(tasks),
             total=len(tasks),

@@ -7,7 +7,6 @@ and integration with the Beangulp framework.
 """
 
 import datetime
-from abc import abstractmethod
 from collections.abc import Iterable, Iterator, Mapping
 from decimal import Decimal
 from functools import lru_cache
@@ -141,7 +140,6 @@ class Parser(Protocol):
         """
         return False
 
-    @abstractmethod
     def extract_metadata(self, texts: Iterator[str]) -> Metadata:
         """Extract metadata from text iterator.
 
@@ -155,8 +153,8 @@ class Parser(Protocol):
         Returns:
             Metadata object containing extracted information.
         """
+        ...
 
-    @abstractmethod
     def parse(self, record: dict[str, str]) -> Transaction:
         """Parse a single transaction record into a Beancount-compatible structure.
 
@@ -174,6 +172,7 @@ class Parser(Protocol):
         Returns:
             Transaction object with the parsed data in a Beancount-compatible format.
         """
+        ...
 
 
 class ImporterKwargs(TypedDict):
@@ -232,15 +231,15 @@ class Importer(beangulp.Importer):
             parser: Parser instance for converting records to transactions.
             **kwargs: Additional configuration including account and currency mappings.
         """
-        self.filename_pattern = filename
-        self.reader = reader
-        self.parser = parser
-        self.account_mappings = kwargs["account_mapping"]
-        self.currency_mapping = kwargs["currency_mapping"]
+        self.__filename_pattern = filename
+        self.__reader = reader
+        self.__parser = parser
+        self.__account_mappings = kwargs["account_mapping"]
+        self.__currency_mapping = kwargs["currency_mapping"]
 
     @override
     def identify(self, filepath: str) -> bool:
-        return self.filename_pattern.fullmatch(Path(filepath).name) is not None
+        return self.__filename_pattern.fullmatch(Path(filepath).name) is not None
 
     @override
     def account(self, filepath: str) -> str:
@@ -261,8 +260,8 @@ class Importer(beangulp.Importer):
         existing: beancount.Directives,
     ) -> beancount.Directives:
         metadata = self._cached_metadata(filepath)
-        directives = []
-        for index, record in enumerate(self.reader.read_records(Path(filepath))):
+        directives: list[beancount.Directive] = []
+        for index, record in enumerate(self.__reader.read_records(Path(filepath))):
             directives.extend(self._extract_record(filepath, index, metadata, record))
         return directives
 
@@ -275,8 +274,8 @@ class Importer(beangulp.Importer):
             key=attrgetter("date"),
         )
         max_balance_per_date = {
-            date: max(group, key=lambda e: self._lineno_key(e.meta["lineno"]))
-            for date, group in groupby(balances, key=attrgetter("date"))
+            date: max(group, key=lambda e: self._lineno_key(e.meta["lineno"]))  # pyright: ignore[reportAny]
+            for date, group in groupby(balances, key=attrgetter("date"))  # pyright: ignore[reportAny]
         }
 
         for balance in balances:
@@ -285,21 +284,23 @@ class Importer(beangulp.Importer):
 
     @override
     def sort(self, entries: beancount.Directives, reverse: bool = False) -> None:
-        def sort_key(entry: beancount.Directive) -> tuple:
-            lineno = entry.meta["lineno"]
+        def sort_key(entry: beancount.Directive) -> tuple[int, int]:
+            lineno = entry.meta["lineno"]  # pyright: ignore[reportAny]
             return (
-                self._lineno_key(lineno),
+                self._lineno_key(lineno),  # pyright: ignore[reportAny]
                 0 if isinstance(entry, beancount.Transaction) else 1,
             )
 
         entries.sort(key=sort_key, reverse=reverse)
 
     def _lineno_key(self, lineno: int) -> int:
-        return -lineno if self.parser.reversed else lineno
+        return -lineno if self.__parser.reversed else lineno
 
     @lru_cache(maxsize=1)  # noqa: B019
     def _cached_metadata(self, filepath: str) -> Metadata:
-        return self.parser.extract_metadata(self.reader.read_captions(Path(filepath)))
+        return self.__parser.extract_metadata(
+            self.__reader.read_captions(Path(filepath))
+        )
 
     def _extract_record(
         self,
@@ -309,7 +310,7 @@ class Importer(beangulp.Importer):
         record: dict[str, str],
     ) -> Iterator[beancount.Directive]:
         try:
-            transaction = self.parser.parse(record)
+            transaction = self.__parser.parse(record)
         except ParserError as e:
             yield beancount.Transaction(
                 meta=self._build_meta(
@@ -333,7 +334,7 @@ class Importer(beangulp.Importer):
                 filepath,
                 lineno,
                 record,
-                **transaction.extra._asdict(),
+                **transaction.extra._asdict(),  # pyright: ignore[reportAny]
             ),
             date=transaction.date,
             flag=beancount.FLAG_OKAY,
@@ -389,10 +390,10 @@ class Importer(beangulp.Importer):
         metadata: Metadata,
         posting: Posting | None = None,
     ) -> beancount.Account:
-        if metadata.account not in self.account_mappings:
+        if metadata.account not in self.__account_mappings:
             msg = f"account is not mapped: {metadata.account!r}"
             raise KeyError(msg)
-        account_submapping = self.account_mappings[metadata.account]
+        account_submapping = self.__account_mappings[metadata.account]
 
         posting_account = posting.account if posting is not None else None
         if posting_account not in account_submapping:
@@ -405,8 +406,8 @@ class Importer(beangulp.Importer):
         if currency_name is None:
             currency_name = metadata.currency
 
-        if currency_name not in self.currency_mapping:
+        if currency_name not in self.__currency_mapping:
             msg = f"currency name '{currency_name}' is not mapped"
             raise KeyError(msg)
-        currency = self.currency_mapping[currency_name]
+        currency = self.__currency_mapping[currency_name]
         return beancount.Amount(number=posting.amount, currency=currency)

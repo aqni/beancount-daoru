@@ -5,7 +5,6 @@ entries, enabling features like account prediction, path normalization, and
 other transformations before final output.
 """
 
-from abc import abstractmethod
 from typing import Protocol
 
 from beancount import Account, Directives
@@ -22,7 +21,6 @@ class Hook(Protocol):
     allowing customization of the imported entries.
     """
 
-    @abstractmethod
     def __call__(
         self, imported: list[Imported], existing: Directives
     ) -> list[Imported]:

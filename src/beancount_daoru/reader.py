@@ -5,7 +5,6 @@ for reading various document formats (PDF, Excel, etc.) and converting them
 into structured data that can be processed by extractors.
 """
 
-from abc import abstractmethod
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Protocol
@@ -18,7 +17,6 @@ class Reader(Protocol):
     into structured dictionaries that can be validated and converted to typed records.
     """
 
-    @abstractmethod
     def read_captions(
         self,
         file: Path,
@@ -33,7 +31,6 @@ class Reader(Protocol):
         """
         ...
 
-    @abstractmethod
     def read_records(self, file: Path) -> Iterator[dict[str, str]]:
         """Read records as dictionaries from the file.
 

@@ -13,7 +13,16 @@ from typing import Annotated
 from pydantic import AfterValidator, BeforeValidator, TypeAdapter
 from typing_extensions import TypedDict, Unpack, override
 
-from beancount_daoru import importer
+from beancount_daoru.importer import (
+    Extra,
+    ImporterKwargs,
+    Metadata,
+    ParserError,
+    Posting,
+    Transaction,
+)
+from beancount_daoru.importer import Importer as BaseImporter
+from beancount_daoru.importer import Parser as BaseParser
 from beancount_daoru.readers import excel
 from beancount_daoru.utils import search_patterns
 
@@ -26,7 +35,11 @@ def _validate_str(v: str | None) -> str | None:
     return v
 
 
-AmountField = Annotated[tuple[str, Decimal], BeforeValidator(lambda x: (x[0], x[1:]))]
+def _split_amount(v: str) -> tuple[str, str]:
+    return v[0], v[1:]
+
+
+AmountField = Annotated[tuple[str, Decimal], BeforeValidator(_split_amount)]
 StrField = Annotated[str | None, AfterValidator(_validate_str)]
 
 
@@ -46,7 +59,7 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
+class Parser(BaseParser):
     """Parser for WeChat Pay transaction records.
 
     Implements the Parser protocol to convert WeChat Pay transaction records
@@ -54,9 +67,9 @@ class Parser(importer.Parser):
     logic for determining transaction amounts and directions.
     """
 
-    _validator = TypeAdapter(Record)
-    _account_pattern = re.compile(r"微信昵称：\[([^\]]*)\]")  # noqa: RUF001
-    _date_pattern = re.compile(r"终止时间：\[(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}]")  # noqa: RUF001
+    __validator = TypeAdapter(Record)
+    __account_pattern = re.compile(r"微信昵称：\[([^\]]*)\]")  # noqa: RUF001
+    __date_pattern = re.compile(r"终止时间：\[(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}]")  # noqa: RUF001
 
     @property
     @override
@@ -64,21 +77,21 @@ class Parser(importer.Parser):
         return True
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> importer.Metadata:
+    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches = search_patterns(
-            texts, self._account_pattern, self._date_pattern
+            texts, self.__account_pattern, self.__date_pattern
         )
-        return importer.Metadata(
+        return Metadata(
             account=next(account_matches).group(1),
             date=date.fromisoformat(next(date_matches).group(1)),
         )
 
     @override
-    def parse(self, record: dict[str, str]) -> importer.Transaction:
-        validated = self._validator.validate_python(record)
-        return importer.Transaction(
+    def parse(self, record: dict[str, str]) -> Transaction:
+        validated = self.__validator.validate_python(record)
+        return Transaction(
             date=validated["交易时间"].date(),
-            extra=importer.Extra(
+            extra=Extra(
                 time=validated["交易时间"].time(),
                 dc=validated["收/支"],
                 status=validated["当前状态"],
@@ -90,20 +103,20 @@ class Parser(importer.Parser):
             postings=(*self._parse_postings(validated),),
         )
 
-    def _parse_postings(self, validated: Record) -> Iterator[importer.Posting]:
+    def _parse_postings(self, validated: Record) -> Iterator[Posting]:
         account, amount, counter_party, other_posting = self._parse_simple_postings(
             validated
         )
         currency = validated["金额(元)"][0]
 
-        yield importer.Posting(
+        yield Posting(
             account=account,
             amount=amount,
             currency=currency,
         )
 
         if counter_party is not None:
-            yield importer.Posting(
+            yield Posting(
                 account=counter_party,
                 amount=-amount,
                 currency=currency,
@@ -114,7 +127,7 @@ class Parser(importer.Parser):
 
     def _parse_simple_postings(
         self, validated: Record
-    ) -> tuple[str, Decimal, str | None, importer.Posting | None]:
+    ) -> tuple[str, Decimal, str | None, Posting | None]:
         dc_key = "收/支"
         type_key = "交易类型"
         status_key = "当前状态"
@@ -155,24 +168,24 @@ class Parser(importer.Parser):
                     method,
                     -amount,
                     "零钱",
-                    importer.Posting(
+                    Posting(
                         amount=Decimal(currency_and_amount[1:]),
                         account="零钱提现服务费",
                         currency=currency_and_amount[0],
                     ),
                 )
             case _:
-                raise importer.ParserError(dc_key, type_key, status_key, remarks_key)
+                raise ParserError(dc_key, type_key, status_key, remarks_key)
 
 
-class Importer(importer.Importer):
+class Importer(BaseImporter):
     """Importer for WeChat Pay bill files.
 
     Converts WeChat Pay transaction records into Beancount entries using
     the WeChat Pay parser implementation.
     """
 
-    def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
+    def __init__(self, **kwargs: Unpack[ImporterKwargs]) -> None:
         """Initialize the WeChat Pay importer.
 
         Args:

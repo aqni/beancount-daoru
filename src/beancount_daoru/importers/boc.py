@@ -13,7 +13,15 @@ from typing import Annotated
 from pydantic import AfterValidator, BeforeValidator, TypeAdapter
 from typing_extensions import TypedDict, Unpack, override
 
-from beancount_daoru import importer
+from beancount_daoru.importer import (
+    Extra,
+    ImporterKwargs,
+    Metadata,
+    Posting,
+    Transaction,
+)
+from beancount_daoru.importer import Importer as BaseImporter
+from beancount_daoru.importer import Parser as BaseParser
 from beancount_daoru.readers import pdf_table
 from beancount_daoru.utils import search_patterns
 
@@ -52,7 +60,7 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
+class Parser(BaseParser):
     """Parser for Bank of China transaction records.
 
     Implements the Parser protocol to convert Bank of China transaction records
@@ -60,9 +68,9 @@ class Parser(importer.Parser):
     logic for determining transaction amounts and directions.
     """
 
-    _validator = TypeAdapter(Record)
-    _account_pattern = re.compile(r"借记卡号：\s+(\d{19})\s+")  # noqa: RUF001
-    _date_pattern = re.compile(
+    __validator = TypeAdapter(Record)
+    __account_pattern = re.compile(r"借记卡号：\s+(\d{19})\s+")  # noqa: RUF001
+    __date_pattern = re.compile(
         r"交易区间：\s*\d{4}-\d{2}-\d{2}\s*至\s*(\d{4}-\d{2}-\d{2})"  # noqa: RUF001
     )
 
@@ -72,21 +80,21 @@ class Parser(importer.Parser):
         return True
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> importer.Metadata:
+    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches = search_patterns(
-            texts, self._account_pattern, self._date_pattern
+            texts, self.__account_pattern, self.__date_pattern
         )
-        return importer.Metadata(
+        return Metadata(
             account=next(account_matches).group(1),
             date=date.fromisoformat(next(date_matches).group(1)),
         )
 
     @override
-    def parse(self, record: dict[str, str]) -> importer.Transaction:
-        validated = self._validator.validate_python(record)
-        return importer.Transaction(
+    def parse(self, record: dict[str, str]) -> Transaction:
+        validated = self.__validator.validate_python(record)
+        return Transaction(
             date=validated["记账日期"],
-            extra=importer.Extra(
+            extra=Extra(
                 time=validated["记账时间"],
                 type=validated["交易名称"],
                 payee_account=validated["对方卡号/账号"],
@@ -95,26 +103,26 @@ class Parser(importer.Parser):
             payee=validated["对方账户名"],
             narration=validated["附言"],
             postings=(
-                importer.Posting(
+                Posting(
                     amount=validated["金额"],
                     currency=validated["币别"],
                 ),
             ),
-            balance=importer.Posting(
+            balance=Posting(
                 amount=validated["余额"],
                 currency=validated["币别"],
             ),
         )
 
 
-class Importer(importer.Importer):
+class Importer(BaseImporter):
     """Importer for Bank of China bill files.
 
     Converts Bank of China transaction records into Beancount entries using
     the Bank of China parser implementation.
     """
 
-    def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
+    def __init__(self, **kwargs: Unpack[ImporterKwargs]) -> None:
         """Initialize the Bank of China importer.
 
         Args:
