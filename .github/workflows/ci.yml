@@ -22,18 +22,24 @@ jobs:
         with:
           globs: "**/*.md"
 
-  check:
+  ruff:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/ruff-action@v3
+        with:
+          version-file: "pyproject.toml"
+          args: "--version"
+      - run: ruff check --verbose
+      - run: ruff format --check --diff --verbose
+
+  uvlock:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - name: Install the project
-        run: uv sync --locked --all-extras
-      - name: ruff format
-        run: uv run ruff format --check --diff --verbose
-      - name: ruff check
-        run: uv run ruff check --verbose
+      - run: uv lock --check
 
   basedpyright:
     runs-on: ubuntu-latest
@@ -48,7 +54,9 @@ jobs:
     needs:
       - validate-pr-title
       - markdownlint
-      - check
+      - uvlock
+      - ruff
+      - basedpyright
     strategy:
       matrix:
         os:
