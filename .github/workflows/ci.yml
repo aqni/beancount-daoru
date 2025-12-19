@@ -38,6 +38,7 @@ jobs:
   test:
     needs:
       - validate-pr-title
+      - markdownlint
       - check
     strategy:
       matrix:
