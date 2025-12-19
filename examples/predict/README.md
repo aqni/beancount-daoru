@@ -25,7 +25,8 @@ winget install llama.cpp
 分别部署用于 Embedding 和 Chat 的模型，例子中使用最轻量的模型。
 
 ```shell
-llama-server -hf 'unsloth/embeddinggemma-300m-GGUF:Q4_0' --port 1314 --embedding 
+llama-server -hf 'unsloth/embeddinggemma-300m-GGUF:Q4_0' --port 1314 \
+  --embedding 
 llama-server -hf 'unsloth/Qwen3-4B-Instruct-2507-GGUF:IQ4_NL' --port 9527
 ```
 
