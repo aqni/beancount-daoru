@@ -9,10 +9,11 @@ from pathlib import Path
 from beancount import Directives
 from typing_extensions import override
 
-from beancount_daoru import hook
+from beancount_daoru.hook import Hook as BaseHook
+from beancount_daoru.hook import Imported
 
 
-class Hook(hook.Hook):
+class Hook(BaseHook):
     """Hook that converts file paths to file names.
 
     This hook transforms the file paths in imported entries to only contain
@@ -21,8 +22,8 @@ class Hook(hook.Hook):
 
     @override
     def __call__(
-        self, imported: list[hook.Imported], existing: Directives
-    ) -> list[hook.Imported]:
+        self, imported: list[Imported], existing: Directives
+    ) -> list[Imported]:
         return [
             (Path(filename).name, directives, account, importer)
             for filename, directives, account, importer in imported

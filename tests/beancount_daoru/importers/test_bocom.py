@@ -154,5 +154,5 @@ ERROR_PARAMS_LIST = [
 @pytest.mark.parametrize(("record", "message"), ERROR_PARAMS_LIST)
 def test_parse_error(parser: Parser, record: dict[str, str], message: str) -> None:
     with pytest.raises(ParserError) as excinfo:
-        parser.parse(record)
+        _ = parser.parse(record)
     assert str(excinfo.value) == message

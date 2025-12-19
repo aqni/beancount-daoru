@@ -13,7 +13,16 @@ from typing import Annotated
 from pydantic import AfterValidator, TypeAdapter
 from typing_extensions import TypedDict, Unpack, override
 
-from beancount_daoru import importer
+from beancount_daoru.importer import (
+    Extra,
+    ImporterKwargs,
+    Metadata,
+    ParserError,
+    Posting,
+    Transaction,
+)
+from beancount_daoru.importer import Importer as BaseImporter
+from beancount_daoru.importer import Parser as BaseParser
 from beancount_daoru.readers import excel
 from beancount_daoru.utils import search_patterns
 
@@ -46,7 +55,7 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
+class Parser(BaseParser):
     """Parser for Alipay transaction records.
 
     Implements the Parser protocol to convert Alipay transaction records
@@ -54,9 +63,9 @@ class Parser(importer.Parser):
     and logic for determining transaction amounts and directions.
     """
 
-    _validator = TypeAdapter(Record)
-    _account_pattern = re.compile(r"支付宝账户：(\S+)")  # noqa: RUF001
-    _date_pattern = re.compile(
+    __validator = TypeAdapter(Record)
+    __account_pattern = re.compile(r"支付宝账户：(\S+)")  # noqa: RUF001
+    __date_pattern = re.compile(
         r"终止时间：\[(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}]"  # noqa: RUF001
     )
 
@@ -66,29 +75,29 @@ class Parser(importer.Parser):
         return True
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> importer.Metadata:
+    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches = search_patterns(
-            texts, self._account_pattern, self._date_pattern
+            texts, self.__account_pattern, self.__date_pattern
         )
-        return importer.Metadata(
+        return Metadata(
             account=next(account_matches).group(1),
             date=date.fromisoformat(next(date_matches).group(1)),
         )
 
     @override
-    def parse(self, record: dict[str, str]) -> importer.Transaction:
-        validated = self._validator.validate_python(record)
+    def parse(self, record: dict[str, str]) -> Transaction:
+        validated = self.__validator.validate_python(record)
         postings = ()
         if amount := self._parse_amount(validated):
             postings = (
-                importer.Posting(
+                Posting(
                     account=validated["收/付款方式"],
                     amount=amount,
                 ),
             )
-        return importer.Transaction(
+        return Transaction(
             date=validated["交易时间"].date(),
-            extra=importer.Extra(
+            extra=Extra(
                 time=validated["交易时间"].time(),
                 dc=validated["收/支"],
                 status=validated["交易状态"],
@@ -128,19 +137,19 @@ class Parser(importer.Parser):
                     case str(x) if x.startswith("余额宝-") and x.endswith("-收益发放"):
                         return amount
                     case _:
-                        raise importer.ParserError(dc_key, status_key, desc_key)
+                        raise ParserError(dc_key, status_key, desc_key)
             case _:
-                raise importer.ParserError(dc_key, status_key)
+                raise ParserError(dc_key, status_key)
 
 
-class Importer(importer.Importer):
+class Importer(BaseImporter):
     """Importer for Alipay bill files.
 
     Converts Alipay transaction records into Beancount entries using the Alipay
     parser implementation.
     """
 
-    def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
+    def __init__(self, **kwargs: Unpack[ImporterKwargs]) -> None:
         """Initialize the Alipay importer.
 
         Args:

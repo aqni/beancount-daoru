@@ -13,7 +13,16 @@ from typing import Annotated
 from pydantic import AfterValidator, BeforeValidator, TypeAdapter
 from typing_extensions import TypedDict, Unpack, override
 
-from beancount_daoru import importer
+from beancount_daoru.importer import (
+    Extra,
+    ImporterKwargs,
+    Metadata,
+    ParserError,
+    Posting,
+    Transaction,
+)
+from beancount_daoru.importer import Importer as BaseImporter
+from beancount_daoru.importer import Parser as BaseParser
 from beancount_daoru.readers import pdf_table
 from beancount_daoru.utils import search_patterns
 
@@ -49,7 +58,7 @@ Record = TypedDict(
 )
 
 
-class Parser(importer.Parser):
+class Parser(BaseParser):
     """Parser for Bank of Communications transaction records.
 
     Implements the Parser protocol to convert Bank of Communications transaction records
@@ -57,10 +66,10 @@ class Parser(importer.Parser):
     logic for determining transaction amounts and directions.
     """
 
-    _validator = TypeAdapter(Record)
-    _account_pattern = re.compile(r"账号/卡号Account/Card No:\s*(\d{19})\s*")
-    _date_pattern = re.compile(r"查询止日Query Ending Date:\s*(\d{4}-\d{2}-\d{2})\s*")
-    _currency_pattern = re.compile(r"币种Currency:\s*(\w+)\s*")
+    __validator = TypeAdapter(Record)
+    __account_pattern = re.compile(r"账号/卡号Account/Card No:\s*(\d{19})\s*")
+    __date_pattern = re.compile(r"查询止日Query Ending Date:\s*(\d{4}-\d{2}-\d{2})\s*")
+    __currency_pattern = re.compile(r"币种Currency:\s*(\w+)\s*")
 
     @property
     @override
@@ -68,22 +77,22 @@ class Parser(importer.Parser):
         return True
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> importer.Metadata:
+    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches, currency_matches = search_patterns(
-            texts, self._account_pattern, self._date_pattern, self._currency_pattern
+            texts, self.__account_pattern, self.__date_pattern, self.__currency_pattern
         )
-        return importer.Metadata(
+        return Metadata(
             account=next(account_matches).group(1),
             date=date.fromisoformat(next(date_matches).group(1)),
             currency=next(currency_matches).group(1),
         )
 
     @override
-    def parse(self, record: dict[str, str]) -> importer.Transaction:
-        validated = self._validator.validate_python(record)
-        return importer.Transaction(
+    def parse(self, record: dict[str, str]) -> Transaction:
+        validated = self.__validator.validate_python(record)
+        return Transaction(
             date=validated["Trans Date\n交易日期"],
-            extra=importer.Extra(
+            extra=Extra(
                 time=validated["Trans Time\n交易时间"],
                 dc=validated["Dc Flg\n借贷"],
                 type=validated["Trading Type\n交易类型"],
@@ -93,11 +102,11 @@ class Parser(importer.Parser):
             payee=validated["Payment Receipt\nAccount Name\n对方户名"],
             narration=validated["Abstract\n摘要"],
             postings=(
-                importer.Posting(
+                Posting(
                     amount=self._parse_amount(validated),
                 ),
             ),
-            balance=importer.Posting(
+            balance=Posting(
                 amount=validated["Balance\n余额"],
             ),
         )
@@ -110,17 +119,17 @@ class Parser(importer.Parser):
             case "贷 Cr":
                 return validated["Trans Amt\n交易金额"]
             case _:
-                raise importer.ParserError(dc_key)
+                raise ParserError(dc_key)
 
 
-class Importer(importer.Importer):
+class Importer(BaseImporter):
     """Importer for Bank of Communications bill files.
 
     Converts Bank of Communications transaction records into Beancount entries using
     the Bank of Communications parser implementation.
     """
 
-    def __init__(self, **kwargs: Unpack[importer.ImporterKwargs]) -> None:
+    def __init__(self, **kwargs: Unpack[ImporterKwargs]) -> None:
         """Initialize the Bank of Communications importer.
 
         Args:

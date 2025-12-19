@@ -10,14 +10,14 @@ from pathlib import Path
 import pyexcel
 from typing_extensions import TypedDict, Unpack, override
 
-from beancount_daoru import reader
+from beancount_daoru.reader import Reader as BaseReader
 
 
 class _ReaderKwargs(TypedDict, total=False):
     encoding: str
 
 
-class Reader(reader.Reader):
+class Reader(BaseReader):
     """Reader for Excel and CSV files.
 
     Uses pyexcel to read various spreadsheet formats, handling encoding
@@ -36,35 +36,36 @@ class Reader(reader.Reader):
             header: Number of header rows to skip before data.
             kwargs: Additional keyword arguments passed to pyexcel.
         """
-        self.header = header
-        self.kwargs = kwargs
+        self.__header = header
+        self.__kwargs = kwargs
 
     @override
     def read_captions(self, file: Path) -> Iterator[str]:
-        for row in pyexcel.get_array(
+        for row in pyexcel.get_array(  # pyright: ignore[reportUnknownVariableType]
             file_name=file,
-            row_limit=self.header,
+            row_limit=self.__header,
             auto_detect_int=False,
             auto_detect_float=False,
             auto_detect_datetime=False,
             skip_empty_rows=True,
-            **self.kwargs,
+            **self.__kwargs,
         ):
             yield from row
 
     @override
     def read_records(self, file: Path) -> Iterator[dict[str, str]]:
-        for row in pyexcel.iget_records(
+        for row in pyexcel.iget_records(  # pyright: ignore[reportUnknownVariableType]
             file_name=file,
-            start_row=self.header,
+            start_row=self.__header,
             auto_detect_int=False,
             auto_detect_float=False,
             auto_detect_datetime=False,
             skip_empty_rows=True,
-            **self.kwargs,
+            **self.__kwargs,
         ):
             yield {
-                self.__convert(key): self.__convert(value) for key, value in row.items()
+                self.__convert(key): self.__convert(value)  # pyright: ignore[reportUnknownArgumentType]
+                for key, value in row.items()  # pyright: ignore[reportUnknownVariableType]
             }
 
     def __convert(self, value: object) -> str:

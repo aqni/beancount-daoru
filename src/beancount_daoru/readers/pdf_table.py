@@ -10,10 +10,12 @@ from pathlib import Path
 import pdfplumber
 from typing_extensions import override
 
-from beancount_daoru import reader
+from beancount_daoru.reader import Reader as BaseReader
+
+BBox = tuple[int | float, int | float, int | float, int | float]
 
 
-class Reader(reader.Reader):
+class Reader(BaseReader):
     """Reader for PDF files containing tabular data.
 
     Uses pdfplumber to extract tables from PDF documents, focusing on specific
@@ -23,26 +25,26 @@ class Reader(reader.Reader):
     def __init__(
         self,
         /,
-        table_bbox: tuple[int | float, int | float, int | float, int | float],
+        table_bbox: BBox,
     ) -> None:
         """Initialize the PDF table reader.
 
         Args:
             table_bbox: Bounding box (x0, y0, x1, y1) defining the table area.
         """
-        self.table_bbox = table_bbox
+        self.__table_bbox = table_bbox
 
     @override
     def read_captions(self, file: Path) -> Iterator[str]:
         with pdfplumber.open(file) as pdf:
             for page in pdf.pages:
-                yield page.outside_bbox(self.table_bbox).extract_text_simple()
+                yield page.outside_bbox(self.__table_bbox).extract_text_simple()
 
     @override
     def read_records(self, file: Path) -> Iterator[dict[str, str]]:
         with pdfplumber.open(file) as pdf:
             for page in pdf.pages:
-                table = page.within_bbox(self.table_bbox).extract_table()
+                table = page.within_bbox(self.__table_bbox).extract_table()
                 if table:
                     header = [value or "" for value in table[0]]
                     for row in table[1:]:
