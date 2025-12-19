@@ -20,7 +20,7 @@ pip install uv
 同步开发环境:
 
 ```shell
-uv sync
+uv sync --all-extras
 ```
 
 激活虚拟环境：
