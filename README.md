@@ -147,6 +147,7 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 
 LLM 研究：
 
+- [Beancount.io - 使用 LLM 实现自动化并增强 Beancount 的簿记功能](https://beancount.io/zh/docs/Solutions/using-llms-to-automate-and-enhance-bookkeeping-with-beancount)
 - [Large Language Models for Code Generation of Plain Text Accounting with Domain Specific Languages](https://github.com/JuFrei/LLMs-for-Plain-Text-Accounting)
 - [Evaluating Financial Literacy of Large Language Models through DomainSpecific Languages for Plain Text Accounting](https://aclanthology.org/2025.finnlp-1.6/)
 - [FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering](https://arxiv.org/abs/2510.06426)
