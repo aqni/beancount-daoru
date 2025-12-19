@@ -20,7 +20,7 @@
 
 当前支持的账单源：
 
-| 源 | 导出方式 | 格式|
+| 源 | 导出方式 | 格式 |
 | --- | --- | --- |
 | 支付宝 | APP导出，全部勾选，发送到邮箱 | csv |
 | 微信 | APP导出，全部勾选，发送到邮箱 | xlsx |
@@ -96,6 +96,7 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 - [double-entry-generator](https://github.com/deb-sig/double-entry-generator): 基于规则将各种账单格式转换为 Beancount 或 Ledger 格式
   - [BeanBridge](https://github.com/fatsheep2/beanBridge): double-entry-generator 的 Web 前端实现
   - [bill-parser](https://github.com/deb-sig/bill-file-converter): 将非 Excel 账单文件（PDF/EML 等）转换为 CSV 格式
+- [beancount-gs](https://github.com/BaoXuebin/beancount-gs): 基于 beancount 提供个人记账财务管理的 RESTful API 服务（包含前端页面）
 - [Beancount-Trans](https://github.com/dhr2333/Beancount-Trans): 一款（自托管）智能账单转换平台，帮助用户轻松将日常账单（如支付宝、微信支付、银行账单等）转换为专业记账格式，并提供完整的财务报表服务。
 - [china_bean_importers](https://github.com/jiegec/china_bean_importers): Beancount 导入脚本，不支持 Beancount 3
 - [beancount-homemade-importers](https://github.com/heyeshuang/beancount-homemade-importers)：一些在中国用的Beancount导入设置
@@ -105,7 +106,9 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 
 - [smart_importer](https://github.com/beancount/smart_importer)：beancount 官方提供的基于机器学习的分类预测器
 - [Beancount Red's Importers](https://github.com/redstreet/beancount_reds_importers): Simple ingesting tools for Beancount. More importantly, a framework to allow you to easily write your own importers.
+- [Beanborg](https://github.com/luciano-fiandesio/beanborg)：Automatic AI-powered transactions categorizer for Beancount.
 - [BeanHub Import](https://github.com/LaunchPlatform/beanhub-import): a simple, declarative, smart, and easy-to-use library for importing extracted transactions from beanhub-extract.
+- [beanquery-mcp](https://github.com/vanto/beanquery-mcp): Beancount MCP Server is an experimental implementation that utilizes the Model Context Protocol (MCP) to enable AI assistants to query and analyze Beancount ledger files using Beancount Query Language (BQL) and the beanquery tool.
 
 不活跃项目：
 
@@ -141,3 +144,10 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
 
 - [Essential Beancount plugins and import automation for 2025](https://beancount.io/forum/t/essential-beancount-plugins-and-import-automation-for-2025/76)：一篇2025年的关于插件和自动导入的综述与讨论
 - [The Five-Minute Ledger Update](https://reds-rants.netlify.app/personal-finance/the-five-minute-ledger-update/): 利用自动化工具减少记账时间的讨论
+
+LLM 研究：
+
+- [Beancount.io - 使用 LLM 实现自动化并增强 Beancount 的簿记功能](https://beancount.io/zh/docs/Solutions/using-llms-to-automate-and-enhance-bookkeeping-with-beancount)
+- [Large Language Models for Code Generation of Plain Text Accounting with Domain Specific Languages](https://github.com/JuFrei/LLMs-for-Plain-Text-Accounting)
+- [Evaluating Financial Literacy of Large Language Models through DomainSpecific Languages for Plain Text Accounting](https://aclanthology.org/2025.finnlp-1.6/)
+- [FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering](https://arxiv.org/abs/2510.06426)
