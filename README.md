@@ -153,6 +153,7 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
   A curated list of resources for Beancount
 - [Beancout.io 帮助中心](https://beancount.io/zh/docs/help-center):
   提供 beancount 商业服务的团队维护的使用指南
+- [The Beancount Ecosystem: A Comprehensive Analysis](https://beancount.io/blog/2025/04/15/beancount-ecosystem)
 
 使用分享：
 
