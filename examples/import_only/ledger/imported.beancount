@@ -1,77 +1,5 @@
 ;; -*- mode: beancount -*-
 
-**** 支付宝交易明细(20230210-20230213).csv
-
-2023-07-10 * "xxxx" "xxxx"
-  time: "13:20:16"
-  dc: "支出"
-  type: "日用百货"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  -82.00 CNY
-
-2023-07-10 * "xxxx" "xxxx"
-  time: "13:10:16"
-  dc: "支出"
-  type: "日用百货"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  -9.90 CNY
-
-2023-01-09 * "一卡通" "一卡通充值"
-  time: "18:21:50"
-  dc: "支出"
-  type: "交通出行"
-  payee_account: "fin***@jieyisoft.com"
-  status: "交易关闭"
-  Assets:Payment:Alipay:YuEBao  -50.00 CNY
-
-2023-01-09 * "一卡通" "退款-一卡通充值"
-  time: "18:22:28"
-  dc: "不计收支"
-  type: "退款"
-  payee_account: "fin***@jieyisoft.com"
-  status: "退款成功"
-  Assets:Payment:Alipay:YuEBao  50.00 CNY
-
-2023-01-10 * "xxxx" "xxxx"
-  time: "13:10:16"
-  dc: "不计收支"
-  type: "日用百货"
-  status: "交易关闭"
-
-2023-01-18 * "xxxx" "转账"
-  time: "10:17:29"
-  dc: "收入"
-  type: "转账红包"
-  payee_account: "xxx***@163.com"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  222228.50 CNY
-
-1970-01-01 ! 
-  error: "unsupported value combination of fields: ('收/支', '交易状态', '商品说明') @ {'交易时间': '2023-02-02 15:24:35', '交易分类': '投资理财', '交易对方': '蚂蚁财富-蚂蚁（杭州）基金销售有限公司', '对方账号': '/', '商品说明': '蚂蚁财富-交银定期支付双息平衡混合-卖出至余额宝', '收/支': '不计收支', '金额': '99.34', '收/付款方式': '余额宝', '交易状态': '交易成功', '交易订单号': '2xxxxxxxxxxxxxxxxxxxxxxxxxx8', '商家订单号': '', '备注': ''}"
-
-2023-02-04 * "xxxxxxx" "退款-亲情卡"
-  time: "18:21:04"
-  dc: "不计收支"
-  type: "退款"
-  status: "退款成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
-
-2023-02-08 * "x4***6" "商品示例"
-  time: "14:16:52"
-  dc: "支出"
-  type: "日用百货"
-  payee_account: "rim***@qq.com"
-  status: "等待确认收货"
-  Assets:Payment:Alipay:Balance  -20.00 CNY
-
-2023-02-12 * "xxxxxxxxxxxx" "亲情卡"
-  time: "21:32:14"
-  dc: "支出"
-  type: "亲友代付"
-  status: "交易成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
-
-
 **** 微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
 
 2024-06-07 * "腾讯公益慈善基金会" "焕新乐园"
@@ -622,5 +550,86 @@
   dc: "支出"
   type: "支付"
   Liabilities:Payment:Meituan:Monthly  -21.17 CNY
+
+
+**** 支付宝交易明细(20230210-20230213).csv
+
+2025-12-20 * "余额宝" "余额宝-安心自动充-自动攒入"
+  time: "13:30:16"
+  dc: "不计收支"
+  type: "投资理财"
+  payee_account: "xia***@ccbfund.cn"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -66.57 CNY
+  Assets:Payment:Alipay:YuEBao          66.57 CNY
+
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:20:16"
+  dc: "支出"
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -82.00 CNY
+
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:10:16"
+  dc: "支出"
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -9.90 CNY
+
+2023-01-09 * "一卡通" "一卡通充值"
+  time: "18:21:50"
+  dc: "支出"
+  type: "交通出行"
+  payee_account: "fin***@jieyisoft.com"
+  status: "交易关闭"
+  Assets:Payment:Alipay:YuEBao  -50.00 CNY
+
+2023-01-09 * "一卡通" "退款-一卡通充值"
+  time: "18:22:28"
+  dc: "不计收支"
+  type: "退款"
+  payee_account: "fin***@jieyisoft.com"
+  status: "退款成功"
+  Assets:Payment:Alipay:YuEBao  50.00 CNY
+
+2023-01-10 * "xxxx" "xxxx"
+  time: "13:10:16"
+  dc: "不计收支"
+  type: "日用百货"
+  status: "交易关闭"
+
+2023-01-18 * "xxxx" "转账"
+  time: "10:17:29"
+  dc: "收入"
+  type: "转账红包"
+  payee_account: "xxx***@163.com"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  222228.50 CNY
+
+1970-01-01 ! 
+  error: "unsupported value combination of fields: ('收/支', '交易状态', '商品说明') @ {'交易时间': '2023-02-02 15:24:35', '交易分类': '投资理财', '交易对方': '蚂蚁财富-蚂蚁（杭州）基金销售有限公司', '对方账号': '/', '商品说明': '蚂蚁财富-交银定期支付双息平衡混合-卖出至余额宝', '收/支': '不计收支', '金额': '99.34', '收/付款方式': '余额宝', '交易状态': '交易成功', '交易订单号': '2xxxxxxxxxxxxxxxxxxxxxxxxxx8', '商家订单号': '', '备注': ''}"
+
+2023-02-04 * "xxxxxxx" "退款-亲情卡"
+  time: "18:21:04"
+  dc: "不计收支"
+  type: "退款"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
+
+2023-02-08 * "x4***6" "商品示例"
+  time: "14:16:52"
+  dc: "支出"
+  type: "日用百货"
+  payee_account: "rim***@qq.com"
+  status: "等待确认收货"
+  Assets:Payment:Alipay:Balance  -20.00 CNY
+
+2023-02-12 * "xxxxxxxxxxxx" "亲情卡"
+  time: "21:32:14"
+  dc: "支出"
+  type: "亲友代付"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
 
 
