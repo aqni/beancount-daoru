@@ -136,14 +136,22 @@ class Parser(BaseParser):
         method = validated["支付方式"]
         amount = validated["金额(元)"][1]
 
+        status = validated[status_key]
+        if status is not None and status.startswith("已退款"):
+            status = "已退款"
+
+        txn_type = validated[type_key]
+        if txn_type is not None and txn_type.endswith("-退款"):
+            txn_type = "退款"
+
         match (
             validated[dc_key],
-            validated[type_key],
-            validated[status_key],
+            txn_type,
+            status,
             validated[remarks_key],
         ):
             case (
-                ("支出", "商户消费" | "分分捐" | "亲属卡交易", "支付成功", _)
+                ("支出", "商户消费" | "分分捐" | "亲属卡交易", "支付成功" | "已退款", _)
                 | ("支出", "赞赏码" | "转账", "朋友已收钱", _)
                 | ("支出", "扫二维码付款", "已转账", _)
             ):
@@ -154,6 +162,7 @@ class Parser(BaseParser):
                 | ("收入", "二维码收款", "已收钱", _)
                 | ("收入", "微信红包", "已存入零钱", _)
                 | (None, "购买理财通" | "信用卡还款", "支付成功", _)
+                | ("收入", "退款", "已退款", _)
             ):
                 return method, amount, None, None
             case (None, str(x), "支付成功", _) if x.startswith("转入零钱通-来自"):
