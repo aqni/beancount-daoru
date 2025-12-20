@@ -1,192 +1,84 @@
 ;; -*- mode: beancount -*-
 
-**** 微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
+**** 支付宝交易明细(20230210-20230213).csv
 
-2024-06-07 * "腾讯公益慈善基金会" "焕新乐园"
-  time: "23:40:27"
+2025-12-20 * "余额宝" "余额宝-安心自动充-自动攒入"
+  time: "13:30:16"
+  dc: "不计收支"
+  type: "投资理财"
+  payee_account: "xia***@ccbfund.cn"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -66.57 CNY
+  Assets:Payment:Alipay:YuEBao          66.57 CNY
+
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:20:16"
   dc: "支出"
-  type: "分分捐"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC  -0.01 CNY
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -82.00 CNY
 
-2023-07-09 * "美团平台商户" "美团订单-54321"
-  time: "13:30:22"
+2023-07-10 * "xxxx" "xxxx"
+  time: "13:10:16"
   dc: "支出"
-  type: "商户消费"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC  -50.0 CNY
+  type: "日用百货"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  -9.90 CNY
 
-2023-07-09 * "美团平台商户" "美团订单-12345"
-  time: "13:25:22"
+2023-01-09 * "一卡通" "一卡通充值"
+  time: "18:21:50"
   dc: "支出"
-  type: "商户消费"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC  -9.90 CNY
+  type: "交通出行"
+  payee_account: "fin***@jieyisoft.com"
+  status: "交易关闭"
+  Assets:Payment:Alipay:YuEBao  -50.00 CNY
 
-2023-06-23 * "赞赏作者的收款_20230623" ""
-  time: "11:01:51"
+2023-01-09 * "一卡通" "退款-一卡通充值"
+  time: "18:22:28"
+  dc: "不计收支"
+  type: "退款"
+  payee_account: "fin***@jieyisoft.com"
+  status: "退款成功"
+  Assets:Payment:Alipay:YuEBao  50.00 CNY
+
+2023-01-10 * "xxxx" "xxxx"
+  time: "13:10:16"
+  dc: "不计收支"
+  type: "日用百货"
+  status: "交易关闭"
+
+2023-01-18 * "xxxx" "转账"
+  time: "10:17:29"
   dc: "收入"
-  type: "其他"
-  status: "已到账"
-  remarks: "赞赏作者的收款_20230623"
-  Assets:Payment:WeChat:Balance  5.00 CNY
+  type: "转账红包"
+  payee_account: "xxx***@163.com"
+  status: "交易成功"
+  Assets:Payment:Alipay:Balance  222228.50 CNY
 
-2022-09-24 * "YingDev" ""
-  time: "02:24:20"
+1970-01-01 ! 
+  error: "unsupported value combination of fields: ('收/支', '交易状态', '商品说明') @ {'交易时间': '2023-02-02 15:24:35', '交易分类': '投资理财', '交易对方': '蚂蚁财富-蚂蚁（杭州）基金销售有限公司', '对方账号': '/', '商品说明': '蚂蚁财富-交银定期支付双息平衡混合-卖出至余额宝', '收/支': '不计收支', '金额': '99.34', '收/付款方式': '余额宝', '交易状态': '交易成功', '交易订单号': '2xxxxxxxxxxxxxxxxxxxxxxxxxx8', '商家订单号': '', '备注': ''}"
+
+2023-02-04 * "xxxxxxx" "退款-亲情卡"
+  time: "18:21:04"
+  dc: "不计收支"
+  type: "退款"
+  status: "退款成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
+
+2023-02-08 * "x4***6" "商品示例"
+  time: "14:16:52"
   dc: "支出"
-  type: "赞赏码"
-  status: "朋友已收钱"
-  Assets:Payment:WeChat:Balance  -36.99 CNY
+  type: "日用百货"
+  payee_account: "rim***@qq.com"
+  status: "等待确认收货"
+  Assets:Payment:Alipay:Balance  -20.00 CNY
 
-2022-07-18 * "测试时间戳，点击底部\"多多视频\"" ""
-  time: "10:48:09"
-  dc: "收入"
-  type: "商户消费"
-  status: "充值成功"
-  Assets:Payment:WeChat:Balance  0.07 CNY
-
-2021-07-18 * "打开拼多多，点击底部\"多多视频\"" ""
-  time: "10:48:09"
-  dc: "收入"
-  type: "商户消费"
-  status: "充值成功"
-  Assets:Payment:WeChat:Balance  0.07 CNY
-
-2021-12-15 * "某餐厅" "测试 T-1"
-  time: "23:51:35"
+2023-02-12 * "xxxxxxxxxxxx" "亲情卡"
+  time: "21:32:14"
   dc: "支出"
-  type: "扫二维码付款"
-  status: "已转账"
-  Assets:Payment:WeChat:MiniFund  -12.00 CNY
-
-2021-12-15 * "某餐厅" "测试 T+1"
-  time: "00:06:35"
-  dc: "支出"
-  type: "扫二维码付款"
-  status: "已转账"
-  Assets:Payment:WeChat:MiniFund  -12.00 CNY
-
-2021-10-19 * "哈哈" "亲属卡"
-  time: "16:08:00"
-  dc: "支出"
-  type: "亲属卡交易"
-  status: "支付成功"
-  Assets:Payment:WeChat:MiniFund  -2243.46 CNY
-
-2019-04-16 * "工商银行(9876)" ""
-  time: "10:28:55"
-  type: "零钱充值"
-  status: "充值完成"
-  Equity:Transfers:WeChat:ICBC   -1300.00 CNY
-  Assets:Payment:WeChat:Balance   1300.00 CNY
-
-2020-07-06 * 
-  time: "14:54:38"
-  type: "零钱通转出-到工商银行(9876)"
-  status: "支付成功"
-  Assets:Payment:WeChat:MiniFund  -5505.00 CNY
-  Equity:Transfers:WeChat:ICBC     5505.00 CNY
-
-2020-02-14 * 
-  time: "01:20:00"
-  type: "转入零钱通-来自零钱"
-  status: "支付成功"
-  Assets:Payment:WeChat:Balance   -1.23 CNY
-  Assets:Payment:WeChat:MiniFund   1.23 CNY
-
-2020-02-14 * 
-  time: "01:19:39"
-  type: "零钱通转出-到零钱"
-  status: "支付成功"
-  Assets:Payment:WeChat:MiniFund  -2634.78 CNY
-  Assets:Payment:WeChat:Balance    2634.78 CNY
-
-2020-02-14 * "理财通" "中欧医疗健康混合C(003096)"
-  time: "01:24:33"
-  type: "购买理财通"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC  3000.00 CNY
-
-2020-02-14 * "理财通" "鹏华增值宝(000569)"
-  time: "01:32:14"
-  type: "购买理财通"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC  10000.00 CNY
-
-2017-10-20 * "建设银行信用卡还款" ""
-  time: "18:36:44"
-  type: "信用卡还款"
-  status: "支付成功"
-  Assets:Payment:WeChat:Balance  548.58 CNY
-
-2021-07-11 * "招商银行()" ""
-  time: "14:17:52"
-  type: "零钱提现"
-  status: "提现已到账"
-  remarks: "服务费¥1.00"
-  Equity:Transfers:WeChat:BOC    -1001.10 CNY
-  Assets:Payment:WeChat:Balance   1001.10 CNY
-  Expenses:WeChat:Service            1.00 CNY
-
-2021-07-14 * "招商银行()" ""
-  time: "22:18:10"
-  type: "零钱提现"
-  status: "提现已到账"
-  remarks: "服务费¥0.10"
-  Equity:Transfers:WeChat:ICBC   -10.10 CNY
-  Assets:Payment:WeChat:Balance   10.10 CNY
-  Expenses:WeChat:Service          0.10 CNY
-
-2021-07-15 * "招商银行()" ""
-  time: "16:29:37"
-  type: "零钱提现"
-  status: "提现已到账"
-  remarks: "服务费¥0.10"
-  Equity:Transfers:WeChat:ICBC   -100.10 CNY
-  Assets:Payment:WeChat:Balance   100.10 CNY
-  Expenses:WeChat:Service           0.10 CNY
-
-2021-01-17 * 
-  time: "10:07:31"
-  type: "转入零钱通-来自工商银行(9876)"
-  status: "支付成功"
-  Equity:Transfers:WeChat:ICBC    -2000.00 CNY
-  Assets:Payment:WeChat:MiniFund   2000.00 CNY
-
-2020-11-27 * "用户A" "收款方备注:二维码收款"
-  time: "19:29:00"
-  dc: "收入"
-  type: "二维码收款"
-  status: "已收钱"
-  Assets:Payment:WeChat:Balance  23.00 CNY
-
-2021-01-22 * "房东" "转账备注:微信转账"
-  time: "12:34:56"
-  dc: "支出"
-  type: "转账"
-  status: "朋友已收钱"
-  Assets:Payment:WeChat:MiniFund  -500.00 CNY
-
-2021-01-17 * "某餐厅" "收款方备注:二维码收款"
-  time: "18:03:35"
-  dc: "支出"
-  type: "扫二维码付款"
-  status: "已转账"
-  Assets:Payment:WeChat:MiniFund  -12.00 CNY
-
-2019-09-24 * "同性好友" ""
-  time: "10:10:11"
-  dc: "收入"
-  type: "微信红包"
-  status: "已存入零钱"
-  Assets:Payment:WeChat:Balance  0.35 CNY
-
-2019-09-26 * "云膳过桥米线(传奇广场店)" "总共消费:28.16"
-  time: "12:45:27"
-  dc: "支出"
-  type: "商户消费"
-  status: "支付成功"
-  Equity:Transfers:WeChat:BOC  -28.16 CNY
+  type: "亲友代付"
+  status: "交易成功"
+  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
 
 
 **** 京东交易流水(申请时间2025年01月01日11时32分42秒)_138.csv
@@ -552,84 +444,207 @@
   Liabilities:Payment:Meituan:Monthly  -21.17 CNY
 
 
-**** 支付宝交易明细(20230210-20230213).csv
+**** 微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
 
-2025-12-20 * "余额宝" "余额宝-安心自动充-自动攒入"
-  time: "13:30:16"
-  dc: "不计收支"
-  type: "投资理财"
-  payee_account: "xia***@ccbfund.cn"
-  status: "交易成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  -66.57 CNY
-  Assets:Payment:Alipay:YuEBao          66.57 CNY
-
-2023-07-10 * "xxxx" "xxxx"
-  time: "13:20:16"
+2024-06-07 * "腾讯公益慈善基金会" "焕新乐园"
+  time: "23:40:27"
   dc: "支出"
-  type: "日用百货"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  -82.00 CNY
+  type: "分分捐"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -0.01 CNY
 
-2023-07-10 * "xxxx" "xxxx"
-  time: "13:10:16"
+2025-12-10 * "美团" "物美（xxxx店）-美团App-123456"
+  time: "17:19:40"
   dc: "支出"
-  type: "日用百货"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  -9.90 CNY
+  type: "商户消费"
+  status: "已退款(￥0.11)"
+  remarks: "已优惠¥0.77"
+  Equity:Transfers:WeChat:ICBC  -50.71 CNY
 
-2023-01-09 * "一卡通" "一卡通充值"
-  time: "18:21:50"
-  dc: "支出"
-  type: "交通出行"
-  payee_account: "fin***@jieyisoft.com"
-  status: "交易关闭"
-  Assets:Payment:Alipay:YuEBao  -50.00 CNY
-
-2023-01-09 * "一卡通" "退款-一卡通充值"
-  time: "18:22:28"
-  dc: "不计收支"
-  type: "退款"
-  payee_account: "fin***@jieyisoft.com"
-  status: "退款成功"
-  Assets:Payment:Alipay:YuEBao  50.00 CNY
-
-2023-01-10 * "xxxx" "xxxx"
-  time: "13:10:16"
-  dc: "不计收支"
-  type: "日用百货"
-  status: "交易关闭"
-
-2023-01-18 * "xxxx" "转账"
-  time: "10:17:29"
+2025-12-10 * "美团平台商户" "美团平台商户"
+  time: "17:27:37"
   dc: "收入"
-  type: "转账红包"
-  payee_account: "xxx***@163.com"
-  status: "交易成功"
-  Assets:Payment:Alipay:Balance  222228.50 CNY
+  type: "美团平台商户-退款"
+  status: "已退款￥0.11"
+  Equity:Transfers:WeChat:ICBC  0.11 CNY
 
-1970-01-01 ! 
-  error: "unsupported value combination of fields: ('收/支', '交易状态', '商品说明') @ {'交易时间': '2023-02-02 15:24:35', '交易分类': '投资理财', '交易对方': '蚂蚁财富-蚂蚁（杭州）基金销售有限公司', '对方账号': '/', '商品说明': '蚂蚁财富-交银定期支付双息平衡混合-卖出至余额宝', '收/支': '不计收支', '金额': '99.34', '收/付款方式': '余额宝', '交易状态': '交易成功', '交易订单号': '2xxxxxxxxxxxxxxxxxxxxxxxxxx8', '商家订单号': '', '备注': ''}"
-
-2023-02-04 * "xxxxxxx" "退款-亲情卡"
-  time: "18:21:04"
-  dc: "不计收支"
-  type: "退款"
-  status: "退款成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
-
-2023-02-08 * "x4***6" "商品示例"
-  time: "14:16:52"
+2023-07-09 * "美团平台商户" "美团订单-54321"
+  time: "13:30:22"
   dc: "支出"
-  type: "日用百货"
-  payee_account: "rim***@qq.com"
-  status: "等待确认收货"
-  Assets:Payment:Alipay:Balance  -20.00 CNY
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -50.0 CNY
 
-2023-02-12 * "xxxxxxxxxxxx" "亲情卡"
-  time: "21:32:14"
+2023-07-09 * "美团平台商户" "美团订单-12345"
+  time: "13:25:22"
   dc: "支出"
-  type: "亲友代付"
-  status: "交易成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  -9.90 CNY
+
+2023-06-23 * "赞赏作者的收款_20230623" ""
+  time: "11:01:51"
+  dc: "收入"
+  type: "其他"
+  status: "已到账"
+  remarks: "赞赏作者的收款_20230623"
+  Assets:Payment:WeChat:Balance  5.00 CNY
+
+2022-09-24 * "YingDev" ""
+  time: "02:24:20"
+  dc: "支出"
+  type: "赞赏码"
+  status: "朋友已收钱"
+  Assets:Payment:WeChat:Balance  -36.99 CNY
+
+2022-07-18 * "测试时间戳，点击底部\"多多视频\"" ""
+  time: "10:48:09"
+  dc: "收入"
+  type: "商户消费"
+  status: "充值成功"
+  Assets:Payment:WeChat:Balance  0.07 CNY
+
+2021-07-18 * "打开拼多多，点击底部\"多多视频\"" ""
+  time: "10:48:09"
+  dc: "收入"
+  type: "商户消费"
+  status: "充值成功"
+  Assets:Payment:WeChat:Balance  0.07 CNY
+
+2021-12-15 * "某餐厅" "测试 T-1"
+  time: "23:51:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2021-12-15 * "某餐厅" "测试 T+1"
+  time: "00:06:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2021-10-19 * "哈哈" "亲属卡"
+  time: "16:08:00"
+  dc: "支出"
+  type: "亲属卡交易"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -2243.46 CNY
+
+2019-04-16 * "工商银行(9876)" ""
+  time: "10:28:55"
+  type: "零钱充值"
+  status: "充值完成"
+  Equity:Transfers:WeChat:ICBC   -1300.00 CNY
+  Assets:Payment:WeChat:Balance   1300.00 CNY
+
+2020-07-06 * 
+  time: "14:54:38"
+  type: "零钱通转出-到工商银行(9876)"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -5505.00 CNY
+  Equity:Transfers:WeChat:ICBC     5505.00 CNY
+
+2020-02-14 * 
+  time: "01:20:00"
+  type: "转入零钱通-来自零钱"
+  status: "支付成功"
+  Assets:Payment:WeChat:Balance   -1.23 CNY
+  Assets:Payment:WeChat:MiniFund   1.23 CNY
+
+2020-02-14 * 
+  time: "01:19:39"
+  type: "零钱通转出-到零钱"
+  status: "支付成功"
+  Assets:Payment:WeChat:MiniFund  -2634.78 CNY
+  Assets:Payment:WeChat:Balance    2634.78 CNY
+
+2020-02-14 * "理财通" "中欧医疗健康混合C(003096)"
+  time: "01:24:33"
+  type: "购买理财通"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  3000.00 CNY
+
+2020-02-14 * "理财通" "鹏华增值宝(000569)"
+  time: "01:32:14"
+  type: "购买理财通"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC  10000.00 CNY
+
+2017-10-20 * "建设银行信用卡还款" ""
+  time: "18:36:44"
+  type: "信用卡还款"
+  status: "支付成功"
+  Assets:Payment:WeChat:Balance  548.58 CNY
+
+2021-07-11 * "招商银行()" ""
+  time: "14:17:52"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥1.00"
+  Equity:Transfers:WeChat:BOC    -1001.10 CNY
+  Assets:Payment:WeChat:Balance   1001.10 CNY
+  Expenses:WeChat:Service            1.00 CNY
+
+2021-07-14 * "招商银行()" ""
+  time: "22:18:10"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥0.10"
+  Equity:Transfers:WeChat:ICBC   -10.10 CNY
+  Assets:Payment:WeChat:Balance   10.10 CNY
+  Expenses:WeChat:Service          0.10 CNY
+
+2021-07-15 * "招商银行()" ""
+  time: "16:29:37"
+  type: "零钱提现"
+  status: "提现已到账"
+  remarks: "服务费¥0.10"
+  Equity:Transfers:WeChat:ICBC   -100.10 CNY
+  Assets:Payment:WeChat:Balance   100.10 CNY
+  Expenses:WeChat:Service           0.10 CNY
+
+2021-01-17 * 
+  time: "10:07:31"
+  type: "转入零钱通-来自工商银行(9876)"
+  status: "支付成功"
+  Equity:Transfers:WeChat:ICBC    -2000.00 CNY
+  Assets:Payment:WeChat:MiniFund   2000.00 CNY
+
+2020-11-27 * "用户A" "收款方备注:二维码收款"
+  time: "19:29:00"
+  dc: "收入"
+  type: "二维码收款"
+  status: "已收钱"
+  Assets:Payment:WeChat:Balance  23.00 CNY
+
+2021-01-22 * "房东" "转账备注:微信转账"
+  time: "12:34:56"
+  dc: "支出"
+  type: "转账"
+  status: "朋友已收钱"
+  Assets:Payment:WeChat:MiniFund  -500.00 CNY
+
+2021-01-17 * "某餐厅" "收款方备注:二维码收款"
+  time: "18:03:35"
+  dc: "支出"
+  type: "扫二维码付款"
+  status: "已转账"
+  Assets:Payment:WeChat:MiniFund  -12.00 CNY
+
+2019-09-24 * "同性好友" ""
+  time: "10:10:11"
+  dc: "收入"
+  type: "微信红包"
+  status: "已存入零钱"
+  Assets:Payment:WeChat:Balance  0.35 CNY
+
+2019-09-26 * "云膳过桥米线(传奇广场店)" "总共消费:28.16"
+  time: "12:45:27"
+  dc: "支出"
+  type: "商户消费"
+  status: "支付成功"
+  Equity:Transfers:WeChat:BOC  -28.16 CNY
 
 

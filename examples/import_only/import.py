@@ -5,6 +5,7 @@ from beancount_daoru import (
     JDImporter,
     MeituanImporter,
     PathToName,
+    ReorderByImporterName,
     WechatImporter,
 )
 
@@ -79,6 +80,7 @@ CONFIG = [
 
 HOOKS = [
     PathToName(),
+    ReorderByImporterName(),
 ]
 
 
