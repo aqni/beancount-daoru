@@ -4,6 +4,9 @@
 
 *项目仍在开发中，API 可能会发生变化，欢迎反馈或建议。*
 
+TODO:
+在示例中添加PDF账单的解析，主要是 BOC 和 BOCOM，借助 Stirling PDF 进行密文删除，添加 CONTRIBUTING.md。
+
 ## 功能
 
 亮点：
