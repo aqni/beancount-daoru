@@ -1,6 +1,6 @@
 # beancount-daoru
 
-![PyPI - Version](https://img.shields.io/pypi/v/beancount-daoru)
+[![PyPI - Version](https://img.shields.io/pypi/v/beancount-daoru)](https://pypi.org/project/beancount-daoru/)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/aqni/beancount-daoru)
 
 一个专为中文用户设计的 Beancount 账单导入工具，让复式记账更高效。
