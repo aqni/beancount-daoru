@@ -453,6 +453,27 @@
   status: "支付成功"
   Equity:Transfers:WeChat:ICBC  -0.01 CNY
 
+2025-12-10 * "拼多多平台商户" "商户单号XP123456  复制该单号，前往【拼多多App-我的订单】搜索框粘贴查询"
+  time: "19:27:37"
+  dc: "支出"
+  type: "商户消费"
+  status: "已全额退款"
+  Equity:Transfers:WeChat:ICBC  -20.00 CNY
+
+2025-12-10 * "拼多多平台商户" "拼多多平台商户"
+  time: "18:27:37"
+  dc: "收入"
+  type: "拼多多平台商户-退款"
+  status: "已全额退款"
+  Equity:Transfers:WeChat:ICBC  20.00 CNY
+
+2025-12-10 * "张三" "转账备注:微信转账"
+  time: "17:27:37"
+  dc: "支出"
+  type: "转账"
+  status: "对方已收钱"
+  Equity:Transfers:WeChat:ICBC  -2000.00 CNY
+
 2025-12-10 * "美团" "物美（xxxx店）-美团App-123456"
   time: "17:19:40"
   dc: "支出"
