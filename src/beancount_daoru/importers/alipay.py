@@ -136,6 +136,8 @@ class Parser(BaseParser):
                         return amount, None
                     case "余额宝-更换货基转入":
                         return amount, None
+                    case "余额宝-转出到银行卡":
+                        return amount, "余额宝"
                     case (
                         "余额宝-单次转入"
                         | "余额宝-安心自动充-自动攒入"
@@ -165,7 +167,7 @@ class Importer(BaseImporter):
         """
         super().__init__(
             re.compile(r"支付宝交易明细\(\d{8}-\d{8}\).csv"),
-            excel.Reader(header=24, encoding="gbk"),
+            excel.Reader(header=23, encoding="gbk"),
             Parser(),
             **kwargs,
         )

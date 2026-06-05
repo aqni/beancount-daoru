@@ -51,7 +51,7 @@ def start_llama_server(  # noqa: PLR0913
                 str(port),
                 "--alias",
                 model_alias,
-                "--no-webui",
+                "--no-ui",
             ]
             if is_embedding:
                 cmd_args.append("--embedding")
@@ -61,7 +61,7 @@ def start_llama_server(  # noqa: PLR0913
         @override
         def pattern(self) -> str:  # pyright: ignore[reportIncompatibleMethodOverride]
             """The pattern to match when the process has started."""
-            return "main: server is listening on"
+            return "server is listening on"
 
         max_read_lines: int = sys.maxsize
 

@@ -17,7 +17,7 @@ CONFIG = [
                 "": "Assets:Payment:Alipay:Balance",
                 "余额": "Assets:Payment:Alipay:Balance",
                 "余额宝": "Assets:Payment:Alipay:YuEBao",
-                "交通银行信用卡(7449)": "Liabilities:Bank:CN:BOC:1875:Credit",
+                "中国银行储蓄卡(3147)": "Equity:Transfers:Alipay:BOC",
             }
         },
         currency_mapping={
@@ -73,7 +73,7 @@ CONFIG = [
             }
         },
         currency_mapping={
-            "¥": "CNY",
+            None: "CNY",
         },
     ),
 ]
