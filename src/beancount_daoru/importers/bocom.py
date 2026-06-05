@@ -74,7 +74,7 @@ class Parser(BaseParser):
     @property
     @override
     def reversed(self) -> bool:
-        return True
+        return False
 
     @override
     def extract_metadata(self, texts: Iterator[str]) -> Metadata:
