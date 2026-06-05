@@ -66,7 +66,22 @@ def start_llama_server(  # noqa: PLR0913
         max_read_lines: int = sys.maxsize
 
     server_name = f"{exec_name}-{port}-{model_alias}"
-    _ = xprocess.ensure(server_name, Starter, persist_logs=False)  # pyright: ignore[reportUnknownVariableType]
+    try:
+        _ = xprocess.ensure(server_name, Starter, persist_logs=False)  # pyright: ignore[reportUnknownVariableType]
+    except TimeoutError:
+        try:
+            process_info = xprocess.getinfo(server_name)
+            log_path_str = f"{process_info.logpath}"  # pyright: ignore[reportUnknownMemberType]
+            log_path = Path(log_path_str)
+            log_content: str = log_path.read_text(errors="ignore")
+        except Exception:  # noqa: BLE001
+            log_content = ""
+        if (
+            "failed to download model from Hugging Face" in log_content
+            or "429" in log_content
+        ):
+            pytest.skip("llama-server model download was rate-limited by Hugging Face")
+        raise
     yield
     _ = xprocess.getinfo(server_name).terminate()
 
