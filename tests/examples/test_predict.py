@@ -51,7 +51,7 @@ def start_llama_server(  # noqa: PLR0913
                 str(port),
                 "--alias",
                 model_alias,
-                "--no-webui",
+                "--no-ui",
             ]
             if is_embedding:
                 cmd_args.append("--embedding")
