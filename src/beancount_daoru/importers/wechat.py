@@ -93,10 +93,21 @@ class Parser(BaseParser):
                 type=validated["交易类型"],
                 remarks=validated["备注"],
             ),
-            payee=validated["交易对方"],
+            payee=self._parse_payee(validated),
             narration=validated["商品"],
             postings=(*self._parse_postings(validated),),
         )
+
+    def _parse_payee(self, validated: Record) -> str | None:
+        match (
+            validated["收/支"],
+            validated["交易类型"],
+            validated["交易对方"],
+        ):
+            case ("支出", "微信红包（单发）", str(x)) if x.startswith("发给"):
+                return validated["交易对方"][len("发给") :]
+            case _:
+                return validated["交易对方"]
 
     def _parse_postings(self, validated: Record) -> Iterator[Posting]:
         account, amount, counter_party, other_posting = self._parse_simple_postings(
@@ -145,7 +156,7 @@ class Parser(BaseParser):
             case (
                 (
                     "支出",
-                    "商户消费" | "分分捐" | "亲属卡交易",
+                    "商户消费" | "分分捐" | "亲属卡交易" | "微信红包（单发）",
                     "支付成功" | "已退款" | "已全额退款",
                     _,
                 )
