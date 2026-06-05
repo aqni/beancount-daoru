@@ -10,7 +10,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Annotated
 
-from pydantic import AfterValidator, BeforeValidator, TypeAdapter
+from pydantic import AfterValidator, TypeAdapter
 from typing_extensions import TypedDict, Unpack, override
 
 from beancount_daoru.importer import (
@@ -35,11 +35,6 @@ def _validate_str(v: str | None) -> str | None:
     return v
 
 
-def _split_amount(v: str) -> tuple[str, str]:
-    return v[0], v[1:]
-
-
-AmountField = Annotated[tuple[str, Decimal], BeforeValidator(_split_amount)]
 StrField = Annotated[str | None, AfterValidator(_validate_str)]
 
 
@@ -51,7 +46,7 @@ Record = TypedDict(
         "交易对方": StrField,
         "商品": StrField,
         "收/支": StrField,
-        "金额(元)": AmountField,
+        "金额(元)": Decimal,
         "支付方式": str,
         "当前状态": StrField,
         "备注": StrField,
@@ -107,19 +102,16 @@ class Parser(BaseParser):
         account, amount, counter_party, other_posting = self._parse_simple_postings(
             validated
         )
-        currency = validated["金额(元)"][0]
 
         yield Posting(
             account=account,
             amount=amount,
-            currency=currency,
         )
 
         if counter_party is not None:
             yield Posting(
                 account=counter_party,
                 amount=-amount,
-                currency=currency,
             )
 
         if other_posting is not None:
@@ -134,7 +126,7 @@ class Parser(BaseParser):
         remarks_key = "备注"
 
         method = validated["支付方式"]
-        amount = validated["金额(元)"][1]
+        amount = validated["金额(元)"]
 
         status = validated[status_key]
         if status is not None and status.startswith("已退款"):
@@ -186,7 +178,6 @@ class Parser(BaseParser):
                     Posting(
                         amount=Decimal(currency_and_amount[1:]),
                         account="零钱提现服务费",
-                        currency=currency_and_amount[0],
                     ),
                 )
             case _:
@@ -208,7 +199,7 @@ class Importer(BaseImporter):
         """
         super().__init__(
             re.compile(r"微信支付账单流水文件\(\d{8}-\d{8}\).*\.xlsx"),
-            excel.Reader(header=16),
+            excel.Reader(header=17),
             Parser(),
             **kwargs,
         )

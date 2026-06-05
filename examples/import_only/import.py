@@ -73,7 +73,7 @@ CONFIG = [
             }
         },
         currency_mapping={
-            "¥": "CNY",
+            None: "CNY",
         },
     ),
 ]
