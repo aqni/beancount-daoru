@@ -2,14 +2,23 @@
 
 **** 支付宝交易明细(20230210-20230213).csv
 
+2026-05-29 * "中国银行" "余额宝-转出到银行卡"
+  time: "17:33:24"
+  dc: "不计收支"
+  type: "投资理财"
+  payee_account: "xia***@ccbfund.cn"
+  status: "交易成功"
+  Equity:Transfers:Alipay:BOC    5000.00 CNY
+  Assets:Payment:Alipay:YuEBao  -5000.00 CNY
+
 2025-12-20 * "余额宝" "余额宝-安心自动充-自动攒入"
   time: "13:30:16"
   dc: "不计收支"
   type: "投资理财"
   payee_account: "xia***@ccbfund.cn"
   status: "交易成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  -66.57 CNY
-  Assets:Payment:Alipay:YuEBao          66.57 CNY
+  Equity:Transfers:Alipay:BOC   -66.57 CNY
+  Assets:Payment:Alipay:YuEBao   66.57 CNY
 
 2023-07-10 * "xxxx" "xxxx"
   time: "13:20:16"
@@ -63,7 +72,7 @@
   dc: "不计收支"
   type: "退款"
   status: "退款成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  16.03 CNY
+  Equity:Transfers:Alipay:BOC  16.03 CNY
 
 2023-02-08 * "x4***6" "商品示例"
   time: "14:16:52"
@@ -78,7 +87,7 @@
   dc: "支出"
   type: "亲友代付"
   status: "交易成功"
-  Liabilities:Bank:CN:BOC:1875:Credit  -49.74 CNY
+  Equity:Transfers:Alipay:BOC  -49.74 CNY
 
 
 **** 京东交易流水(申请时间2025年01月01日11时32分42秒)_138.csv
