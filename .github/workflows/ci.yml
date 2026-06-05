@@ -80,3 +80,5 @@ jobs:
           subdir-darwin: "{name}-{version}"
       - name: pytest
         run: uv run --frozen --all-extras pytest --verbose
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
