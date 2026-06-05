@@ -104,7 +104,7 @@ class Parser(BaseParser):
             validated["交易类型"],
             validated["交易对方"],
         ):
-            case ("支出", "微信红包（单发）", str(x)) if x.startswith("发给"): # noqa: RUF001
+            case ("支出", "微信红包（单发）", str(x)) if x.startswith("发给"):  # noqa: RUF001
                 return validated["交易对方"][len("发给") :]
             case _:
                 return validated["交易对方"]
@@ -156,7 +156,7 @@ class Parser(BaseParser):
             case (
                 (
                     "支出",
-                    "商户消费" | "分分捐" | "亲属卡交易" | "微信红包（单发）", # noqa: RUF001
+                    "商户消费" | "分分捐" | "亲属卡交易" | "微信红包（单发）",  # noqa: RUF001
                     "支付成功" | "已退款" | "已全额退款",
                     _,
                 )
