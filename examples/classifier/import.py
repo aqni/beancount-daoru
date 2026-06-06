@@ -38,7 +38,7 @@ def communication_card(txn: Transaction) -> Account | None:
 @alipay_classifier.rule
 def yuebao_interest(
     txn: Transaction, **ctx: Unpack[RuleContext]
-) -> Generator[Posting | None, None, None]:
+) -> Generator[Posting, None, None]:
     if not isinstance(txn.narration, str):
         return
     if not isinstance(ctx["importer"], AlipayImporter):
