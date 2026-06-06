@@ -1,0 +1,31 @@
+;; -*- mode: beancount -*-
+
+**** 支付宝交易明细(20201122-20201214).csv
+
+2020-12-04 * "北京市政交通一卡通" "退款-地铁卡充值"
+  time: "13:48:10"
+  dc: "不计收支"
+  type: "退款"
+  payee_account: "service***@bjykt.com"
+  status: "退款成功"
+  Assets:Payment:Alipay:YuEBao    4.10 CNY
+  Expenses:Transportation:Public
+
+2020-12-04 * "北京市政交通一卡通" "公交出行费用"
+  time: "18:47:30"
+  dc: "支出"
+  type: "公共服务"
+  payee_account: "service***@bjykt.com"
+  status: "交易成功"
+  Assets:Payment:Alipay:YuEBao    -6.20 CNY
+  Expenses:Transportation:Public
+
+2020-12-07 * "天弘基金" "余额宝-12月4日-收益发放"
+  time: "06:03:08"
+  dc: "不计收支"
+  type: "投资理财"
+  status: "交易成功"
+  Assets:Payment:Alipay:YuEBao   0.31 CNY
+  Income:Investment:Fund:YuEBao
+
+
