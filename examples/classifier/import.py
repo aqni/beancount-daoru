@@ -24,7 +24,6 @@ alipay_importer = AlipayImporter(
 )
 
 alipay_classifier = Classifier()
-alipay_importer = alipay_classifier.wrap(alipay_importer)
 
 
 @alipay_classifier.simple_rule
@@ -56,7 +55,7 @@ def yuebao_interest(
 
 
 CONFIG = [
-    alipay_importer,
+    alipay_classifier.wrap(alipay_importer),
 ]
 
 HOOKS = [
