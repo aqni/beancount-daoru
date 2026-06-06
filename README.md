@@ -7,12 +7,6 @@
 
 *项目仍在开发中，API 可能会发生变化，欢迎反馈或建议。*
 
-TOOD:
-
-利用标注实现规则定义而无需借助继承，类似 pydantic-ai agent 工具的用法。
-
-transaction_annotation 可以具有 from 和 where 两个参数，参考 bean-query 进行筛选需要处理的交易。
-
 ## 功能
 
 亮点：

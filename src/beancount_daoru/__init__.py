@@ -5,6 +5,7 @@ payment platforms, allowing users to easily convert their financial records
 into Beancount format for accounting purposes.
 """
 
+from beancount_daoru.hooks.classifier import Classifier, RuleContext
 from beancount_daoru.hooks.path_to_name import Hook as PathToName
 from beancount_daoru.hooks.reorder_by_importer_name import Hook as ReorderByImporterName
 from beancount_daoru.importers.alipay import Importer as AlipayImporter
@@ -18,10 +19,12 @@ __all__ = [
     "AlipayImporter",
     "BOCImporter",
     "BOCOMImporter",
+    "Classifier",
     "JDImporter",
     "MeituanImporter",
     "PathToName",
     "ReorderByImporterName",
+    "RuleContext",
     "WechatImporter",
 ]
 
