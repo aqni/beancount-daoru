@@ -36,6 +36,7 @@
   payee_account: "order***@jd.com"
   status: "交易关闭"
   Assets:Payment:Alipay:YuEBao  -29.12 CNY
+  ! Expenses:Fashion
 
 2020-11-26 * "众安保险" "运费险-袜子订单"
   time: "13:30:45"
@@ -59,6 +60,7 @@
   payee_account: "138******99"
   status: "等待确认收货"
   Assets:Payment:Alipay:YuEBao  -49.55 CNY
+  ! Expenses:Fashion
 
 2020-11-28 * "北京燃气集团" "11月燃气费"
   time: "22:58:40"
@@ -108,14 +110,15 @@
   payee_account: "order***@mi.com"
   status: "等待确认收货"
   Assets:Payment:Alipay:YuEBao  -96.75 CNY
+  ! Expenses:HouseHold
 
 2020-12-07 * "天弘基金" "余额宝-12月4日-收益发放"
   time: "06:03:08"
   dc: "不计收支"
   type: "投资理财"
   status: "交易成功"
-  Assets:Payment:Alipay:YuEBao  0.31 CNY
-  ! Expenses:Misc
+  Assets:Payment:Alipay:YuEBao     0.31 CNY
+  ! Income:Investment:Fund:YuEBao
 
 2020-12-08 * "肯德基" "午餐套餐"
   time: "12:35:42"
