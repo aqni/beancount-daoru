@@ -61,7 +61,7 @@ def start_llama_server(  # noqa: PLR0913
         @override
         def pattern(self) -> str:  # pyright: ignore[reportIncompatibleMethodOverride]
             """The pattern to match when the process has started."""
-            return "server is listening on"
+            return "listening on"
 
         max_read_lines: int = sys.maxsize
 
