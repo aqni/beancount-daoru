@@ -87,7 +87,7 @@ def embedding_server(xprocess: XProcess) -> Generator[None]:
 def chat_completion_server(xprocess: XProcess) -> Generator[None]:
     yield from start_llama_server(
         xprocess=xprocess,
-        model_hf="unsloth/Qwen3-4B-Instruct-2507-GGUF:IQ4_NL",
+        model_hf="unsloth/Qwen3-4B-Instruct-2507-GGUF:UD-Q4_K_XL",
         model_alias="Qwen3-4B-Instruct-2507",
         port=9527,
         ctx_size=8 * 1024,
