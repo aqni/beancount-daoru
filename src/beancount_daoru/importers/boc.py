@@ -92,6 +92,11 @@ class Parser(BaseParser):
     @override
     def parse(self, record: dict[str, str]) -> Transaction:
         validated = self.__validator.validate_python(record)
+
+        amount = validated["金额"]
+        if validated["交易名称"] == "冲正":
+            amount = -amount
+
         return Transaction(
             date=validated["记账日期"],
             extra=Extra(
@@ -104,7 +109,7 @@ class Parser(BaseParser):
             narration=validated["附言"],
             postings=(
                 Posting(
-                    amount=validated["金额"],
+                    amount=amount,
                     currency=validated["币别"],
                 ),
             ),
