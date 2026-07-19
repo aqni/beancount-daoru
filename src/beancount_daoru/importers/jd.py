@@ -114,6 +114,8 @@ class Parser(BaseParser):
         match (validated[dc_key], validated[status_key]):
             case ("支出" | "不计收支", "交易成功"):
                 return -validated["金额"]
+            case ("收入", "交易成功"):
+                return validated["金额"]
             case ("不计收支", "退款成功"):
                 return validated["金额"]
             case _:

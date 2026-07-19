@@ -2,6 +2,30 @@
 
 **** 支付宝交易明细(20230210-20230213).csv
 
+2026-07-01 * "蚂蚁财富-蚂蚁（杭州）基金销售有限公司" "蚂蚁财富-摩根标普500指数(QDII)C-买入退款"
+  time: "17:33:24"
+  dc: "不计收支"
+  type: "退款"
+  status: "交易成功"
+  Assets:Payment:Alipay:YuEBao           10.00 CNY
+  Assets:Investment:Alipay:Fund:019305  -10.00 CNY
+
+2026-06-30 * "蚂蚁财富-蚂蚁（杭州）基金销售有限公司" "蚂蚁财富-摩根标普500指数(QDII)A-买入"
+  time: "17:33:24"
+  dc: "不计收支"
+  type: "投资理财"
+  status: "交易成功"
+  Assets:Payment:Alipay:YuEBao          -10.00 CNY
+  Assets:Investment:Alipay:Fund:017641   10.00 CNY
+
+2026-05-30 * "蚂蚁财富-蚂蚁（杭州）基金销售有限公司" "蚂蚁财富-摩根纳斯达克100指数(QDII)A-买入"
+  time: "17:33:24"
+  dc: "不计收支"
+  type: "投资理财"
+  status: "付款成功，份额确认中"
+  Assets:Payment:Alipay:YuEBao          -10.00 CNY
+  Assets:Investment:Alipay:Fund:019172   10.00 CNY
+
 2026-05-29 * "中国银行" "余额宝-转出到银行卡"
   time: "17:33:24"
   dc: "不计收支"
@@ -91,6 +115,20 @@
 
 
 **** 京东交易流水(申请时间2025年01月01日11时32分42秒)_138.csv
+
+2024-12-06 * "京东金融" "笔笔返现-订单返现"
+  time: "22:48:54"
+  dc: "收入"
+  type: "其他"
+  status: "交易成功"
+  Assets:Payment:JD:Balance  0.11 CNY
+
+2024-12-06 * "京东支付" "京东商城补偿"
+  time: "21:48:54"
+  dc: "收入"
+  type: "其他"
+  status: "交易成功"
+  Assets:Payment:JD:Balance  5.00 CNY
 
 2024-12-05 * "京东平台商户" "奥科美（AOKO）U.2硬盘底座NVMe协议U2固态硬盘盒企业级u.2转USB3.2硬盘转接器 2.5/3.5英寸SATA机械硬盘通用 U3S"
   time: "22:49:55"
@@ -454,6 +492,41 @@
 
 
 **** 微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
+
+2024-06-07 * "李四 (李四)" "转账备注:退还房租差价"
+  time: "23:40:27"
+  dc: "收入"
+  type: "转账"
+  status: "已存入零钱"
+  Assets:Payment:WeChat:Balance  600 CNY
+
+2024-06-07 * "王五 (王五)" ""
+  time: "23:40:27"
+  dc: "支出"
+  type: "群收款"
+  status: "支付成功"
+  Assets:Payment:WeChat:Balance  -20 CNY
+
+2024-06-07 * "李四 (李四)" "转账备注:定金"
+  time: "23:40:27"
+  dc: "支出"
+  type: "转账"
+  status: "对方已收钱"
+  Assets:Payment:WeChat:MiniFund  -100 CNY
+
+2024-06-07 * "张三 (张三)" "转账备注:微信转账"
+  time: "23:40:27"
+  dc: "支出"
+  type: "转账"
+  status: "对方已退还"
+  Assets:Payment:WeChat:MiniFund  -70 CNY
+
+2024-06-07 * 
+  time: "23:40:27"
+  type: "零钱通转出-到中国银行(1234)"
+  status: "资金已到账"
+  Assets:Payment:WeChat:MiniFund  -1000 CNY
+  Equity:Transfers:WeChat:BOC      1000 CNY
 
 2024-06-07 * "张三" ""
   time: "23:40:27"

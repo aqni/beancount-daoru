@@ -118,38 +118,43 @@ class Parser(BaseParser):
             postings=postings,
         )
 
-    def _parse_amount(self, validated: Record) -> tuple[Decimal, str | None] | None:  # noqa: PLR0911
-        dc_key = "收/支"
-        status_key = "交易状态"
-        desc_key = "商品说明"
+    def _parse_amount(self, validated: Record) -> tuple[Decimal, str | None] | None:
         amount = validated["金额"]
-        match (validated[dc_key], validated[status_key]):
-            case ("支出", "交易成功" | "等待确认收货" | "交易关闭"):
-                return -amount, None
-            case ("收入" | "不计收支", "交易关闭"):
-                return None
-            case ("收入", "交易成功") | ("不计收支", "退款成功"):
-                return amount, None
-            case ("不计收支", "交易成功"):
-                match validated[desc_key]:
-                    case "提现-实时提现":
-                        return amount, None
-                    case "余额宝-更换货基转入":
-                        return amount, None
-                    case "余额宝-转出到银行卡":
-                        return amount, "余额宝"
-                    case (
-                        "余额宝-单次转入"
-                        | "余额宝-安心自动充-自动攒入"
-                        | "余额宝-自动转入"
-                    ):
-                        return -amount, "余额宝"
-                    case str(x) if x.startswith("余额宝-") and x.endswith("-收益发放"):
-                        return amount, None
-                    case _:
-                        raise ParserError(dc_key, status_key, desc_key)
-            case _:
-                raise ParserError(dc_key, status_key)
+        dc = validated["收/支"]
+        status = validated["交易状态"]
+
+        if dc == "支出" and status in {"交易成功", "等待确认收货", "交易关闭"}:
+            return -amount, None
+        if dc in {"收入", "不计收支"} and status == "交易关闭":
+            return None
+        if (dc == "收入" and status == "交易成功") or (
+            dc == "不计收支" and status == "退款成功"
+        ):
+            return amount, None
+        if dc == "不计收支" and status in {"交易成功", "付款成功，份额确认中"}:  # noqa: RUF001
+            return self._parse_not_counted_amount(validated, amount)
+
+        raise ParserError("收/支", "交易状态")  # noqa: EM101
+
+    def _parse_not_counted_amount(
+        self, validated: Record, amount: Decimal
+    ) -> tuple[Decimal, str | None]:
+        desc = validated["商品说明"]
+
+        if desc in {"提现-实时提现", "余额宝-更换货基转入"}:
+            return amount, None
+        if desc == "余额宝-转出到银行卡":
+            return amount, "余额宝"
+        if desc in {"余额宝-单次转入", "余额宝-安心自动充-自动攒入", "余额宝-自动转入"}:
+            return -amount, "余额宝"
+        if desc.startswith("余额宝-") and desc.endswith("-收益发放"):
+            return amount, None
+        if desc.startswith("蚂蚁财富-") and desc.endswith("-买入"):
+            return -amount, desc[len("蚂蚁财富-") : -len("-买入")]
+        if desc.startswith("蚂蚁财富-") and desc.endswith("-买入退款"):
+            return amount, desc[len("蚂蚁财富-") : -len("-买入退款")]
+
+        raise ParserError("收/支", "交易状态", "商品说明")  # noqa: EM101
 
 
 class Importer(BaseImporter):
