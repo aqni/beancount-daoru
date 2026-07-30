@@ -103,6 +103,43 @@ PARSE_PARAMS_LIST = [
             ),
         ),
     ),
+    (
+        {
+            "记账日期": "2020-01-02",
+            "记账时间": "11:00:00",
+            "币别": "人民币",
+            "金额": "-10.00",
+            "余额": "990.00",
+            "交易名称": "冲正",
+            "渠道": "手机银行",
+            "网点名称": "-------------------",
+            "附言": "测试",
+            "对方账户名": "测试",
+            "对方卡号/账号": "000000000000",
+            "对方开户行": "-------------------",
+        },
+        Transaction(
+            date=datetime.date(2020, 1, 2),
+            payee="测试",
+            narration="测试",
+            extra=Extra(
+                time=datetime.time(11, 0, 0),
+                type="冲正",
+                payee_account="000000000000",
+                place="手机银行",
+            ),
+            postings=(
+                Posting(
+                    amount=Decimal("10.00"),
+                    currency="人民币",
+                ),
+            ),
+            balance=Posting(
+                amount=Decimal("990.00"),
+                currency="人民币",
+            ),
+        ),
+    ),
 ]
 
 

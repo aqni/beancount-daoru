@@ -18,6 +18,9 @@ CONFIG = [
                 "余额": "Assets:Payment:Alipay:Balance",
                 "余额宝": "Assets:Payment:Alipay:YuEBao",
                 "中国银行储蓄卡(3147)": "Equity:Transfers:Alipay:BOC",
+                "摩根纳斯达克100指数(QDII)A": "Assets:Investment:Alipay:Fund:019172",
+                "摩根标普500指数(QDII)A": "Assets:Investment:Alipay:Fund:017641",
+                "摩根标普500指数(QDII)C": "Assets:Investment:Alipay:Fund:019305",
             }
         },
         currency_mapping={
@@ -28,6 +31,7 @@ CONFIG = [
         account_mapping={
             "jd_55370d18d5bb4": {
                 None: "Assets:Payment:JD",
+                "余额": "Assets:Payment:JD:Balance",
                 "钱包余额": "Assets:Payment:JD:Balance",
                 "先享后付": "Liabilities:Payment:JD:FirstPay",
                 "微信支付": "Equity:Transfers:JD",
