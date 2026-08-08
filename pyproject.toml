@@ -35,7 +35,8 @@ test = [
     "pytest-cov>=7.0",
     "pytest-xprocess>=1.0.2",
     "gitpython>=3.1",
-    "llama-cpp-python>=0.3.34",
+    "llama-cpp-python[server]>=0.3.34",
+    "huggingface-hub>=1.27.0",
 ]
 
 lint = [

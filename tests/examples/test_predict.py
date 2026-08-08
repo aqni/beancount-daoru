@@ -30,42 +30,36 @@ def start_llama_server(  # noqa: PLR0913
     model_hf: str,
     model_alias: str,
     port: int,
-    ctx_size: int = 0,
+    ctx_size: int,
     is_embedding: bool = False,
 ) -> Generator[None]:
-    exec_name = "llama-server"
-    if shutil.which(exec_name) is None:
-        pytest.skip(f"{exec_name!r} not in PATH")
+    hf_model_repo_id, model_suffix = model_hf.split(":")
 
     class Starter(ProcessStarter):
         @property
         @override
         def args(self) -> list[str]:  # pyright: ignore[reportIncompatibleMethodOverride]
-            cmd_args: list[str] = [
-                exec_name,
-                "-hf",
-                model_hf,
-                "--ctx-size",
-                str(ctx_size),
-                "--port",
-                str(port),
-                "--alias",
-                model_alias,
-                "--no-ui",
+            return [
+                sys.executable,
+                "-m",
+                "llama_cpp.server",
+                f"--port={port}",
+                f"--hf_model_repo_id={hf_model_repo_id}",
+                f"--model=*{model_suffix}.gguf",
+                f"--n_ctx={ctx_size}",
+                f"--model_alias={model_alias}",
+                f"--embedding={is_embedding}",
             ]
-            if is_embedding:
-                cmd_args.append("--embedding")
-            return cmd_args
 
         @property
         @override
         def pattern(self) -> str:  # pyright: ignore[reportIncompatibleMethodOverride]
             """The pattern to match when the process has started."""
-            return "listening on"
+            return "Application startup complete"
 
         max_read_lines: int = sys.maxsize
 
-    server_name = f"{exec_name}-{port}-{model_alias}"
+    server_name = f"llama-cpp-python-{port}-{model_alias}"
     _ = xprocess.ensure(server_name, Starter, persist_logs=False)  # pyright: ignore[reportUnknownVariableType]
     yield
     _ = xprocess.getinfo(server_name).terminate()
