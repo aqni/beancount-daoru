@@ -30,12 +30,14 @@ llama-server -hf 'unsloth/embeddinggemma-300m-GGUF:Q4_0' --port 1314 \
 llama-server -hf 'unsloth/Qwen3-4B-Instruct-2507-GGUF:UD-Q4_K_XL' --port 9527
 ```
 
+<!-- pyml disable commands-show-output-->
 > [!TIP]
 > 如果网络不通，可设置环境变量从 ModelScope 下载模型
 >
 > ```powershell
 > $env:MODEL_ENDPOINT="https://www.modelscope.cn"
 > ```
+<!-- pyml enable commands-show-output-->
 
 通过 openai 的 v1/models 接口查询 llama.cpp 识别到的模型名称（未必与文件名一致）
 
