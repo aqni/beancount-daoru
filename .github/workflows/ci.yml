@@ -33,7 +33,7 @@ jobs:
           - pymarkdown scan -r --respect-gitignore .
           - ruff check --verbose
           - ruff format --check --diff --verbose
-          - basedpyright --verbose src
+          - basedpyright --verbose
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6

@@ -90,5 +90,8 @@ allowedUntypedLibraries = [
     "pyexcel",
     "usearch",
 ]
+exclude = [
+    "tests",
+]
 
 # See https://packaging.python.org for more information on Python project metadata
