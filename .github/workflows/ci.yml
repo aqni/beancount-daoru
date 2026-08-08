@@ -25,25 +25,20 @@ jobs:
       - run: uv lock --check
 
   lint:
-    name: ${{ matrix.check.name }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false 
       matrix:
-        check:
-          - name: Lint Markdown 
-            command: pymarkdown scan -r --respect-gitignore .
-          - name: Lint Python
-            command: ruff check --verbose
-          - name: Format Python
-            command: ruff format --check --diff --verbose
-          - name: Type Check Python
-            command: basedpyright --verbose
+        command:
+          - pymarkdown scan -r --respect-gitignore .
+          - ruff check --verbose
+          - ruff format --check --diff --verbose
+          - basedpyright --verbose
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - run: uv run --frozen --all-extras --group lint ${{ matrix.check.command }}
+      - run: uv run --frozen --all-extras --group lint ${{ matrix.command }}
 
   test:
     needs:
