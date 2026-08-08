@@ -25,7 +25,7 @@ jobs:
       - run: uv lock --check
 
   check:
-    name: Check / ${{ matrix.check.name }}
+    name: ${{ matrix.check.name }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false 
