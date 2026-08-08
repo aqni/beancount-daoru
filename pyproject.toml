@@ -37,8 +37,8 @@ dev = [
     "gitpython>=3.1",
     "ruff>=0.14.7",
     "debugpy>=1.8.18",
-    "basedpyright>=1.36.1",
     "pymarkdownlnt>=0.9.39",
+    "ty>=0.0.69",
 ]
 
 [tool.pytest.ini_options]
@@ -57,13 +57,7 @@ lint.extend-ignore = ["COM812"]
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.basedpyright]
-allowedUntypedLibraries = [
-    "beangulp",
-    "diskcache",
-    "xprocess",
-    "pyexcel",
-    "usearch",
-]
+[tool.ty.terminal]
+error-on-warning = true
 
 # See https://packaging.python.org for more information on Python project metadata

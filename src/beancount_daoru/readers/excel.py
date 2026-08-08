@@ -41,7 +41,7 @@ class Reader(BaseReader):
 
     @override
     def read_captions(self, file: Path) -> Iterator[str]:
-        for row in pyexcel.get_array(  # pyright: ignore[reportUnknownVariableType]
+        for row in pyexcel.get_array(
             file_name=file,
             row_limit=self.__header,
             auto_detect_int=False,
@@ -54,7 +54,7 @@ class Reader(BaseReader):
 
     @override
     def read_records(self, file: Path) -> Iterator[dict[str, str]]:
-        for row in pyexcel.iget_records(  # pyright: ignore[reportUnknownVariableType]
+        for row in pyexcel.iget_records(
             file_name=file,
             start_row=self.__header,
             auto_detect_int=False,
@@ -64,8 +64,8 @@ class Reader(BaseReader):
             **self.__kwargs,
         ):
             yield {
-                self.__convert(key): self.__convert(value)  # pyright: ignore[reportUnknownArgumentType]
-                for key, value in row.items()  # pyright: ignore[reportUnknownVariableType]
+                self.__convert(key): self.__convert(value)
+                for key, value in row.items()
             }
 
     def __convert(self, value: object) -> str:

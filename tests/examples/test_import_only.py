@@ -25,7 +25,7 @@ def test_extract(git_repo: git.Repo) -> None:
         cwd=EXAMPLE_DIR,
     )
 
-    diff = git_repo.git.diff(IMPORTED_FILE)  # pyright: ignore[reportAny]
+    diff = git_repo.git.diff(IMPORTED_FILE)
     assert not diff, f"diff found\n{diff}\n"
 
 
@@ -41,11 +41,11 @@ def test_archive(git_repo: git.Repo) -> None:
             cwd=EXAMPLE_DIR,
         )
 
-        modification = git_repo.git.diff("--name-status", DOCUMENTS_DIR)  # pyright: ignore[reportAny]
+        modification = git_repo.git.diff("--name-status", DOCUMENTS_DIR)
         assert not modification, f"modification found\n{modification}\n"
 
-        new_files = git_repo.git.ls_files("--others", DOCUMENTS_DIR)  # pyright: ignore[reportAny]
+        new_files = git_repo.git.ls_files("--others", DOCUMENTS_DIR)
         assert not new_files, f"unexpected files found\n{new_files}\n"
 
     finally:
-        git_repo.git.restore("--worktree", DOWNLOADS_DIR)  # pyright: ignore[reportAny]
+        git_repo.git.restore("--worktree", DOWNLOADS_DIR)

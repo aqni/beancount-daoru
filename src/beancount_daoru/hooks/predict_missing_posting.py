@@ -73,7 +73,7 @@ class _Encoder:
 
     async def encode(self, text: str) -> list[float]:
         if text in self.__cache:
-            cached = self.__cache[text]  # pyright: ignore[reportUnknownVariableType]
+            cached = self.__cache[text]
             return self.__validator.validate_python(cached)
 
         response = await self.__embeddings_client.create(
@@ -101,7 +101,7 @@ class _TransactionIndex:
         transaction_id = self._hash(description)
         if transaction_id not in self.__embedding_index:
             embedding = await self.__encoder.encode(description)
-            _ = self.__embedding_index.add(  # pyright: ignore[reportUnknownVariableType]
+            _ = self.__embedding_index.add(
                 keys=transaction_id,
                 vectors=np.array(embedding),
             )

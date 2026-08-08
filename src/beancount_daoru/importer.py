@@ -274,8 +274,8 @@ class Importer(beangulp.Importer):
             key=attrgetter("date"),
         )
         max_balance_per_date = {
-            date: max(group, key=lambda e: self._lineno_key(e.meta["lineno"]))  # pyright: ignore[reportAny]
-            for date, group in groupby(balances, key=attrgetter("date"))  # pyright: ignore[reportAny]
+            date: max(group, key=lambda e: self._lineno_key(e.meta["lineno"]))
+            for date, group in groupby(balances, key=attrgetter("date"))
         }
 
         for balance in balances:
@@ -285,9 +285,9 @@ class Importer(beangulp.Importer):
     @override
     def sort(self, entries: beancount.Directives, reverse: bool = False) -> None:
         def sort_key(entry: beancount.Directive) -> tuple[int, int]:
-            lineno = entry.meta["lineno"]  # pyright: ignore[reportAny]
+            lineno = entry.meta["lineno"]
             return (
-                self._lineno_key(lineno),  # pyright: ignore[reportAny]
+                self._lineno_key(lineno),
                 0 if isinstance(entry, beancount.Transaction) else 1,
             )
 
@@ -334,7 +334,7 @@ class Importer(beangulp.Importer):
                 filepath,
                 lineno,
                 record,
-                **transaction.extra._asdict(),  # pyright: ignore[reportAny]
+                **transaction.extra._asdict(),
             ),
             date=transaction.date,
             flag=beancount.FLAG_OKAY,

@@ -38,7 +38,7 @@ jobs:
           - name: Format Python
             command: ruff format --check --diff --verbose
           - name: Type Check Python
-            command: basedpyright --verbose
+            command: ty check --verbose
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
