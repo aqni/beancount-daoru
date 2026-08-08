@@ -17,49 +17,39 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  markdownlint:
+  verify-lock-file:
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
-      - uses: DavidAnson/markdownlint-cli2-action@v22
-        with:
-          globs: "**/*.md"
-
-  ruff:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@v6
-      - uses: astral-sh/ruff-action@v3
-        with:
-          version-file: "pyproject.toml"
-          args: "--version"
-      - run: ruff check --verbose
-      - run: ruff format --check --diff --verbose
-
-  uvlock:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
       - run: uv lock --check
 
-  basedpyright:
+  check:
+    name: ${{ matrix.check.name }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false 
+      matrix:
+        check:
+          - name: Lint Markdown 
+            command: pymarkdown scan -r --respect-gitignore .
+          - name: Lint Python
+            command: ruff check --verbose
+          - name: Format Python
+            command: ruff format --check --diff --verbose
+          - name: Type Check Python
+            command: basedpyright --verbose
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - name: basedpyright
-        run: uv run --frozen --all-extras basedpyright --verbose
+      - run: uv run --frozen --all-extras ${{ matrix.check.command }}
 
   test:
     needs:
       - validate-pr-title
-      - markdownlint
-      - uvlock
-      - ruff
-      - basedpyright
+      - verify-lock-file
+      - check
     strategy:
       matrix:
         os:
@@ -85,3 +75,16 @@ jobs:
         run: uv run --frozen --all-extras pytest --verbose
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+  report:
+    if: always()
+    needs:
+      - validate-pr-title
+      - verify-lock-file
+      - check
+      - test
+    runs-on: ubuntu-slim
+    steps:
+    - uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}

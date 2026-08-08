@@ -14,12 +14,14 @@ import_only/
 
 ## 使用 beangulp 命令导入
 
+<!-- pyml disable commands-show-output-->
 > [!WARNING]
 > 在 Windows 上，建议设置环境变量使 Python 全局使用 UTF-8，能够避免很多编码问题。
 >
 > ```powershell
 > $env:PYTHONUTF8 = "1"
 > ```
+<!-- pyml enable commands-show-output-->
 
 ### 查看是否能够识别账单文件
 
