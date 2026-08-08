@@ -30,16 +30,41 @@ repository = "https://github.com/aqni/beancount-daoru"
 llm = ["diskcache>=5.6.3", "openai>=2.11.0", "usearch>=2.21.0"]
 
 [dependency-groups]
-dev = [
+test = [
     "pytest>=9.0",
     "pytest-cov>=7.0",
     "pytest-xprocess>=1.0.2",
     "gitpython>=3.1",
+    "llama-cpp-python>=0.3.34",
+]
+
+lint = [
     "ruff>=0.14.7",
-    "debugpy>=1.8.18",
     "basedpyright>=1.36.1",
     "pymarkdownlnt>=0.9.39",
 ]
+
+dev = [
+    { include-group = "test" },
+    { include-group = "lint" },
+    "debugpy>=1.8.18",
+]
+
+[tool.uv.sources]
+llama-cpp-python = [
+    { index = "llama-cpp-python-metal", marker = "sys_platform == 'darwin'" },
+    { index = "llama-cpp-python-vulkan", marker = "sys_platform != 'darwin'" },
+]
+
+[[tool.uv.index]]
+name = "llama-cpp-python-vulkan"
+url = "https://abetlen.github.io/llama-cpp-python/whl/vulkan"
+explicit = true
+
+[[tool.uv.index]]
+name = "llama-cpp-python-metal"
+url = "https://abetlen.github.io/llama-cpp-python/whl/metal"
+explicit = true
 
 [tool.pytest.ini_options]
 addopts = "--cov=src/ --cov-branch"
