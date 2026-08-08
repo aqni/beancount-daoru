@@ -132,8 +132,8 @@ dev = [
     { name = "basedpyright" },
     { name = "debugpy" },
     { name = "gitpython" },
-    { name = "llama-cpp-python", version = "0.3.33", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/metal" }, marker = "sys_platform == 'darwin'" },
-    { name = "llama-cpp-python", version = "0.3.33", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" }, marker = "sys_platform != 'darwin'" },
+    { name = "llama-cpp-python", version = "0.3.32", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/metal" }, marker = "sys_platform == 'darwin'" },
+    { name = "llama-cpp-python", version = "0.3.32", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" }, marker = "sys_platform != 'darwin'" },
     { name = "pymarkdownlnt" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -147,8 +147,8 @@ lint = [
 ]
 test = [
     { name = "gitpython" },
-    { name = "llama-cpp-python", version = "0.3.33", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/metal" }, marker = "sys_platform == 'darwin'" },
-    { name = "llama-cpp-python", version = "0.3.33", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" }, marker = "sys_platform != 'darwin'" },
+    { name = "llama-cpp-python", version = "0.3.32", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/metal" }, marker = "sys_platform == 'darwin'" },
+    { name = "llama-cpp-python", version = "0.3.32", source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" }, marker = "sys_platform != 'darwin'" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "pytest-xprocess" },
@@ -173,8 +173,8 @@ dev = [
     { name = "basedpyright", specifier = ">=1.36.1" },
     { name = "debugpy", specifier = ">=1.8.18" },
     { name = "gitpython", specifier = ">=3.1" },
-    { name = "llama-cpp-python", marker = "sys_platform != 'darwin'", specifier = "==0.3.33", index = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" },
-    { name = "llama-cpp-python", marker = "sys_platform == 'darwin'", specifier = "==0.3.33", index = "https://abetlen.github.io/llama-cpp-python/whl/metal" },
+    { name = "llama-cpp-python", marker = "sys_platform != 'darwin'", specifier = "==0.3.32", index = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" },
+    { name = "llama-cpp-python", marker = "sys_platform == 'darwin'", specifier = "==0.3.32", index = "https://abetlen.github.io/llama-cpp-python/whl/metal" },
     { name = "pymarkdownlnt", specifier = ">=0.9.39" },
     { name = "pytest", specifier = ">=9.0" },
     { name = "pytest-cov", specifier = ">=7.0" },
@@ -188,8 +188,8 @@ lint = [
 ]
 test = [
     { name = "gitpython", specifier = ">=3.1" },
-    { name = "llama-cpp-python", marker = "sys_platform != 'darwin'", specifier = "==0.3.33", index = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" },
-    { name = "llama-cpp-python", marker = "sys_platform == 'darwin'", specifier = "==0.3.33", index = "https://abetlen.github.io/llama-cpp-python/whl/metal" },
+    { name = "llama-cpp-python", marker = "sys_platform != 'darwin'", specifier = "==0.3.32", index = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" },
+    { name = "llama-cpp-python", marker = "sys_platform == 'darwin'", specifier = "==0.3.32", index = "https://abetlen.github.io/llama-cpp-python/whl/metal" },
     { name = "pytest", specifier = ">=9.0" },
     { name = "pytest-cov", specifier = ">=7.0" },
     { name = "pytest-xprocess", specifier = ">=1.0.2" },
@@ -858,7 +858,7 @@ wheels = [
 
 [[package]]
 name = "llama-cpp-python"
-version = "0.3.33"
+version = "0.3.32"
 source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/metal" }
 resolution-markers = [
     "python_full_version >= '3.11' and sys_platform == 'darwin'",
@@ -872,12 +872,12 @@ dependencies = [
     { name = "typing-extensions", marker = "sys_platform == 'darwin'" },
 ]
 wheels = [
-    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.33-metal/llama_cpp_python-0.3.33-py3-none-macosx_11_0_arm64.whl" },
+    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.32-metal/llama_cpp_python-0.3.32-py3-none-macosx_11_0_arm64.whl" },
 ]
 
 [[package]]
 name = "llama-cpp-python"
-version = "0.3.33"
+version = "0.3.32"
 source = { registry = "https://abetlen.github.io/llama-cpp-python/whl/vulkan" }
 resolution-markers = [
     "python_full_version >= '3.11' and sys_platform != 'darwin'",
@@ -891,8 +891,8 @@ dependencies = [
     { name = "typing-extensions", marker = "sys_platform != 'darwin'" },
 ]
 wheels = [
-    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.33-vulkan/llama_cpp_python-0.3.33-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" },
-    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.33-vulkan/llama_cpp_python-0.3.33-py3-none-win_amd64.whl" },
+    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.32-vulkan/llama_cpp_python-0.3.32-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" },
+    { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.32-vulkan/llama_cpp_python-0.3.32-py3-none-win_amd64.whl" },
 ]
 
 [[package]]
