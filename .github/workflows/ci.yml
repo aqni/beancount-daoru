@@ -70,6 +70,7 @@ jobs:
         run: uv run --frozen --no-dev --all-extras --group test pytest --verbose
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          UV_INSECURE_NO_ZIP_VALIDATION: 1 # Disable zip validation for llama-cpp-python wheel on MacOS
 
   report:
     if: always()
