@@ -1,4 +1,3 @@
-import shutil
 import sys
 import warnings
 from collections.abc import Generator
