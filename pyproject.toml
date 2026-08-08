@@ -83,6 +83,7 @@ lint.extend-ignore = ["COM812"]
 convention = "google"
 
 [tool.basedpyright]
+include = ["src"]
 allowedUntypedLibraries = [
     "beangulp",
     "diskcache",
@@ -90,8 +91,6 @@ allowedUntypedLibraries = [
     "pyexcel",
     "usearch",
 ]
-exclude = [
-    "tests",
-]
+
 
 # See https://packaging.python.org for more information on Python project metadata
