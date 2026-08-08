@@ -64,8 +64,7 @@ class Reader(BaseReader):
             **self.__kwargs,
         ):
             yield {
-                self.__convert(key): self.__convert(value)
-                for key, value in row.items()
+                self.__convert(key): self.__convert(value) for key, value in row.items()
             }
 
     def __convert(self, value: object) -> str:
