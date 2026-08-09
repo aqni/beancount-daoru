@@ -13,10 +13,23 @@ repos:
     rev: v0.9.39
     hooks:
       - id: pymarkdown
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.3
+    hooks:
+      - id: codespell
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.26.0
     hooks:
       - id: pyproject-fmt
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: detect-private-key
   - repo: local
     hooks:
       - id: pin-python-version
