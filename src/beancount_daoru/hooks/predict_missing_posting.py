@@ -10,7 +10,7 @@ import re
 from collections.abc import Mapping
 from hashlib import blake2b
 from pathlib import Path
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
 import numpy as np
 from beancount import (
@@ -31,7 +31,7 @@ from openai import AsyncOpenAI
 from openai.types.shared_params.response_format_json_schema import JSONSchema
 from pydantic import TypeAdapter
 from tqdm import tqdm
-from typing_extensions import NotRequired, override
+from typing_extensions import override
 from usearch.index import Index, Matches
 
 from beancount_daoru.hook import Hook as BaseHook
@@ -101,7 +101,7 @@ class _TransactionIndex:
         transaction_id = self._hash(description)
         if transaction_id not in self.__embedding_index:
             embedding = await self.__encoder.encode(description)
-            _ = self.__embedding_index.add(  # pyright: ignore[reportUnknownVariableType]
+            _ = self.__embedding_index.add(
                 keys=transaction_id,
                 vectors=np.array(embedding),
             )
