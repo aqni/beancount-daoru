@@ -28,13 +28,13 @@ llm = ["diskcache>=5.6.3", "openai>=2.11.0", "usearch>=2.21.0"]
 
 [dependency-groups]
 test = [
+
+]
+dev = [
     "pytest>=9.0",
     "pytest-cov>=7.0",
     "pytest-xprocess>=1.0.2",
     "gitpython>=3.1",
-]
-dev = [
-    { include-group = "test" },
     "prek>=0.4.12",
     "debugpy>=1.8.18",
 ]
