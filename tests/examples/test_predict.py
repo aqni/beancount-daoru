@@ -63,6 +63,7 @@ def start_llama_server(  # noqa: PLR0913
             """The pattern to match when the process has started."""
             return "listening on"
 
+        timeout: int = 180
         max_read_lines: int = sys.maxsize
 
     server_name = f"{exec_name}-{port}-{model_alias}"
