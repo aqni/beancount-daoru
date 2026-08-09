@@ -88,13 +88,13 @@ dev = [
 requires-dist = [
     { name = "beangulp", specifier = ">=0.2,<0.3" },
     { name = "diskcache", marker = "extra == 'llm'", specifier = ">=5.6.3" },
-    { name = "openai", marker = "extra == 'llm'", specifier = ">=2.11.0" },
+    { name = "openai", marker = "extra == 'llm'", specifier = ">=2.11" },
     { name = "pdfplumber", specifier = ">=0.11.8" },
     { name = "pydantic", specifier = ">=2.12" },
     { name = "pyexcel", specifier = ">=0.7" },
     { name = "pyexcel-xlsxr", specifier = ">=0.6.2" },
-    { name = "typing-extensions", specifier = ">=4.15.0" },
-    { name = "usearch", marker = "extra == 'llm'", specifier = ">=2.21.0" },
+    { name = "typing-extensions", specifier = ">=4.15" },
+    { name = "usearch", marker = "extra == 'llm'", specifier = ">=2.21" },
 ]
 provides-extras = ["llm"]
 
@@ -103,8 +103,8 @@ dev = [
     { name = "debugpy", specifier = ">=1.8.18" },
     { name = "gitpython", specifier = ">=3.1" },
     { name = "prek", specifier = ">=0.4.12" },
-    { name = "pytest", specifier = ">=9.0" },
-    { name = "pytest-cov", specifier = ">=7.0" },
+    { name = "pytest", specifier = ">=9" },
+    { name = "pytest-cov", specifier = ">=7" },
     { name = "pytest-xprocess", specifier = ">=1.0.2" },
 ]
 
