@@ -67,3 +67,12 @@ jobs:
     - uses: re-actors/alls-green@release/v1
       with:
         jobs: ${{ toJSON(needs) }}
+
+  automerge:
+    needs: report
+    runs-on: ubuntu-slim
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
