@@ -1,65 +1,62 @@
 [build-system]
-requires = ["setuptools>=80", "setuptools-scm[simple]>=9.2"]
 build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=80", "setuptools-scm[simple]>=9.2" ]
 
 [project]
-dynamic = ["version"]
 name = "beancount-daoru"
-dependencies = [
-    "beangulp>=0.2,<0.3",
-    "pydantic>=2.12",
-    "pyexcel>=0.7",
-    "pyexcel-xlsxr>=0.6.2",
-    "pdfplumber>=0.11.8",
-    "typing-extensions>=4.15.0",
-]
-requires-python = ">=3.11"
-authors = [{ name = "AN Qi", email = "aqnin@outlook.com" }]
 description = "beancount importers for Chinese"
 readme = "README.md"
 license = "MIT"
-license-files = ["LICENSE.txt"]
-
-[project.urls]
-repository = "https://github.com/aqni/beancount-daoru"
-
-[project.optional-dependencies]
-llm = ["diskcache>=5.6.3", "openai>=2.11.0", "usearch>=2.21.0"]
+license-files = [ "LICENSE.txt" ]
+authors = [ { name = "AN Qi", email = "aqnin@outlook.com" } ]
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dynamic = [ "version" ]
+dependencies = [
+  "beangulp>=0.2,<0.3",
+  "pdfplumber>=0.11.8",
+  "pydantic>=2.12",
+  "pyexcel>=0.7",
+  "pyexcel-xlsxr>=0.6.2",
+  "typing-extensions>=4.15",
+]
+optional-dependencies.llm = [ "diskcache>=5.6.3", "openai>=2.11", "usearch>=2.21" ]
+urls.repository = "https://github.com/aqni/beancount-daoru"
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0",
-    "pytest-cov>=7.0",
-    "pytest-xprocess>=1.0.2",
-    "gitpython>=3.1",
-    "prek>=0.4.12",
-    "debugpy>=1.8.18",
+  "debugpy>=1.8.18",
+  "gitpython>=3.1",
+  "prek>=0.4.12",
+  "pytest>=9",
+  "pytest-cov>=7",
+  "pytest-xprocess>=1.0.2",
 ]
 
-[tool.pytest.ini_options]
-addopts = "--cov=src/ --cov-branch"
-testpaths = ["tests"]
-disable_test_id_escaping_and_forfeit_all_rights_to_community_support = true
-
 [tool.ruff]
-lint.extend-select = ["ALL"]
-lint.extend-ignore = ["COM812", "CPY001"]
+lint.extend-select = [ "ALL" ]
+lint.extend-ignore = [ "COM812", "CPY001" ]
+lint.per-file-ignores."examples/*" = [ "D", "INP001" ]
+lint.per-file-ignores."scripts/*" = [ "D", "INP001" ]
+lint.per-file-ignores."tests/*" = [ "D", "RUF001", "S101", "S603" ]
+lint.pydocstyle.convention = "google"
 
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["D", "S101", "S603", "RUF001"]
-"examples/*" = ["D", "INP001"]
-"scripts/*" = ["D", "INP001"]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
+[tool.pytest]
+ini_options.testpaths = [ "tests" ]
+ini_options.addopts = "--cov=src/ --cov-branch"
+ini_options.disable_test_id_escaping_and_forfeit_all_rights_to_community_support = true
 
 [tool.basedpyright]
 allowedUntypedLibraries = [
-    "beangulp",
-    "diskcache",
-    "xprocess",
-    "pyexcel",
-    "usearch",
+  "beangulp",
+  "diskcache",
+  "xprocess",
+  "pyexcel",
+  "usearch",
 ]
-
-# See https://packaging.python.org for more information on Python project metadata
