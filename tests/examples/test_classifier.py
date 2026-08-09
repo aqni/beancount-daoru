@@ -21,5 +21,5 @@ def test_extract(git_repo: git.Repo) -> None:
         cwd=EXAMPLE_DIR,
     )
 
-    diff = git_repo.git.diff(IMPORTED_FILE)  # pyright: ignore[reportAny]
+    diff = git_repo.git.diff(IMPORTED_FILE)
     assert not diff, f"diff found\n{diff}\n"

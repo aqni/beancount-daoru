@@ -211,7 +211,7 @@ class Classifier(Hook):
 
         def rule(
             txn: Transaction,
-            **ctx: Unpack[RuleContext],  # noqa: ARG001 # pyright: ignore[reportUnusedParameter]
+            **ctx: Unpack[RuleContext],  # noqa: ARG001
         ) -> Generator[Posting, None, None]:
             account = simple_rule(txn)
             if account is not None:

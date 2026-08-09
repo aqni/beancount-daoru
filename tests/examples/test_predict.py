@@ -40,7 +40,7 @@ def start_llama_server(  # noqa: PLR0913
     class Starter(ProcessStarter):
         @property
         @override
-        def args(self) -> list[str]:  # pyright: ignore[reportIncompatibleMethodOverride]
+        def args(self) -> list[str]:
             cmd_args: list[str] = [
                 exec_name,
                 "-hf",
@@ -59,14 +59,14 @@ def start_llama_server(  # noqa: PLR0913
 
         @property
         @override
-        def pattern(self) -> str:  # pyright: ignore[reportIncompatibleMethodOverride]
+        def pattern(self) -> str:
             """The pattern to match when the process has started."""
             return "listening on"
 
         max_read_lines: int = sys.maxsize
 
     server_name = f"{exec_name}-{port}-{model_alias}"
-    _ = xprocess.ensure(server_name, Starter, persist_logs=False)  # pyright: ignore[reportUnknownVariableType]
+    _ = xprocess.ensure(server_name, Starter, persist_logs=False)
     yield
     _ = xprocess.getinfo(server_name).terminate()
 
@@ -97,7 +97,7 @@ def chat_completion_server(xprocess: XProcess) -> Generator[None]:
 def __check_diff_with_tolerance(
     git_repo: git.Repo, file_path: Path, /, max_lines: int
 ) -> None:
-    diff: str = git_repo.git.diff(file_path)  # pyright: ignore[reportAny]
+    diff: str = git_repo.git.diff(file_path)
     if diff:
         lines = diff.split("\n")
         changes = [
