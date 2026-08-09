@@ -23,9 +23,12 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - uses: j178/prek-action@v2 # only for caching
+      - uses: actions/cache@v4
         with:
-          install-only: true
+          path: ~/.cache/prek
+          key: prek-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', '.prek.yaml') }}
+          restore-keys: |
+            prek-${{ runner.os }}-
       - name: pre-commit
         run: uv run --locked --all-extras prek run --all-files --verbose
 
