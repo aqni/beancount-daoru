@@ -10,8 +10,16 @@ MINIMUM_VERSION_PATTERN = re.compile(r"(?:>=|==)\s*([0-9]+(?:\.[0-9]+)*)")
 def get_requires_python_spec(pyproject_path: Path) -> str | None:
     if not pyproject_path.exists():
         return None
-    pyproject_data = tomllib.loads(pyproject_path.read_text("utf-8"))
-    return pyproject_data.get("project", {}).get("requires-python")
+
+    pyproject_data: dict[str, dict[str, str]] = tomllib.loads(
+        pyproject_path.read_text("utf-8")
+    )
+
+    project_table = pyproject_data.get("project")
+    if not isinstance(project_table, dict):
+        return None
+
+    return project_table.get("requires-python")
 
 
 def extract_minimum_version(version_spec: str) -> str | None:
@@ -38,7 +46,7 @@ def pin_python_version() -> None:
     if existing_version == minimum_version:
         return
 
-    PYTHON_VERSION_FILE.write_text(f"{minimum_version}\n", encoding="utf-8")
+    _ = PYTHON_VERSION_FILE.write_text(f"{minimum_version}\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
