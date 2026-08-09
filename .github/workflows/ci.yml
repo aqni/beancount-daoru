@@ -17,39 +17,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  verify-lock-file:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@v6
-      - uses: astral-sh/setup-uv@v7
-      - run: uv lock --check
-
-  check:
-    name: ${{ matrix.check.name }}
+  pre-commit:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false 
-      matrix:
-        check:
-          - name: Lint Markdown 
-            command: pymarkdown scan -r --respect-gitignore .
-          - name: Lint Python
-            command: ruff check --verbose
-          - name: Format Python
-            command: ruff format --check --diff --verbose
-          - name: Type Check Python
-            command: basedpyright --verbose
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
       - uses: astral-sh/setup-uv@v7
-      - run: uv run --frozen --all-extras ${{ matrix.check.command }}
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/prek
+          key: prek-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: pre-commit
+        run: uv run --locked --all-extras prek run --all-files --verbose
 
   test:
     needs:
       - validate-pr-title
-      - verify-lock-file
-      - check
+      - pre-commit
     strategy:
       matrix:
         os:
@@ -80,8 +64,7 @@ jobs:
     if: always()
     needs:
       - validate-pr-title
-      - verify-lock-file
-      - check
+      - pre-commit
       - test
     runs-on: ubuntu-slim
     steps:
