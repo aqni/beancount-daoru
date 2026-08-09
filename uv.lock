@@ -118,7 +118,6 @@ dev = [
     { name = "pytest-cov", specifier = ">=7.0" },
     { name = "pytest-xprocess", specifier = ">=1.0.2" },
 ]
-test = []
 
 [[package]]
 name = "beangulp"
