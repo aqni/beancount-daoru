@@ -7,6 +7,7 @@ repos:
     rev: v0.16.2
     hooks:
       - id: ruff-check
+        args: [--fix]
       - id: ruff-format
   - repo: https://github.com/DetachHead/basedpyright-prek-mirror
     rev: 1.39.9
@@ -16,3 +17,11 @@ repos:
     rev: v0.9.39
     hooks:
       - id: pymarkdown
+  - repo: local
+    hooks:
+      - id: pin-python-version
+        name: generate .python-version
+        entry: uv run scripts/pin_python_version.py
+        language: system
+        files: ^pyproject\.toml$
+        pass_filenames: false

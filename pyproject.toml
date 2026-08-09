@@ -13,7 +13,7 @@ dependencies = [
     "pdfplumber>=0.11.8",
     "typing-extensions>=4.15.0",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{ name = "AN Qi", email = "aqnin@outlook.com" }]
 description = "beancount importers for Chinese"
 readme = "README.md"
@@ -48,6 +48,7 @@ lint.extend-ignore = ["COM812", "CPY001"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D", "S101", "S603", "RUF001"]
 "examples/*" = ["D", "INP001"]
+"scripts/*" = ["D", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
