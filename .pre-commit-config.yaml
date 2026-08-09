@@ -1,12 +1,4 @@
 repos:
-  - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.26.0
-    hooks:
-      - id: pyproject-fmt
-  # - repo: https://github.com/rhysd/actionlint
-  #   rev: v1.7.12
-  #   hooks:
-  #     - id: actionlint
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.2
     hooks:
@@ -21,6 +13,10 @@ repos:
     rev: v0.9.39
     hooks:
       - id: pymarkdown
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: v2.26.0
+    hooks:
+      - id: pyproject-fmt
   - repo: local
     hooks:
       - id: pin-python-version
