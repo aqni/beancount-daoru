@@ -20,8 +20,8 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
       - uses: astral-sh/setup-uv@v7
       - name: pre-commit
         run: uv run --locked --all-extras prek run --all-files --verbose
@@ -38,8 +38,8 @@ jobs:
           # - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
       - uses: astral-sh/setup-uv@v7
       - name: Setup llama.cpp to PATH
         uses: pbrisbin/setup-tool-action@v2
