@@ -174,7 +174,7 @@ python import.py archive /path/to/your/bills/dir -o /path/to/your/archive/dir
   全面的介绍，尤其是对各类账单导入进行了分享
 - [KAAAsS 的博客](https://blog.kaaass.net/archives/category/continuous/复式记账指北):
   探讨了基于 Telegram Bot 的自动记账方案
-- [double-entry-generator "账户映射"文档](https://deb-sig.github.io/double-entry-generator/configuration/accounts.html):
+- [double-entry-generator "账户映射"文档](https://deb-sig.github.io/double-entry-generator/configuration/accounts/):
   double-entry-generator 作者提供的账户分类最佳实践
 
 自动化探讨：
