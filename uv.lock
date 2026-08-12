@@ -1281,16 +1281,16 @@ wheels = [
 
 [[package]]
 name = "pyexcel"
-version = "0.7.4"
+version = "0.7.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "lml" },
     { name = "pyexcel-io" },
     { name = "texttable" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/fb/eb9753797b8680a3a1c428df8a55d917bc7ddf9f875abcc5831464b287a4/pyexcel-0.7.4.tar.gz", hash = "sha256:cbbdc60532bbb2a22fe4303e824aaa386ecf6dc514d1f87d1ad03a1385fee4bd", size = 821474, upload-time = "2025-10-25T09:28:47.96Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c8/38/e7eaba4e355a8766a7d1704b95200c8de7527bc3f559e40036812ac264b2/pyexcel-0.7.6.tar.gz", hash = "sha256:489483d8c7675a4d04d0a55a1b5dd0925771e2660fa68105ca342e492f459d1b", size = 817608, upload-time = "2026-06-29T21:40:08.874Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c3/0f/3ee16151da584e8c4f9528366cdf2ce9d2dc96f7180283c04d1b58aa8415/pyexcel-0.7.4-py2.py3-none-any.whl", hash = "sha256:4f287fe2cc81c1fb2c0cf7f2be018b98391229c3752fb35e7ea3d9713043f72d", size = 89352, upload-time = "2025-10-25T09:28:45.826Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/ac/9534000969f95a8ac77eee5b0731887c975fc66886deb0b993b5a9e6993e/pyexcel-0.7.6-py2.py3-none-any.whl", hash = "sha256:1610d86f7a47bfa802a454d8caa4c42b3f1dc8bcbe8ff794027b5c7a024300e1", size = 89636, upload-time = "2026-06-29T21:40:07.326Z" },
 ]
 
 [[package]]
