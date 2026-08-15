@@ -11,7 +11,6 @@ IMPORTED_FILE = EXAMPLE_DIR / "imported.beancount"
 
 
 def test_extract(git_repo: git.Repo) -> None:
-    IMPORTED_FILE.parent.mkdir(parents=True, exist_ok=True)
     run_python_subprocess(
         IMPORT_SCRIPT,
         "extract",

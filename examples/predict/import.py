@@ -1,6 +1,9 @@
+import os
+from pathlib import Path
 from textwrap import dedent
 
 import beangulp
+import vcr
 
 from beancount_daoru import (
     AlipayImporter,
@@ -23,6 +26,8 @@ CONFIG = [
     ),
 ]
 
+_predict_cache_dir = os.environ.get("PREDICT_CACHE_DIR", None)
+
 HOOKS = [
     PredictMissingPosting(
         chat_model_settings={
@@ -36,6 +41,7 @@ HOOKS = [
             "base_url": "http://127.0.0.1:1314/v1",
             "api_key": "api-key-not-set",
         },
+        cache_dir=Path(_predict_cache_dir) if _predict_cache_dir else None,
         extra_system_prompt=(
             dedent(
                 """
@@ -50,6 +56,16 @@ HOOKS = [
 ]
 
 
-if __name__ == "__main__":
+@vcr.use_cassette(
+    os.environ.get("VCR_PATH", ".cassettes/default.yml"),
+    record_mode=vcr.record_mode.RecordMode.ONCE,
+    match_on=["path", "method", "query", "body"],
+    drop_unused_requests=True,
+)  # pyright: ignore[reportUntypedFunctionDecorator]
+def main() -> None:
     ingest = beangulp.Ingest(CONFIG, HOOKS)
     ingest()
+
+
+if __name__ == "__main__":
+    main()

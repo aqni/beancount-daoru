@@ -35,22 +35,12 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
-          # - macos-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
       - uses: astral-sh/setup-uv@v7
-      - name: Setup llama.cpp to PATH
-        uses: pbrisbin/setup-tool-action@v2
-        with:
-          name: llama
-          url: "https://github.com/ggml-org/llama.cpp/releases/download/{version}/{name}-{version}-bin-{os}-{arch}.{ext}"
-          os-win32: win-cpu
-          os-linux: ubuntu
-          os-darwin: macos
-          subdir-linux: "{name}-{version}"
-          subdir-darwin: "{name}-{version}"
       - name: pytest
         run: uv run --frozen --all-extras pytest --verbose
         env:
