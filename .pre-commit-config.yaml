@@ -13,10 +13,6 @@ repos:
     rev: v0.9.39
     hooks:
       - id: pymarkdown
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.3
-    hooks:
-      - id: codespell
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.27.0
     hooks:

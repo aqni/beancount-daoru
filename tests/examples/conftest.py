@@ -37,6 +37,7 @@ def run_python_subprocess(
         check=True,
     )
 
+
 def assert_no_diff(git_repo: git.Repo, file_path: Path) -> None:
     diff = git_repo.git.diff(file_path)  # pyright: ignore[reportAny]
     assert not diff, f"diff found\n{diff}\n"

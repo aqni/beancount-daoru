@@ -1,4 +1,3 @@
-
 import git
 import pytest
 
@@ -22,8 +21,9 @@ FEW_SHOT_VCR_FILE = EXAMPLE_DIR / ".cassettes" / "few_shot.yml"
 PREDICT_CACHE_DIR_ENV = "PREDICT_CACHE_DIR"
 
 
-
-def test_zero_shot(git_repo: git.Repo, tmp_path_factory: pytest.TempPathFactory) -> None:
+def test_zero_shot(
+    git_repo: git.Repo, tmp_path_factory: pytest.TempPathFactory
+) -> None:
     run_python_subprocess(
         PREDICT_SCRIPTS,
         "extract",

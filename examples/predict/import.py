@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import tempfile
 from textwrap import dedent
 
 import beangulp
@@ -62,7 +61,7 @@ HOOKS = [
     record_mode=vcr.record_mode.RecordMode.ONCE,
     match_on=["path", "method", "query", "body"],
     drop_unused_requests=True,
-)
+)  # pyright: ignore[reportUntypedFunctionDecorator]
 def main() -> None:
     ingest = beangulp.Ingest(CONFIG, HOOKS)
     ingest()
