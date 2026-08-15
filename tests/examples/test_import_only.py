@@ -2,6 +2,7 @@ import git
 
 from tests.examples.conftest import (
     EXAMPLES_DIR,
+    assert_no_diff,
     run_python_subprocess,
 )
 
@@ -15,7 +16,6 @@ IMPORTED_FILE = LEDGER_DIR / "imported.beancount"
 
 
 def test_extract(git_repo: git.Repo) -> None:
-    IMPORTED_FILE.parent.mkdir(parents=True, exist_ok=True)
     run_python_subprocess(
         IMPORT_SCRIPT,
         "extract",
@@ -24,9 +24,7 @@ def test_extract(git_repo: git.Repo) -> None:
         IMPORTED_FILE,
         cwd=EXAMPLE_DIR,
     )
-
-    diff = git_repo.git.diff(IMPORTED_FILE)  # pyright: ignore[reportAny]
-    assert not diff, f"diff found\n{diff}\n"
+    assert_no_diff(git_repo, IMPORTED_FILE)
 
 
 def test_archive(git_repo: git.Repo) -> None:

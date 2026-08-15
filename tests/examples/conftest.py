@@ -21,6 +21,7 @@ def git_repo() -> Generator[git.Repo]:
 def run_python_subprocess(
     *args: str | Path,
     cwd: Path,
+    env: dict[str, str] | None = None,
 ) -> None:
     cmd = [sys.executable]
     for arg in args:
@@ -32,6 +33,10 @@ def run_python_subprocess(
     _ = subprocess.run(
         cmd,
         cwd=cwd,
-        env=os.environ.copy() | {"PYTHONUTF8": "1"},
+        env=os.environ.copy() | {"PYTHONUTF8": "1"} | (env or {}),
         check=True,
     )
+
+def assert_no_diff(git_repo: git.Repo, file_path: Path) -> None:
+    diff = git_repo.git.diff(file_path)  # pyright: ignore[reportAny]
+    assert not diff, f"diff found\n{diff}\n"
