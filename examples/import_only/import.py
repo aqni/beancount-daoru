@@ -6,6 +6,7 @@ from beancount_daoru import (
     JDImporter,
     MeituanImporter,
     PathToName,
+    PDDImporter,
     ReorderByImporterName,
     WechatImporter,
 )
@@ -89,6 +90,18 @@ CONFIG = [
         },
         currency_mapping={
             "人民币元": "CNY",
+        },
+    ),
+    PDDImporter(
+        account_mapping={
+            "123456789": {
+                None: "Assets:Payment:PDD",
+                "支付宝": "Assets:Payment:PDD:Alipay",
+                "微信支付": "Assets:Payment:PDD:WeChat",
+            },
+        },
+        currency_mapping={
+            None: "CNY",
         },
     ),
 ]

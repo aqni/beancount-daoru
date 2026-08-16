@@ -140,7 +140,7 @@ class Parser(Protocol):
         """
         return False
 
-    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
+    def extract_metadata(self, filename: str, texts: Iterator[str]) -> Metadata:
         """Extract metadata from text iterator.
 
         Parses the input text to extract document-level metadata such as account
@@ -148,6 +148,7 @@ class Parser(Protocol):
         categorize and process transactions from the document.
 
         Args:
+            filename: Base name of the source file being processed.
             texts: Iterator over lines of text from the source document.
 
         Returns:
@@ -298,8 +299,10 @@ class Importer(beangulp.Importer):
 
     @lru_cache(maxsize=1)  # noqa: B019
     def _cached_metadata(self, filepath: str) -> Metadata:
+        path = Path(filepath)
         return self.__parser.extract_metadata(
-            self.__reader.read_captions(Path(filepath))
+            filename=path.name,
+            texts=self.__reader.read_captions(path),
         )
 
     def _extract_record(

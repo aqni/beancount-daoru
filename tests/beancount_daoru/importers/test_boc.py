@@ -24,7 +24,10 @@ def test_extract_metadata(parser: Parser) -> None:
         "可能与实际交易提交时间存在差异。\n"
         "第 1 页/共 1页"
     )
-    metadata = parser.extract_metadata(iter([caption]))
+    metadata = parser.extract_metadata(
+        filename="交易流水明细20260815231020.pdf",
+        texts=iter([caption]),
+    )
     assert metadata == Metadata(
         account="6216612345678901234",
         date=datetime.date(2020, 12, 31),

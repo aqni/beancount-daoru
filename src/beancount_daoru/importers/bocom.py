@@ -77,7 +77,7 @@ class Parser(BaseParser):
         return False
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
+    def extract_metadata(self, filename: str, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches, currency_matches = search_patterns(
             texts, self.__account_pattern, self.__date_pattern, self.__currency_pattern
         )
