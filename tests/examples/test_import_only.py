@@ -15,6 +15,20 @@ IMPORT_SCRIPT = EXAMPLE_DIR / "import.py"
 IMPORTED_FILE = LEDGER_DIR / "imported.beancount"
 
 
+def test_identify() -> None:
+    result = run_python_subprocess(
+        IMPORT_SCRIPT,
+        "identify",
+        DOWNLOADS_DIR,
+        cwd=EXAMPLE_DIR,
+        capture_output=True,
+    )
+    assert not result.stderr
+    for line in result.stdout.decode("utf-8").splitlines():
+        if line.startswith("* "):
+            assert line.endswith(" ... OK")
+
+
 def test_extract(git_repo: git.Repo) -> None:
     run_python_subprocess(
         IMPORT_SCRIPT,

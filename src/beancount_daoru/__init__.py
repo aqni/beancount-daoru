@@ -11,6 +11,7 @@ from beancount_daoru.hooks.reorder_by_importer_name import Hook as ReorderByImpo
 from beancount_daoru.importers.alipay import Importer as AlipayImporter
 from beancount_daoru.importers.boc import Importer as BOCImporter
 from beancount_daoru.importers.bocom import Importer as BOCOMImporter
+from beancount_daoru.importers.ccb import Importer as CCBImporter
 from beancount_daoru.importers.jd import Importer as JDImporter
 from beancount_daoru.importers.meituan import Importer as MeituanImporter
 from beancount_daoru.importers.wechat import Importer as WechatImporter
@@ -19,6 +20,7 @@ __all__ = [
     "AlipayImporter",
     "BOCImporter",
     "BOCOMImporter",
+    "CCBImporter",
     "Classifier",
     "JDImporter",
     "MeituanImporter",

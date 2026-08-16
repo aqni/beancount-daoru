@@ -22,7 +22,8 @@ def run_python_subprocess(
     *args: str | Path,
     cwd: Path,
     env: dict[str, str] | None = None,
-) -> None:
+    capture_output: bool = False,
+) -> subprocess.CompletedProcess:
     cmd = [sys.executable]
     for arg in args:
         if isinstance(arg, Path):
@@ -30,11 +31,12 @@ def run_python_subprocess(
         else:
             cmd.append(arg)
 
-    _ = subprocess.run(
+    return subprocess.run(
         cmd,
         cwd=cwd,
         env=os.environ.copy() | {"PYTHONUTF8": "1"} | (env or {}),
         check=True,
+        capture_output=capture_output,
     )
 
 
