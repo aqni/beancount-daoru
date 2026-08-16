@@ -44,16 +44,16 @@ StrField = Annotated[str | None, AfterValidator(_validate_str)]
 Record = TypedDict(
     "Record",
     {
-        "Trans Date\n交易日期": date,
-        "Trans Time\n交易时间": time,
-        "Trading Type\n交易类型": StrField,
-        "Dc Flg\n借贷": StrField,
-        "Trans Amt\n交易金额": DecimalField,
-        "Balance\n余额": DecimalField,
-        "Payment Receipt\nAccount\n对方账号": StrField,
-        "Payment Receipt\nAccount Name\n对方户名": StrField,
-        "Trading Place\n交易地点": StrField,
-        "Abstract\n摘要": StrField,
+        "交易日期\nTrans Date": date,
+        "交易时间\nTrans Time": time,
+        "交易类型\nTrading Type": StrField,
+        "借贷状态\nDc Flg": StrField,
+        "交易金额\nTrans Amt": DecimalField,
+        "余额\nBalance": DecimalField,
+        "对方账号\nPayment Receipt": StrField,
+        "对方户名\nPayment Receipt": StrField,
+        "交易地点\nTrading Place": StrField,
+        "摘要\nAbstract": StrField,
     },
 )
 
@@ -91,33 +91,33 @@ class Parser(BaseParser):
     def parse(self, record: dict[str, str]) -> Transaction:
         validated = self.__validator.validate_python(record)
         return Transaction(
-            date=validated["Trans Date\n交易日期"],
+            date=validated["交易日期\nTrans Date"],
             extra=Extra(
-                time=validated["Trans Time\n交易时间"],
-                dc=validated["Dc Flg\n借贷"],
-                type=validated["Trading Type\n交易类型"],
-                payee_account=validated["Payment Receipt\nAccount\n对方账号"],
-                place=validated["Trading Place\n交易地点"],
+                time=validated["交易时间\nTrans Time"],
+                dc=validated["借贷状态\nDc Flg"],
+                type=validated["交易类型\nTrading Type"],
+                payee_account=validated["对方账号\nPayment Receipt"],
+                place=validated["交易地点\nTrading Place"],
             ),
-            payee=validated["Payment Receipt\nAccount Name\n对方户名"],
-            narration=validated["Abstract\n摘要"],
+            payee=validated["对方户名\nPayment Receipt"],
+            narration=validated["摘要\nAbstract"],
             postings=(
                 Posting(
                     amount=self._parse_amount(validated),
                 ),
             ),
             balance=Posting(
-                amount=validated["Balance\n余额"],
+                amount=validated["余额\nBalance"],
             ),
         )
 
     def _parse_amount(self, validated: Record) -> Decimal:
-        dc_key = "Dc Flg\n借贷"
+        dc_key = "借贷状态\nDc Flg"
         match validated[dc_key]:
-            case "借 Dr":
-                return -validated["Trans Amt\n交易金额"]
-            case "贷 Cr":
-                return validated["Trans Amt\n交易金额"]
+            case "D":
+                return -validated["交易金额\nTrans Amt"]
+            case "C":
+                return validated["交易金额\nTrans Amt"]
             case _:
                 raise ParserError(dc_key)
 
@@ -137,7 +137,7 @@ class Importer(BaseImporter):
         """
         super().__init__(
             re.compile(r"交通银行交易流水\(申请时间[^)]*\).pdf"),
-            pdf_table.Reader(table_bbox=(0, 148, 842, 491)),
+            pdf_table.Reader(table_bbox=(0, 138, 842, 491)),
             Parser(),
             **kwargs,
         )
