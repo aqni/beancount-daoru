@@ -74,7 +74,7 @@ class Parser(BaseParser):
             narration=validated["商品"],
             postings=(
                 Posting(
-                    amount=validated["订单金额"],
+                    amount=-validated["订单金额"],
                     account=validated["支付方式"],
                 ),
             ),

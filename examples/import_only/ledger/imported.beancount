@@ -535,17 +535,17 @@
 2026-07-25 * "雷柏智能数码生活馆" "雷柏M300无线多模静音鼠标办公轻音双模蓝牙笔记本电脑通用 - 商务灰【双模充电版】 1x ￥79.00"
   time: "11:20:18"
   status: "交易成功"
-  Assets:Payment:PDD:Alipay  69.90 CNY
+  Assets:Payment:PDD:Alipay  -69.90 CNY
 
 2026-08-10 * "奔跑者运动户外正品店" "安踏男子轻量缓震慢跑鞋26年夏季透气网鞋11234509 - 极光黑,43 1x ￥209.00"
   time: "21:30:15"
   status: "已寄出，待商家处理"
-  Assets:Payment:PDD:Alipay  189.00 CNY
+  Assets:Payment:PDD:Alipay  -189.00 CNY
 
 2026-08-12 * "元气畅饮官方甄选" "脉动维生素果味饮料400ml*6瓶整箱装运动电解质补充 - 蜜桃味 1x ￥15.80"
   time: "19:14:22"
   status: "已签收，待确认收货"
-  Assets:Payment:PDD:WeChat  15.80 CNY
+  Assets:Payment:PDD:WeChat  -15.80 CNY
 
 
 **** 微信支付账单流水文件(20190801-20190930)——【解压密码可在微信支付公众号查看】.xlsx
