@@ -14,6 +14,7 @@ from beancount_daoru.importers.bocom import Importer as BOCOMImporter
 from beancount_daoru.importers.ccb import Importer as CCBImporter
 from beancount_daoru.importers.jd import Importer as JDImporter
 from beancount_daoru.importers.meituan import Importer as MeituanImporter
+from beancount_daoru.importers.pdd import Importer as PDDImporter
 from beancount_daoru.importers.wechat import Importer as WechatImporter
 
 __all__ = [
@@ -24,6 +25,7 @@ __all__ = [
     "Classifier",
     "JDImporter",
     "MeituanImporter",
+    "PDDImporter",
     "PathToName",
     "ReorderByImporterName",
     "RuleContext",

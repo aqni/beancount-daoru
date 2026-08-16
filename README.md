@@ -30,6 +30,7 @@
 | 微信 | APP导出，全部勾选，发送到邮箱 | xlsx |
 | 京东 | APP导出，全部勾选，发送到邮箱 | csv |
 | 美团 | APP导出，全部勾选，发送到邮箱 | csv |
+| 拼多多 | [网页端](https://mobile.pinduoduo.com/orders.html)导出，使用第三方[导出工具](https://greasyfork.org/zh-CN/scripts/581924) | csv |
 | 中国银行 | APP导出，全部勾选，APP内下载 | pdf |
 | 交通银行 | APP导出，全部勾选，发送到邮箱 | pdf |
 | 建设银行 | APP导出，全部勾选，发送到邮箱 | xls |

@@ -72,7 +72,7 @@ class Parser(BaseParser):
     __date_pattern = re.compile(r"结束日期:(\d{8})")
 
     @override
-    def extract_metadata(self, texts: Iterator[str]) -> Metadata:
+    def extract_metadata(self, filename: str, texts: Iterator[str]) -> Metadata:
         account_matches, date_matches = search_patterns(
             texts, self.__account_pattern, self.__date_pattern
         )

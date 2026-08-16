@@ -31,7 +31,10 @@ def test_extract_metadata(parser: Parser) -> None:
         "证件号码 ID Number: 110101199003071234\n"
         "第 1 / 13 页"
     )
-    metadata = parser.extract_metadata(iter([caption]))
+    metadata = parser.extract_metadata(
+        filename="交通银行交易流水(申请时间2026年08月15日23时10分20秒).pdf",
+        texts=iter([caption]),
+    )
     assert metadata == Metadata(
         account="6222612345678901234",
         date=datetime.date(2020, 1, 31),
