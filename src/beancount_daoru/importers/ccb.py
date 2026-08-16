@@ -32,13 +32,17 @@ class _AccountAndName(NamedTuple):
 
 
 def _parse_account(v: str) -> _AccountAndName:
-    if v is None or v.strip() == "":
+    if v.strip() == "":
         return _AccountAndName(None, None)
     account_id, account_name = v.split("/")
     return _AccountAndName(account_id, account_name)
 
 
-DecimalField = Annotated[Decimal, BeforeValidator(lambda v: v.replace(",", ""))]
+def _strip_commas(v: str) -> str:
+    return v.replace(",", "")
+
+
+DecimalField = Annotated[Decimal, BeforeValidator(_strip_commas)]
 
 
 Record = TypedDict(

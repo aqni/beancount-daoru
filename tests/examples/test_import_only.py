@@ -30,7 +30,7 @@ def test_identify() -> None:
 
 
 def test_extract(git_repo: git.Repo) -> None:
-    run_python_subprocess(
+    _ = run_python_subprocess(
         IMPORT_SCRIPT,
         "extract",
         DOWNLOADS_DIR,
@@ -43,7 +43,7 @@ def test_extract(git_repo: git.Repo) -> None:
 
 def test_archive(git_repo: git.Repo) -> None:
     try:
-        run_python_subprocess(
+        _ = run_python_subprocess(
             IMPORT_SCRIPT,
             "archive",
             DOWNLOADS_DIR,

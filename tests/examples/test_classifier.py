@@ -11,7 +11,7 @@ IMPORTED_FILE = EXAMPLE_DIR / "imported.beancount"
 
 
 def test_extract(git_repo: git.Repo) -> None:
-    run_python_subprocess(
+    _ = run_python_subprocess(
         IMPORT_SCRIPT,
         "extract",
         EXAMPLE_DIR,

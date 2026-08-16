@@ -23,7 +23,7 @@ def run_python_subprocess(
     cwd: Path,
     env: dict[str, str] | None = None,
     capture_output: bool = False,
-) -> subprocess.CompletedProcess:
+) -> subprocess.CompletedProcess[bytes]:
     cmd = [sys.executable]
     for arg in args:
         if isinstance(arg, Path):
