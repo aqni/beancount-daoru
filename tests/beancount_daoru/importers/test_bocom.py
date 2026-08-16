@@ -83,9 +83,7 @@ TEST_PARAMS_LIST = [
             "交易金额\nTrans Amt": "10.00",
             "余额\nBalance": "990.00",
             "对方账号\nPayment Receipt": "123456789",
-            "对方户名\nPayment Receipt": (
-                "支付宝（中国）网络技\n术有限公司"
-            ),
+            "对方户名\nPayment Receipt": ("支付宝（中国）网络技\n术有限公司"),
             "交易地点\nTrading Place": "支付宝（中国）网络技\n术有限公司",
             "摘要\nAbstract": (
                 "网上支付 其他商家\n消费 订单编号\n20200102110123456\n"
