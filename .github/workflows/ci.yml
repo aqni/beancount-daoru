@@ -43,8 +43,6 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - name: pytest
         run: uv run --frozen --all-extras pytest --verbose
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
   report:
     if: always()
