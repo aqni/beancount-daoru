@@ -114,6 +114,45 @@
   Equity:Transfers:Alipay:BOC  -49.74 CNY
 
 
+**** hqmx_20200801233010.xls
+
+2026-07-21 * "张三" "电子汇入"
+  type: "汇兑"
+  payee_account: "6217000012345678902"
+  Assets:Bank:CN:CCB:Current  5000.00 CNY
+
+; duplicate of hqmx_20200801233010.xls:1
+; 2026-07-22 balance Assets:Bank:CN:CCB:Current                      7100.00 CNY
+
+2026-07-21 * "***公司" "支付宝-支付宝-蚂蚁（杭州）基金销售有限公司"
+  type: "基金申购"
+  payee_account: "Z******0010"
+  Assets:Bank:CN:CCB:Current  -100.00 CNY
+
+2026-07-22 balance Assets:Bank:CN:CCB:Current                      7000.00 CNY
+
+2026-07-22 * "理财申购,JXLQB000000000001,龙钱宝1号"
+  type: "理财产品申购"
+  Assets:Bank:CN:CCB:Current  -7000.00 CNY
+
+; duplicate of hqmx_20200801233010.xls:3
+; 2026-07-23 balance Assets:Bank:CN:CCB:Current                      0.00 CNY
+
+2026-07-22 * "JXLQB000000000001产品实时赎回户" "龙钱宝1号补款"
+  type: "理财产品赎回"
+  payee_account: "XXX"
+  Assets:Bank:CN:CCB:Current  10.00 CNY
+
+2026-07-23 balance Assets:Bank:CN:CCB:Current                      10.00 CNY
+
+2026-07-23 * "*钱通" "财付通-微信支付-零钱通"
+  type: "消费"
+  payee_account: "Z******0010"
+  Assets:Bank:CN:CCB:Current  -10.00 CNY
+
+2026-07-24 balance Assets:Bank:CN:CCB:Current                      0.00 CNY
+
+
 **** 京东交易流水(申请时间2025年01月01日11时32分42秒)_138.csv
 
 2024-12-06 * "京东金融" "笔笔返现-订单返现"

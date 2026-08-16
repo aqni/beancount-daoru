@@ -24,7 +24,7 @@ PREDICT_CACHE_DIR_ENV = "PREDICT_CACHE_DIR"
 def test_zero_shot(
     git_repo: git.Repo, tmp_path_factory: pytest.TempPathFactory
 ) -> None:
-    run_python_subprocess(
+    _ = run_python_subprocess(
         PREDICT_SCRIPTS,
         "extract",
         DOWNLOADS_DIR,
@@ -43,7 +43,7 @@ def test_zero_shot(
 
 
 def test_few_shot(git_repo: git.Repo, tmp_path_factory: pytest.TempPathFactory) -> None:
-    run_python_subprocess(
+    _ = run_python_subprocess(
         PREDICT_SCRIPTS,
         "extract",
         DOWNLOADS_DIR,

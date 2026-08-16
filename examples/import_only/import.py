@@ -2,6 +2,7 @@ import beangulp
 
 from beancount_daoru import (
     AlipayImporter,
+    CCBImporter,
     JDImporter,
     MeituanImporter,
     PathToName,
@@ -78,6 +79,16 @@ CONFIG = [
         },
         currency_mapping={
             None: "CNY",
+        },
+    ),
+    CCBImporter(
+        account_mapping={
+            "6217000012345678901": {
+                None: "Assets:Bank:CN:CCB:Current",
+            }
+        },
+        currency_mapping={
+            "人民币元": "CNY",
         },
     ),
 ]
