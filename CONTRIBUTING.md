@@ -4,7 +4,8 @@ Thank you for your interest in contributing to `beancount-daoru`!
 
 ## Development Setup
 
-This project uses [uv](https://docs.astral.sh/uv/) for Python package and environment management. Follow the [official uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+This project uses [uv](https://docs.astral.sh/uv/) for Python package and
+environment management. Follow the [official uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 Install all dependencies (including optional features and dev tools):
 
