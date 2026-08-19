@@ -6,7 +6,7 @@ repos:
         args: [--fix]
       - id: ruff-format
   - repo: https://github.com/DetachHead/basedpyright-prek-mirror
-    rev: 1.39.9
+    rev: 1.39.10
     hooks:
       - id: basedpyright
   - repo: https://github.com/jackdewinter/pymarkdown
