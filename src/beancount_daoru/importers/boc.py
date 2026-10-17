@@ -69,7 +69,7 @@ class Parser(BaseParser):
     """
 
     __validator = TypeAdapter(Record)
-    __account_pattern = re.compile(r"借记卡号：\s+(\d{19})\s+")  # noqa: RUF001
+    __account_pattern = re.compile(r"借记卡号：\s+(\d{16,19})(?!\d)\s+")  # noqa: RUF001
     __date_pattern = re.compile(
         r"交易区间：\s*\d{4}-\d{2}-\d{2}\s*至\s*(\d{4}-\d{2}-\d{2})"  # noqa: RUF001
     )
