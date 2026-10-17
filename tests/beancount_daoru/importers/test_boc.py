@@ -44,10 +44,13 @@ def test_extract_metadata(parser: Parser, account: str) -> None:
 
 
 @pytest.mark.parametrize("account", ["621661234567890", "62166123456789012345"])
-def test_extract_metadata_invalid_account_length(parser: Parser, account: str) -> None:
+@pytest.mark.parametrize("whitespace", [" ", "\n", "\t"])
+def test_extract_metadata_invalid_account_length(
+    parser: Parser, account: str, whitespace: str
+) -> None:
     caption = (
         "交易区间： 2020-01-01 至2020-12-31\n"
-        f"借记卡号： {account} 借方发生数： 1,000.00\n"
+        f"借记卡号： {account}{whitespace}借方发生数： 1,000.00\n"
     )
     with pytest.raises(StopIteration):
         _ = parser.extract_metadata(filename="statement.pdf", texts=iter([caption]))
