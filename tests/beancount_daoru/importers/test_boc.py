@@ -12,11 +12,20 @@ def parser() -> Parser:
     return Parser()
 
 
-def test_extract_metadata(parser: Parser) -> None:
+@pytest.mark.parametrize(
+    "account",
+    [
+        "6216612345678901",
+        "62166123456789012",
+        "621661234567890123",
+        "6216612345678901234",
+    ],
+)
+def test_extract_metadata(parser: Parser, account: str) -> None:
     caption = (
         "中国银行交易流水明细清单\n"
         "交易区间： 2020-01-01 至2020-12-31 客户姓名： 张三 页数: 1 /1\n"
-        "借记卡号： 6216612345678901234 "
+        f"借记卡号： {account} "
         "借方发生数： 1,000.00 贷方发生数： 0.00 行数: 10\n"
         "账号：345671234567 按收支筛选： 全部 按币种筛选： 全部 "
         "打印时间： 2020/12/31 12:00:00\n"
@@ -29,9 +38,22 @@ def test_extract_metadata(parser: Parser) -> None:
         texts=iter([caption]),
     )
     assert metadata == Metadata(
-        account="6216612345678901234",
+        account=account,
         date=dt.date(2020, 12, 31),
     )
+
+
+@pytest.mark.parametrize("account", ["621661234567890", "62166123456789012345"])
+@pytest.mark.parametrize("whitespace", [" ", "\n", "\t"])
+def test_extract_metadata_invalid_account_length(
+    parser: Parser, account: str, whitespace: str
+) -> None:
+    caption = (
+        "交易区间： 2020-01-01 至2020-12-31\n"
+        f"借记卡号： {account}{whitespace}借方发生数： 1,000.00\n"
+    )
+    with pytest.raises(StopIteration):
+        _ = parser.extract_metadata(filename="statement.pdf", texts=iter([caption]))
 
 
 PARSE_PARAMS_LIST = [
