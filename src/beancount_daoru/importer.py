@@ -6,7 +6,7 @@ of records to Beancount transactions, account mapping, currency conversion,
 and integration with the Beangulp framework.
 """
 
-import datetime
+import datetime as dt
 from collections.abc import Iterable, Iterator, Mapping
 from decimal import Decimal
 from functools import lru_cache
@@ -41,7 +41,7 @@ class Extra(NamedTuple):
         remarks: Additional remarks or notes about the transaction.
     """
 
-    time: datetime.time | None = None
+    time: dt.time | None = None
     dc: str | None = None
     type: str | None = None
     payee_account: str | None = None
@@ -84,7 +84,7 @@ class Transaction(NamedTuple):
         balance: Optional balance information for account reconciliation.
     """
 
-    date: datetime.date
+    date: dt.date
     extra: Extra
     payee: str | None = None
     narration: str | None = None
@@ -106,7 +106,7 @@ class Metadata(NamedTuple):
     """
 
     account: str | None
-    date: datetime.date | None
+    date: dt.date | None
     currency: str | None = None
 
 
@@ -247,7 +247,7 @@ class Importer(beangulp.Importer):
         return self._analyse_account(self._cached_metadata(filepath))
 
     @override
-    def date(self, filepath: str) -> datetime.date | None:
+    def date(self, filepath: str) -> dt.date | None:
         return self._cached_metadata(filepath).date
 
     @override
@@ -322,7 +322,7 @@ class Importer(beangulp.Importer):
                     record,
                     error=f"{e} @ {record!r}",
                 ),
-                date=datetime.date(1970, 1, 1),
+                date=dt.date(1970, 1, 1),
                 flag=beancount.FLAG_WARNING,
                 payee=None,
                 narration=None,
@@ -361,7 +361,7 @@ class Importer(beangulp.Importer):
         if transaction.balance is not None:
             yield beancount.Balance(
                 meta=self._build_meta(filepath, lineno, record),
-                date=transaction.date + datetime.timedelta(days=1),
+                date=transaction.date + dt.timedelta(days=1),
                 account=self._analyse_account(metadata, transaction.balance),
                 amount=self._analyse_amount(metadata, transaction.balance),
                 tolerance=None,

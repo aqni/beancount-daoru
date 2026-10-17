@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 from decimal import Decimal
 
 import pytest
@@ -43,7 +43,7 @@ def test_extract_metadata(parser: Parser, account: str, whitespace: str) -> None
     )
     assert metadata == Metadata(
         account=account,
-        date=datetime.date(2020, 1, 31),
+        date=dt.date(2020, 1, 31),
         currency="人民币",
     )
 
@@ -89,9 +89,9 @@ TEST_PARAMS_LIST = [
             "摘要\nAbstract": "",
         },
         Transaction(
-            date=datetime.date(2020, 1, 1),
+            date=dt.date(2020, 1, 1),
             extra=Extra(
-                time=datetime.time(10, 0, 0),
+                time=dt.time(10, 0, 0),
                 dc="C",
                 type="存款利息",
                 payee_account="123456789012345123",
@@ -127,14 +127,14 @@ TEST_PARAMS_LIST = [
             ),
         },
         Transaction(
-            date=datetime.date(2020, 1, 2),
+            date=dt.date(2020, 1, 2),
             payee="支付宝（中国）网络技术有限公司",
             narration=(
                 "网上支付 其他商家消费 订单编号20200102110123456123456789012345"
                 "柒一拾壹（天津）商业有限公 交易流水号2020010212345678912345678901234"
             ),
             extra=Extra(
-                time=datetime.time(11, 0, 0),
+                time=dt.time(11, 0, 0),
                 dc="D",
                 type="网上支付",
                 payee_account="123456789",

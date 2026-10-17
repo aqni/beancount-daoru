@@ -4,7 +4,7 @@ This module provides a mechanism to automatically classify imported transactions
 by applying custom rules to append matching postings.
 """
 
-import datetime
+import datetime as dt
 from collections.abc import Generator
 from typing import Protocol, final
 
@@ -261,7 +261,7 @@ class _ImporterWrapper(Importer):
         return self._importer.account(filepath)
 
     @override
-    def date(self, filepath: str) -> datetime.date | None:
+    def date(self, filepath: str) -> dt.date | None:
         return self._importer.date(filepath)
 
     @override
