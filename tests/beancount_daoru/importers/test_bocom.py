@@ -21,13 +21,13 @@ def parser() -> Parser:
         "6222612345678901234",
     ],
 )
-@pytest.mark.parametrize("whitespace", ["", " ", "\n"])
+@pytest.mark.parametrize("whitespace", [" ", "\n", "\t"])
 def test_extract_metadata(parser: Parser, account: str, whitespace: str) -> None:
     caption = (
         "交通银行个人客户交易清单\n"
         "Bocom Personal Account Details\n"
         "  支持交通银行手机银行扫码验真\n"
-        f"账号/卡号Account/Card No:{whitespace}{account} "
+        f"账号/卡号Account/Card No:{whitespace}{account}{whitespace}"
         "打印时间Printing Time: 2020-12-31 12:00:00 "
         "柜员Search Teller: EBB0001\n"
         "户名Account Name: 李四 "
@@ -52,6 +52,20 @@ def test_extract_metadata(parser: Parser, account: str, whitespace: str) -> None
 def test_extract_metadata_invalid_account_length(parser: Parser, account: str) -> None:
     caption = (
         f"账号/卡号Account/Card No: {account} 打印时间Printing Time: 2020-12-31\n"
+        "查询止日Query Ending Date: 2020-01-31\n"
+        "币种Currency: 人民币 CNY\n"
+    )
+    with pytest.raises(StopIteration):
+        _ = parser.extract_metadata(filename="statement.pdf", texts=iter([caption]))
+
+
+@pytest.mark.parametrize(("before", "after"), [("", " "), (" ", ""), ("", "")])
+def test_extract_metadata_missing_account_whitespace(
+    parser: Parser, before: str, after: str
+) -> None:
+    caption = (
+        f"账号/卡号Account/Card No:{before}6222612345678901{after}"
+        "打印时间Printing Time: 2020-12-31\n"
         "查询止日Query Ending Date: 2020-01-31\n"
         "币种Currency: 人民币 CNY\n"
     )
