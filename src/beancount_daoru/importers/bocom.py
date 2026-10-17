@@ -67,7 +67,7 @@ class Parser(BaseParser):
     """
 
     __validator = TypeAdapter(Record)
-    __account_pattern = re.compile(r"账号/卡号Account/Card No:\s*(\d{19})\s*")
+    __account_pattern = re.compile(r"账号/卡号Account/Card No:\s*(\d{16,19})(?!\d)\s*")
     __date_pattern = re.compile(r"查询止日Query Ending Date:\s*(\d{4}-\d{2}-\d{2})\s*")
     __currency_pattern = re.compile(r"币种Currency:\s*(\w+)\s*")
 
